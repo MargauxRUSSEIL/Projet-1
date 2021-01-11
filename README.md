@@ -20,7 +20,7 @@ API en Symfony
             1. php bin/console make:migration
             2. php bin/console doctrine:migrations:migrate
         - Ouvrir l'API dans le navigateur : 
-            1. Exécuter dans le terminal à la racine du projet : php -S localhost:8000 -t public/
+            1. Exécuter dans le terminal à la racine du projet : php -S localhost:8000 -t public/ ou symfony server:start 
             2. Mettre dans l'URL : http://localhost:8000/api
         - Dans l'API pour ajouter/supprimer/modifier 
             * Aller dans les onglets delete/put/pach/post 

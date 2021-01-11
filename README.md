@@ -13,5 +13,5 @@
             ii. mettre dans l'URL : http://localhost:8000/api
         - Dans l'API pour ajouter/supprimer/modifier 
             * Aller dans les onglets delete/put/pach/post 
-                `* Clicker sur "Try it out"`
-                `* Inserer les valeurs en JSON, executer et verifier si les données on bien été inserer dans la base.`
+                * Clicker sur "Try it out"
+                * Inserer les valeurs en JSON, executer et verifier si les données on bien été inserer dans la base.

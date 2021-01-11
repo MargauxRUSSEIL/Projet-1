@@ -1,9 +1,11 @@
 # Projet-1
 
+
+API en Symfony
+-------------------
+
 - API:
 
-    API en Symfony
-    -------------------
     *Il n'y a pour l'instant que la table formations dans l'API pour que les groupes puissent avancées*
 
     * Utilisation API : 

@@ -26,3 +26,5 @@ API en Symfony
             * Aller dans les onglets delete/put/pach/post 
                 * Clicker sur "Try it out"
                 * Insérer les valeurs en JSON, exécuter et vérifier si les données on bien été insérées dans la base.
+
+    > :warning: Si vous avez une erreur d'encodage quand vous faites vos get/post/delete il faut que vous changiez la colonne durée et la mettre sans accents. CHANGER TOUT DANS LA METHODE. (durée -> duree)  

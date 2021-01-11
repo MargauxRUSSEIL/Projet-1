@@ -5,6 +5,7 @@
     API en Symfony
     -------------------
     *Il n'y a pour l'instant que la table formations dans l'API pour que les groupes puissent avancées*
+    -------------------
     * Utilisation API : 
         - Creer la base de données : 
             - php bin/console doctrine:database:create

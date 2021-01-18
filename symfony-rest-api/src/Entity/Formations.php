@@ -57,7 +57,7 @@ class Formations
     /**
      * @ORM\Column(type="integer")
      */
-    private $durée_formation;
+    private $duree_formation;
 
     public function getId(): ?int
     {
@@ -148,14 +148,14 @@ class Formations
         return $this;
     }
 
-    public function getDuréeFormation(): ?int
+    public function getDureeFormation(): ?int
     {
-        return $this->durée_formation;
+        return $this->duree_formation;
     }
 
-    public function setDuréeFormation(int $durée_formation): self
+    public function setDureeFormation(int $duree_formation): self
     {
-        $this->durée_formation = $durée_formation;
+        $this->duree_formation = $duree_formation;
 
         return $this;
     }

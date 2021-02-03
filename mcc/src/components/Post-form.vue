@@ -2,21 +2,24 @@
     <div>
         <h1>Ajouter</h1>
 
-        <form @submit="postData" method="post">
+        <form @submit.prevent="postData" method="post">
+            <!-- <form v-on:submit.prevent="postData"> -->
             <label for="mon_id">Formation:</label>
-            <input type="text" name="type_formation" v-model="posts.type_formation"> <br> <br>
+            <input type="text" name="type_formation" v-model="posts.typeFormation"> <br> <br>
             <label for="mon_id">Lieux:</label>
-            <input type="text" name="lieux" v-model="posts.lieux"> <br> <br>
+            <input type="text" name="lieux" v-model="posts.Lieux"> <br> <br>
             <label for="mon_id">Departement:</label>
-            <input type="number" name="departement" v-model="posts.departement"><br> <br>
+            <input name="departement" v-model.number="posts.Departement"><br> <br>
             <label for="mon_id">Crée le:</label>
-            <input type="datetime-local" name="update_at" v-model="posts.created_at"> <br> <br>
+            <input type="datetime-local" name="update_at" v-model="posts.createdAt"> <br> <br>
             <label for="mon_id">Niveau formation:</label>
-            <input type="text" name="niveau_formation" v-model="posts.niveau_formation"> <br> <br>
+            <input type="text" name="niveau_formation" v-model="posts.niveauFormation"> <br> <br>
             <label for="mon_id">Durée:</label>
-            <input type="number" name="durée_formation" v-model="posts.durée_formation"> <br> <br>
+            <input name="durée_formation" v-model.number="posts.dureeFormation"> <br> <br>
+            <label for="mon_id">Date:</label>
+            <input type="date" name="Date" v-model="posts.Date"> <br> <br>
             <label for="mon_id">Mise à jour :</label>
-            <input type="datetime-local" name="update_at" v-model="posts.update_at"><br> <br>
+            <input type="datetime-local" name="update_at" v-model="posts.updateAt"><br> <br>
             <button type="submit">Ajouter</button>
         </form>
     </div>
@@ -31,26 +34,31 @@ export default {
     data(){
         return{
             posts:{
-                type_formation:null,
-                lieux:null,
-                departement:null,
-                created_at:null,
-                niveau_formation:null,
-                durée_formation:null,
-                update_at:null,
-                
-            }
+                typeFormation:null,
+                Lieux:null,
+                Date:null,
+                Departement:null,
+                createdAt:null,
+                niveauFormation:null,
+                dureeFormation:null,
+                updateAt:null,
+            },
+            
         }
     },
     methods:{
-        postData(){
-            this.axios.post("http://localhost:8000/api/formations",this.posts)
-            .then((result)=>{
-                console.log(result)
-            })
-            // console.log(this.posts);
-            // e.preventDefault();
-        }
+       postData(){
+            axios.post('http://127.0.0.1:8000/api/formations', this.posts)
+                 .then((res) => {
+                     //Perform Success Action
+                 })
+                 .catch((error) => {
+                     // error.response.status Check status code
+                 }).finally(() => {
+                     //Perform action in always
+                 });
+                
+        },
     }
 }
 

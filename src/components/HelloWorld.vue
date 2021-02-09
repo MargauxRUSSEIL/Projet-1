@@ -37,7 +37,6 @@
 
 <script>
   import axios from 'axios'
-
   export default {
     name: 'HelloWorld',
     el: '#app',
@@ -76,10 +75,8 @@
     },
     computed: {
       filteredFormation: function() {
-
         var formation = this.info;
         var nameFormationSearchString = this.nameFormationSearchString;
-
         if (formation) {
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties
           return this.info.sort((a,b) => {
@@ -90,19 +87,15 @@
             return 0;
           });
         }
-
         if(!nameFormationSearchString){
           return formation;
         }
-
         formation = formation.filter(function (item) {
           if(item.typeFormation.toLowerCase().indexOf(nameFormationSearchString) !== -1 || item.typeFormation.toUpperCase().indexOf(nameFormationSearchString) !== -1 ){
             return item;
           }
         })
         return formation;
-
-
       },
     }
   }

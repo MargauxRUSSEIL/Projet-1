@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Chakra from '@chakra-ui/vue'
+import '@/assets/css/tailwind.css'
+import '@/assets/css/style.css'
+
 
 
 Vue.config.productionTip = false

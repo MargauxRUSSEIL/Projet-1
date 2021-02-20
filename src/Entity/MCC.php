@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MCCRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -37,7 +38,7 @@ class MCC
     private $mention;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $annee;
 
@@ -113,12 +114,12 @@ class MCC
         return $this;
     }
 
-    public function getAnnee(): ?string
+    public function getAnnee(): ?\DateTimeInterface
     {
         return $this->annee;
     }
 
-    public function setAnnee(?string $annee): self
+    public function setAnnee(?\DateTimeInterface $annee): self
     {
         $this->annee = $annee;
 

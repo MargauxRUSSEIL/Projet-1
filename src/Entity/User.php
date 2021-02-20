@@ -41,7 +41,7 @@ class User
     private $adjoint;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $actif;
 
@@ -103,12 +103,12 @@ class User
         return $this;
     }
 
-    public function getActif(): ?string
+    public function getActif(): ?int
     {
         return $this->actif;
     }
 
-    public function setActif(?string $actif): self
+    public function setActif(?int $actif): self
     {
         $this->actif = $actif;
 

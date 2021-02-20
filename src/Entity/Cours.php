@@ -44,6 +44,16 @@ class Cours
      */
     private $nbGroupeTypeCours;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="cours")
+     */
+    private $nbGroupeTypeCoursHasCours;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=UE::class, inversedBy="cours")
+     */
+    private $uE;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +115,30 @@ class Cours
     public function setNbGroupeTypeCours(?NbGroupeTypeCours $nbGroupeTypeCours): self
     {
         $this->nbGroupeTypeCours = $nbGroupeTypeCours;
+
+        return $this;
+    }
+
+    public function getNbGroupeTypeCoursHasCours(): ?NbGroupeTypeCoursHasCours
+    {
+        return $this->nbGroupeTypeCoursHasCours;
+    }
+
+    public function setNbGroupeTypeCoursHasCours(?NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCours): self
+    {
+        $this->nbGroupeTypeCoursHasCours = $nbGroupeTypeCoursHasCours;
+
+        return $this;
+    }
+
+    public function getUE(): ?UE
+    {
+        return $this->uE;
+    }
+
+    public function setUE(?UE $uE): self
+    {
+        $this->uE = $uE;
 
         return $this;
     }

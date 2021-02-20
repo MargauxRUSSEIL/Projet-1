@@ -44,6 +44,11 @@ class CoutHETD
      */
     private $cours;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="coutHETD")
+     */
+    private $nbGroupeTypeCoursHasCours;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,6 +120,18 @@ class CoutHETD
         }
 
         $this->cours = $cours;
+
+        return $this;
+    }
+
+    public function getNbGroupeTypeCoursHasCours(): ?NbGroupeTypeCoursHasCours
+    {
+        return $this->nbGroupeTypeCoursHasCours;
+    }
+
+    public function setNbGroupeTypeCoursHasCours(?NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCours): self
+    {
+        $this->nbGroupeTypeCoursHasCours = $nbGroupeTypeCoursHasCours;
 
         return $this;
     }

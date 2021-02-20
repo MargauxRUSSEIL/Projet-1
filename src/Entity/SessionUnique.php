@@ -3,14 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\CompetencesRepository;
+use App\Repository\SessionUniqueRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass=CompetencesRepository::class)
+ * @ORM\Entity(repositoryClass=SessionUniqueRepository::class)
  */
-class Competences
+class SessionUnique
 {
     /**
      * @ORM\Id
@@ -22,30 +24,25 @@ class Competences
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $blocs;
+    private $typeControle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $seuilBlocs;
+    private $typeEpreuve;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ECT;
+    private $regleCalcul;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $COEFF;
+    private $session;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $seuil;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasTypeControle::class, inversedBy="competences")
+     * @ORM\ManyToOne(targetEntity=SessionUniqueHasTypeControle::class, inversedBy="sessionUnique")
      */
     private $sessionUniqueHasTypeControle;
 
@@ -54,62 +51,50 @@ class Competences
         return $this->id;
     }
 
-    public function getBlocs(): ?string
+    public function getTypeControle(): ?string
     {
-        return $this->blocs;
+        return $this->typeControle;
     }
 
-    public function setBlocs(?string $blocs): self
+    public function setTypeControle(?string $typeControle): self
     {
-        $this->blocs = $blocs;
+        $this->typeControle = $typeControle;
 
         return $this;
     }
 
-    public function getSeuilBlocs(): ?string
+    public function getTypeEpreuve(): ?string
     {
-        return $this->seuilBlocs;
+        return $this->typeEpreuve;
     }
 
-    public function setSeuilBlocs(?string $seuilBlocs): self
+    public function setTypeEpreuve(?string $typeEpreuve): self
     {
-        $this->seuilBlocs = $seuilBlocs;
+        $this->typeEpreuve = $typeEpreuve;
 
         return $this;
     }
 
-    public function getECT(): ?string
+    public function getRegleCalcul(): ?string
     {
-        return $this->ECT;
+        return $this->regleCalcul;
     }
 
-    public function setECT(?string $ECT): self
+    public function setRegleCalcul(?string $regleCalcul): self
     {
-        $this->ECT = $ECT;
+        $this->regleCalcul = $regleCalcul;
 
         return $this;
     }
 
-    public function getCOEFF(): ?string
+    public function getSession(): ?string
     {
-        return $this->COEFF;
+        return $this->session;
     }
 
-    public function setCOEFF(?string $COEFF): self
+    public function setSession(?string $session): self
     {
-        $this->COEFF = $COEFF;
-
-        return $this;
-    }
-
-    public function getSeuil(): ?string
-    {
-        return $this->seuil;
-    }
-
-    public function setSeuil(?string $seuil): self
-    {
-        $this->seuil = $seuil;
+        $this->session = $session;
 
         return $this;
     }
@@ -125,4 +110,5 @@ class Competences
 
         return $this;
     }
+
 }

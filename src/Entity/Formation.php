@@ -24,22 +24,7 @@ class Formation
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $composante;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $domaine;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $mention;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $typeDiplome;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -77,11 +62,6 @@ class Formation
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $typeFormation;
@@ -91,38 +71,42 @@ class Formation
      */
     private $parcours;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $VDI;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="formation")
+     */
+    private $localisation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Composante::class, mappedBy="formation")
+     */
+    private $composante;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="formation")
+     */
+    private $typeDiplome;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Workflow::class, inversedBy="formation")
+     */
+    private $workflow;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
+        $this->localisation = new ArrayCollection();
+        $this->composante = new ArrayCollection();
+        $this->typeDiplome = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getComposante(): ?string
-    {
-        return $this->composante;
-    }
-
-    public function setComposante(?string $composante): self
-    {
-        $this->composante = $composante;
-
-        return $this;
-    }
-
-    public function getDomaine(): ?string
-    {
-        return $this->domaine;
-    }
-
-    public function setDomaine(?string $domaine): self
-    {
-        $this->domaine = $domaine;
-
-        return $this;
     }
 
     public function getMention(): ?string
@@ -133,18 +117,6 @@ class Formation
     public function setMention(?string $mention): self
     {
         $this->mention = $mention;
-
-        return $this;
-    }
-
-    public function getTypeDiplome(): ?string
-    {
-        return $this->typeDiplome;
-    }
-
-    public function setTypeDiplome(?string $typeDiplome): self
-    {
-        $this->typeDiplome = $typeDiplome;
 
         return $this;
     }
@@ -233,18 +205,6 @@ class Formation
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
     public function getTypeFormation(): ?string
     {
         return $this->typeFormation;
@@ -283,6 +243,120 @@ class Formation
                 $parcour->setFormation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVDI(): ?string
+    {
+        return $this->VDI;
+    }
+
+    public function setVDI(?string $VDI): self
+    {
+        $this->VDI = $VDI;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Localisation[]
+     */
+    public function getLocalisation(): Collection
+    {
+        return $this->localisation;
+    }
+
+    public function addLocalisation(Localisation $localisation): self
+    {
+        if (!$this->localisation->contains($localisation)) {
+            $this->localisation[] = $localisation;
+            $localisation->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocalisation(Localisation $localisation): self
+    {
+        if ($this->localisation->removeElement($localisation)) {
+            // set the owning side to null (unless already changed)
+            if ($localisation->getFormation() === $this) {
+                $localisation->setFormation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Composante[]
+     */
+    public function getComposante(): Collection
+    {
+        return $this->composante;
+    }
+
+    public function addComposante(Composante $composante): self
+    {
+        if (!$this->composante->contains($composante)) {
+            $this->composante[] = $composante;
+            $composante->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposante(Composante $composante): self
+    {
+        if ($this->composante->removeElement($composante)) {
+            // set the owning side to null (unless already changed)
+            if ($composante->getFormation() === $this) {
+                $composante->setFormation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TypeDiplome[]
+     */
+    public function getTypeDiplome(): Collection
+    {
+        return $this->typeDiplome;
+    }
+
+    public function addTypeDiplome(TypeDiplome $typeDiplome): self
+    {
+        if (!$this->typeDiplome->contains($typeDiplome)) {
+            $this->typeDiplome[] = $typeDiplome;
+            $typeDiplome->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTypeDiplome(TypeDiplome $typeDiplome): self
+    {
+        if ($this->typeDiplome->removeElement($typeDiplome)) {
+            // set the owning side to null (unless already changed)
+            if ($typeDiplome->getFormation() === $this) {
+                $typeDiplome->setFormation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getWorkflow(): ?Workflow
+    {
+        return $this->workflow;
+    }
+
+    public function setWorkflow(?Workflow $workflow): self
+    {
+        $this->workflow = $workflow;
 
         return $this;
     }

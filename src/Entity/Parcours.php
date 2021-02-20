@@ -52,11 +52,6 @@ class Parcours
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="parcours")
      */
     private $formation;
@@ -66,9 +61,35 @@ class Parcours
      */
     private $semestre;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $libelleParcours;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $libelleParcoursApogee;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $secondVET;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="parcours")
+     */
+    private $UE;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $annuOuSemest;
+
     public function __construct()
     {
         $this->semestre = new ArrayCollection();
+        $this->UE = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,18 +169,6 @@ class Parcours
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
     public function getFormation(): ?Formation
     {
         return $this->formation;
@@ -198,6 +207,84 @@ class Parcours
                 $semestre->setParcours(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLibelleParcours(): ?string
+    {
+        return $this->libelleParcours;
+    }
+
+    public function setLibelleParcours(?string $libelleParcours): self
+    {
+        $this->libelleParcours = $libelleParcours;
+
+        return $this;
+    }
+
+    public function getLibelleParcoursApogee(): ?string
+    {
+        return $this->libelleParcoursApogee;
+    }
+
+    public function setLibelleParcoursApogee(?string $libelleParcoursApogee): self
+    {
+        $this->libelleParcoursApogee = $libelleParcoursApogee;
+
+        return $this;
+    }
+
+    public function getSecondVET(): ?string
+    {
+        return $this->secondVET;
+    }
+
+    public function setSecondVET(?string $secondVET): self
+    {
+        $this->secondVET = $secondVET;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UE[]
+     */
+    public function getUE(): Collection
+    {
+        return $this->UE;
+    }
+
+    public function addUE(UE $uE): self
+    {
+        if (!$this->UE->contains($uE)) {
+            $this->UE[] = $uE;
+            $uE->setParcours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUE(UE $uE): self
+    {
+        if ($this->UE->removeElement($uE)) {
+            // set the owning side to null (unless already changed)
+            if ($uE->getParcours() === $this) {
+                $uE->setParcours(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAnnuOuSemest(): ?string
+    {
+        return $this->annuOuSemest;
+    }
+
+    public function setAnnuOuSemest(?string $annuOuSemest): self
+    {
+        $this->annuOuSemest = $annuOuSemest;
 
         return $this;
     }

@@ -27,7 +27,7 @@ class Formation
     private $mention;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $structureHaute;
 
@@ -53,11 +53,13 @@ class Formation
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * equivalent à date création
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * equivalent à date modification
      */
     private $updatedAt;
 
@@ -66,10 +68,7 @@ class Formation
      */
     private $typeFormation;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation")
-     */
-    private $parcours;
+  
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -96,6 +95,16 @@ class Formation
      */
     private $workflow;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statuts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation")
+     */
+    private $parcours;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
@@ -121,12 +130,12 @@ class Formation
         return $this;
     }
 
-    public function getStructureHaute(): ?string
+    public function getStructureHaute(): ?int
     {
         return $this->structureHaute;
     }
 
-    public function setStructureHaute(?string $structureHaute): self
+    public function setStructureHaute(?int $structureHaute): self
     {
         $this->structureHaute = $structureHaute;
 
@@ -217,35 +226,7 @@ class Formation
         return $this;
     }
 
-    /**
-     * @return Collection|Parcours[]
-     */
-    public function getParcours(): Collection
-    {
-        return $this->parcours;
-    }
-
-    public function addParcour(Parcours $parcour): self
-    {
-        if (!$this->parcours->contains($parcour)) {
-            $this->parcours[] = $parcour;
-            $parcour->setFormation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParcour(Parcours $parcour): self
-    {
-        if ($this->parcours->removeElement($parcour)) {
-            // set the owning side to null (unless already changed)
-            if ($parcour->getFormation() === $this) {
-                $parcour->setFormation(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getVDI(): ?string
     {
@@ -357,6 +338,48 @@ class Formation
     public function setWorkflow(?Workflow $workflow): self
     {
         $this->workflow = $workflow;
+
+        return $this;
+    }
+
+    public function getStatuts(): ?string
+    {
+        return $this->statuts;
+    }
+
+    public function setStatuts(?string $statuts): self
+    {
+        $this->statuts = $statuts;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parcours[]
+     */
+    public function getParcours(): Collection
+    {
+        return $this->parcours;
+    }
+
+    public function addParcour(Parcours $parcour): self
+    {
+        if (!$this->parcours->contains($parcour)) {
+            $this->parcours[] = $parcour;
+            $parcour->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParcour(Parcours $parcour): self
+    {
+        if ($this->parcours->removeElement($parcour)) {
+            // set the owning side to null (unless already changed)
+            if ($parcour->getFormation() === $this) {
+                $parcour->setFormation(null);
+            }
+        }
 
         return $this;
     }

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,9 +52,16 @@ class Cours
     private $nbGroupeTypeCoursHasCours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UE::class, inversedBy="cours")
+     * @ORM\ManyToMany(targetEntity=UE::class, mappedBy="cours")
      */
-    private $uE;
+    private $uEs;
+
+    public function __construct()
+    {
+        $this->uEs = new ArrayCollection();
+    }
+
+    
 
     public function getId(): ?int
     {
@@ -131,15 +140,32 @@ class Cours
         return $this;
     }
 
-    public function getUE(): ?UE
+    /**
+     * @return Collection|UE[]
+     */
+    public function getUEs(): Collection
     {
-        return $this->uE;
+        return $this->uEs;
     }
 
-    public function setUE(?UE $uE): self
+    public function addUE(UE $uE): self
     {
-        $this->uE = $uE;
+        if (!$this->uEs->contains($uE)) {
+            $this->uEs[] = $uE;
+            $uE->addCour($this);
+        }
 
         return $this;
     }
+
+    public function removeUE(UE $uE): self
+    {
+        if ($this->uEs->removeElement($uE)) {
+            $uE->removeCour($this);
+        }
+
+        return $this;
+    }
+
+   
 }

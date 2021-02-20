@@ -31,15 +31,17 @@ class UE
      */
     private $mCC;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Cours::class, mappedBy="uE")
-     */
-    private $cours;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity=Parcours::class, inversedBy="UE")
      */
     private $parcours;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Cours::class, inversedBy="uEs")
+     */
+    private $cours;
 
     public function __construct()
     {
@@ -75,6 +77,20 @@ class UE
         return $this;
     }
 
+   
+
+    public function getParcours(): ?Parcours
+    {
+        return $this->parcours;
+    }
+
+    public function setParcours(?Parcours $parcours): self
+    {
+        $this->parcours = $parcours;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Cours[]
      */
@@ -87,7 +103,6 @@ class UE
     {
         if (!$this->cours->contains($cour)) {
             $this->cours[] = $cour;
-            $cour->setUE($this);
         }
 
         return $this;
@@ -95,24 +110,7 @@ class UE
 
     public function removeCour(Cours $cour): self
     {
-        if ($this->cours->removeElement($cour)) {
-            // set the owning side to null (unless already changed)
-            if ($cour->getUE() === $this) {
-                $cour->setUE(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getParcours(): ?Parcours
-    {
-        return $this->parcours;
-    }
-
-    public function setParcours(?Parcours $parcours): self
-    {
-        $this->parcours = $parcours;
+        $this->cours->removeElement($cour);
 
         return $this;
     }

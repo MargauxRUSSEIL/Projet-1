@@ -51,10 +51,7 @@ class Parcours
      */
     private $updatedAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="parcours")
-     */
-    private $formation;
+  
 
     /**
      * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="parcours")
@@ -85,6 +82,11 @@ class Parcours
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $annuOuSemest;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="parcours")
+     */
+    private $formation;
 
     public function __construct()
     {
@@ -169,17 +171,7 @@ class Parcours
         return $this;
     }
 
-    public function getFormation(): ?Formation
-    {
-        return $this->formation;
-    }
-
-    public function setFormation(?Formation $formation): self
-    {
-        $this->formation = $formation;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection|Semestre[]
@@ -285,6 +277,18 @@ class Parcours
     public function setAnnuOuSemest(?string $annuOuSemest): self
     {
         $this->annuOuSemest = $annuOuSemest;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
 
         return $this;
     }

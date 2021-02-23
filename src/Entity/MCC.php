@@ -67,6 +67,11 @@ class MCC
      */
     private $typeControle;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Parcours::class, inversedBy="mCC", cascade={"persist", "remove"})
+     */
+    private $parcours;
+
     public function __construct()
     {
         $this->UE = new ArrayCollection();
@@ -218,6 +223,18 @@ class MCC
                 $typeControle->setMCC(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getParcours(): ?Parcours
+    {
+        return $this->parcours;
+    }
+
+    public function setParcours(?Parcours $parcours): self
+    {
+        $this->parcours = $parcours;
 
         return $this;
     }

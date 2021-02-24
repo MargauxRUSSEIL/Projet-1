@@ -31,13 +31,6 @@ class UE
      */
     private $mCC;
 
-    
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Parcours::class, inversedBy="UE")
-     */
-    private $parcours;
-
     /**
      * @ORM\ManyToMany(targetEntity=Cours::class, inversedBy="uEs")
      */
@@ -73,20 +66,6 @@ class UE
     public function setMCC(?MCC $mCC): self
     {
         $this->mCC = $mCC;
-
-        return $this;
-    }
-
-   
-
-    public function getParcours(): ?Parcours
-    {
-        return $this->parcours;
-    }
-
-    public function setParcours(?Parcours $parcours): self
-    {
-        $this->parcours = $parcours;
 
         return $this;
     }

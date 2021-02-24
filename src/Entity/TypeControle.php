@@ -22,9 +22,9 @@ class TypeControle
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MCC::class, inversedBy="typeControle")
+     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="typeControle")
      */
-    private $mCC;
+    private $cours;
 
     /**
      * @ORM\ManyToOne(targetEntity=SessionUniqueHasTypeControle::class, inversedBy="typeControle")
@@ -36,14 +36,14 @@ class TypeControle
         return $this->id;
     }
 
-    public function getMCC(): ?MCC
+    public function getCours(): ?Cours
     {
-        return $this->mCC;
+        return $this->cours;
     }
 
-    public function setMCC(?MCC $mCC): self
+    public function setCours(?Cours $cours): self
     {
-        $this->mCC = $mCC;
+        $this->cours = $cours;
 
         return $this;
     }

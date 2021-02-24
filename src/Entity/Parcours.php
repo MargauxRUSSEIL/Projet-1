@@ -74,11 +74,6 @@ class Parcours
     private $secondVET;
 
     /**
-     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="parcours")
-     */
-    private $UE;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $annuOuSemest;
@@ -96,7 +91,6 @@ class Parcours
     public function __construct()
     {
         $this->semestre = new ArrayCollection();
-        $this->UE = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,8 +170,6 @@ class Parcours
         return $this;
     }
 
-   
-
     /**
      * @return Collection|Semestre[]
      */
@@ -240,36 +232,6 @@ class Parcours
     public function setSecondVET(?string $secondVET): self
     {
         $this->secondVET = $secondVET;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|UE[]
-     */
-    public function getUE(): Collection
-    {
-        return $this->UE;
-    }
-
-    public function addUE(UE $uE): self
-    {
-        if (!$this->UE->contains($uE)) {
-            $this->UE[] = $uE;
-            $uE->setParcours($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUE(UE $uE): self
-    {
-        if ($this->UE->removeElement($uE)) {
-            // set the owning side to null (unless already changed)
-            if ($uE->getParcours() === $this) {
-                $uE->setParcours(null);
-            }
-        }
 
         return $this;
     }

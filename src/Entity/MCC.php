@@ -63,11 +63,6 @@ class MCC
     private $typeDiplome;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="mCC")
-     */
-    private $typeControle;
-
-    /**
      * @ORM\OneToOne(targetEntity=Parcours::class, inversedBy="mCC", cascade={"persist", "remove"})
      */
     private $parcours;
@@ -75,7 +70,6 @@ class MCC
     public function __construct()
     {
         $this->UE = new ArrayCollection();
-        $this->typeControle = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,36 +187,6 @@ class MCC
     public function setTypeDiplome(?string $typeDiplome): self
     {
         $this->typeDiplome = $typeDiplome;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|TypeControle[]
-     */
-    public function getTypeControle(): Collection
-    {
-        return $this->typeControle;
-    }
-
-    public function addTypeControle(TypeControle $typeControle): self
-    {
-        if (!$this->typeControle->contains($typeControle)) {
-            $this->typeControle[] = $typeControle;
-            $typeControle->setMCC($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTypeControle(TypeControle $typeControle): self
-    {
-        if ($this->typeControle->removeElement($typeControle)) {
-            // set the owning side to null (unless already changed)
-            if ($typeControle->getMCC() === $this) {
-                $typeControle->setMCC(null);
-            }
-        }
 
         return $this;
     }

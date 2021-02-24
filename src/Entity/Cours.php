@@ -32,21 +32,6 @@ class Cours
     private $codeAPOGEE;
 
     /**
-     * @ORM\OneToOne(targetEntity=HoraireTypeCours::class, inversedBy="cours", cascade={"persist", "remove"})
-     */
-    private $horaireTypeCours;
-
-    /**
-     * @ORM\OneToOne(targetEntity=CoutHETD::class, inversedBy="cours", cascade={"persist", "remove"})
-     */
-    private $coutHETD;
-
-    /**
-     * @ORM\OneToOne(targetEntity=NbGroupeTypeCours::class, inversedBy="cours", cascade={"persist", "remove"})
-     */
-    private $nbGroupeTypeCours;
-
-    /**
      * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="cours")
      */
     private $nbGroupeTypeCoursHasCours;
@@ -56,12 +41,16 @@ class Cours
      */
     private $uEs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="cours")
+     */
+    private $typeControle;
+
     public function __construct()
     {
         $this->uEs = new ArrayCollection();
+        $this->typeControle = new ArrayCollection();
     }
-
-    
 
     public function getId(): ?int
     {
@@ -88,42 +77,6 @@ class Cours
     public function setCodeAPOGEE(?string $codeAPOGEE): self
     {
         $this->codeAPOGEE = $codeAPOGEE;
-
-        return $this;
-    }
-
-    public function getHoraireTypeCours(): ?HoraireTypeCours
-    {
-        return $this->horaireTypeCours;
-    }
-
-    public function setHoraireTypeCours(?HoraireTypeCours $horaireTypeCours): self
-    {
-        $this->horaireTypeCours = $horaireTypeCours;
-
-        return $this;
-    }
-
-    public function getCoutHETD(): ?CoutHETD
-    {
-        return $this->coutHETD;
-    }
-
-    public function setCoutHETD(?CoutHETD $coutHETD): self
-    {
-        $this->coutHETD = $coutHETD;
-
-        return $this;
-    }
-
-    public function getNbGroupeTypeCours(): ?NbGroupeTypeCours
-    {
-        return $this->nbGroupeTypeCours;
-    }
-
-    public function setNbGroupeTypeCours(?NbGroupeTypeCours $nbGroupeTypeCours): self
-    {
-        $this->nbGroupeTypeCours = $nbGroupeTypeCours;
 
         return $this;
     }
@@ -167,5 +120,34 @@ class Cours
         return $this;
     }
 
-   
+     /**
+     * @return Collection|TypeControle[]
+     */
+    public function getTypeControle(): Collection
+    {
+        return $this->typeControle;
+    }
+
+    public function addTypeControle(TypeControle $typeControle): self
+    {
+        if (!$this->typeControle->contains($typeControle)) {
+            $this->typeControle[] = $typeControle;
+            $typeControle->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTypeControle(TypeControle $typeControle): self
+    {
+        if ($this->typeControle->removeElement($typeControle)) {
+            // set the owning side to null (unless already changed)
+            if ($typeControle->getCours() === $this) {
+                $typeControle->setCours(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

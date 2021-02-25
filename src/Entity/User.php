@@ -50,6 +50,16 @@ class User
      */
     private $workflow;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adjoint2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $adjoint3;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +133,30 @@ class User
     public function setWorkflow(?Workflow $workflow): self
     {
         $this->workflow = $workflow;
+
+        return $this;
+    }
+
+    public function getAdjoint2(): ?string
+    {
+        return $this->adjoint2;
+    }
+
+    public function setAdjoint2(?string $adjoint2): self
+    {
+        $this->adjoint2 = $adjoint2;
+
+        return $this;
+    }
+
+    public function getAdjoint3(): ?string
+    {
+        return $this->adjoint3;
+    }
+
+    public function setAdjoint3(?string $adjoint3): self
+    {
+        $this->adjoint3 = $adjoint3;
 
         return $this;
     }

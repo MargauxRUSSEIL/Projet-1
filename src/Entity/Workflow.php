@@ -22,21 +22,6 @@ class Workflow
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $rolesWorkflow;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $duree;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $actions;
-
-    /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="workflow")
      */
     private $formation;
@@ -76,6 +61,11 @@ class Workflow
      */
     private $creePar;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statut;
+
     public function __construct()
     {
         $this->formation = new ArrayCollection();
@@ -86,42 +76,6 @@ class Workflow
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getRolesWorkflow(): ?string
-    {
-        return $this->rolesWorkflow;
-    }
-
-    public function setRolesWorkflow(?string $rolesWorkflow): self
-    {
-        $this->rolesWorkflow = $rolesWorkflow;
-
-        return $this;
-    }
-
-    public function getDuree(): ?\DateTimeInterface
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(?\DateTimeInterface $duree): self
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
-
-    public function getActions(): ?string
-    {
-        return $this->actions;
-    }
-
-    public function setActions(?string $actions): self
-    {
-        $this->actions = $actions;
-
-        return $this;
     }
 
     /**
@@ -270,6 +224,18 @@ class Workflow
     public function setCreePar(?string $creePar): self
     {
         $this->creePar = $creePar;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

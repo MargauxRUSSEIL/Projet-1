@@ -74,11 +74,6 @@ class Parcours
     private $secondVET;
 
     /**
-     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="parcours")
-     */
-    private $UE;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $annuOuSemest;
@@ -88,10 +83,14 @@ class Parcours
      */
     private $formation;
 
+    /**
+     * @ORM\OneToOne(targetEntity=MCC::class, mappedBy="parcours", cascade={"persist", "remove"})
+     */
+    private $mCC;
+
     public function __construct()
     {
         $this->semestre = new ArrayCollection();
-        $this->UE = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,8 +170,6 @@ class Parcours
         return $this;
     }
 
-   
-
     /**
      * @return Collection|Semestre[]
      */
@@ -239,36 +236,6 @@ class Parcours
         return $this;
     }
 
-    /**
-     * @return Collection|UE[]
-     */
-    public function getUE(): Collection
-    {
-        return $this->UE;
-    }
-
-    public function addUE(UE $uE): self
-    {
-        if (!$this->UE->contains($uE)) {
-            $this->UE[] = $uE;
-            $uE->setParcours($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUE(UE $uE): self
-    {
-        if ($this->UE->removeElement($uE)) {
-            // set the owning side to null (unless already changed)
-            if ($uE->getParcours() === $this) {
-                $uE->setParcours(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getAnnuOuSemest(): ?string
     {
         return $this->annuOuSemest;
@@ -289,6 +256,28 @@ class Parcours
     public function setFormation(?Formation $formation): self
     {
         $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getMCC(): ?MCC
+    {
+        return $this->mCC;
+    }
+
+    public function setMCC(?MCC $mCC): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($mCC === null && $this->mCC !== null) {
+            $this->mCC->setParcours(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($mCC !== null && $mCC->getParcours() !== $this) {
+            $mCC->setParcours($this);
+        }
+
+        $this->mCC = $mCC;
 
         return $this;
     }

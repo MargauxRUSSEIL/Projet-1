@@ -40,11 +40,6 @@ class HoraireTypeCours
     private $horaireAutre;
 
     /**
-     * @ORM\OneToOne(targetEntity=Cours::class, mappedBy="horaireTypeCours", cascade={"persist", "remove"})
-     */
-    private $cours;
-
-    /**
      * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="horaireTypeCours")
      */
     private $nbGroupeTypeCoursHasCours;
@@ -98,28 +93,6 @@ class HoraireTypeCours
     public function setHoraireAutre(?string $horaireAutre): self
     {
         $this->horaireAutre = $horaireAutre;
-
-        return $this;
-    }
-
-    public function getCours(): ?Cours
-    {
-        return $this->cours;
-    }
-
-    public function setCours(?Cours $cours): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($cours === null && $this->cours !== null) {
-            $this->cours->setHoraireTypeCours(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($cours !== null && $cours->getHoraireTypeCours() !== $this) {
-            $cours->setHoraireTypeCours($this);
-        }
-
-        $this->cours = $cours;
 
         return $this;
     }

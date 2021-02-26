@@ -40,11 +40,6 @@ class NbGroupeTypeCours
     private $autre;
 
     /**
-     * @ORM\OneToOne(targetEntity=Cours::class, mappedBy="nbGroupeTypeCours", cascade={"persist", "remove"})
-     */
-    private $cours;
-
-    /**
      * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="nbGroupeTypeCours")
      */
     private $nbGroupeTypeCoursHasCours;
@@ -98,28 +93,6 @@ class NbGroupeTypeCours
     public function setAutre(?string $autre): self
     {
         $this->autre = $autre;
-
-        return $this;
-    }
-
-    public function getCours(): ?Cours
-    {
-        return $this->cours;
-    }
-
-    public function setCours(?Cours $cours): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($cours === null && $this->cours !== null) {
-            $this->cours->setNbGroupeTypeCours(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($cours !== null && $cours->getNbGroupeTypeCours() !== $this) {
-            $cours->setNbGroupeTypeCours($this);
-        }
-
-        $this->cours = $cours;
 
         return $this;
     }

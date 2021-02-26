@@ -22,26 +22,6 @@ class Workflow
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $etapes;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $rolesWorkflow;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $duree;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $actions;
-
-    /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="workflow")
      */
     private $formation;
@@ -51,63 +31,51 @@ class Workflow
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Etape::class, mappedBy="workflow")
+     */
+    private $etapes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $intitule;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreation;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateDeFin;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateLimite;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $creePar;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statut;
+
     public function __construct()
     {
         $this->formation = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->etapes = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEtapes(): ?int
-    {
-        return $this->etapes;
-    }
-
-    public function setEtapes(?int $etapes): self
-    {
-        $this->etapes = $etapes;
-
-        return $this;
-    }
-
-    public function getRolesWorkflow(): ?string
-    {
-        return $this->rolesWorkflow;
-    }
-
-    public function setRolesWorkflow(?string $rolesWorkflow): self
-    {
-        $this->rolesWorkflow = $rolesWorkflow;
-
-        return $this;
-    }
-
-    public function getDuree(): ?\DateTimeInterface
-    {
-        return $this->duree;
-    }
-
-    public function setDuree(?\DateTimeInterface $duree): self
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
-
-    public function getActions(): ?string
-    {
-        return $this->actions;
-    }
-
-    public function setActions(?string $actions): self
-    {
-        $this->actions = $actions;
-
-        return $this;
     }
 
     /**
@@ -166,6 +134,108 @@ class Workflow
                 $user->setWorkflow(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Etape[]
+     */
+    public function getEtapes(): Collection
+    {
+        return $this->etapes;
+    }
+
+    public function addEtape(Etape $etape): self
+    {
+        if (!$this->etapes->contains($etape)) {
+            $this->etapes[] = $etape;
+            $etape->setWorkflow($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtape(Etape $etape): self
+    {
+        if ($this->etapes->removeElement($etape)) {
+            // set the owning side to null (unless already changed)
+            if ($etape->getWorkflow() === $this) {
+                $etape->setWorkflow(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIntitule(): ?string
+    {
+        return $this->intitule;
+    }
+
+    public function setIntitule(?string $intitule): self
+    {
+        $this->intitule = $intitule;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    public function getDateDeFin(): ?\DateTimeInterface
+    {
+        return $this->dateDeFin;
+    }
+
+    public function setDateDeFin(?\DateTimeInterface $dateDeFin): self
+    {
+        $this->dateDeFin = $dateDeFin;
+
+        return $this;
+    }
+
+    public function getDateLimite(): ?\DateTimeInterface
+    {
+        return $this->dateLimite;
+    }
+
+    public function setDateLimite(?\DateTimeInterface $dateLimite): self
+    {
+        $this->dateLimite = $dateLimite;
+
+        return $this;
+    }
+
+    public function getCreePar(): ?string
+    {
+        return $this->creePar;
+    }
+
+    public function setCreePar(?string $creePar): self
+    {
+        $this->creePar = $creePar;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

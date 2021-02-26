@@ -1,0 +1,9 @@
+api_platform:
+    title: 'Cergy-Cy REST API'
+    description: 'A Symfony API to manage client data'
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]

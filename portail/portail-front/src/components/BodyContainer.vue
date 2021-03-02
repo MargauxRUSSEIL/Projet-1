@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="img-container w-96 mx-auto my-auto">
-            <img src="@/assets/img/imgBody.png" alt="img">
+            <img src="@/assets/img/imgBody.png" alt="">
         </div>
     </div>
 </template>

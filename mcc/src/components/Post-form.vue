@@ -49,6 +49,7 @@ export default {
     methods:{
        postData(){
             axios.post('http://127.0.0.1:8000/api/formations', this.posts)
+
                  .then(() => {
                      //Perform Success Action
                  })

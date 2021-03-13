@@ -49,10 +49,10 @@ export default {
     methods:{
        postData(){
             axios.post('http://127.0.0.1:8000/api/formations', this.posts)
-                 .then((res) => {
+                 .then(() => {
                      //Perform Success Action
                  })
-                 .catch((error) => {
+                 .catch(() => {
                      // error.response.status Check status code
                  }).finally(() => {
                      //Perform action in always

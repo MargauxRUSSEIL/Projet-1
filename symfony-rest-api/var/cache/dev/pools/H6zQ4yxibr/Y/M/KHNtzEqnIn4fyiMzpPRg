@@ -1,0 +1,3 @@
+<?php //%255BApp%255CEntity%255CFormations%2523setDur%25C3%25A9eFormation%255D%255B1%255D
+
+return [PHP_INT_MAX, []];

@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ecphp/cas-bundle": "^2.2"
+    }
+}

@@ -22,11 +22,6 @@ class Formation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $mention;
-
-    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $structureHaute;
@@ -105,6 +100,11 @@ class Formation
      */
     private $parcours;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Mention::class)
+     */
+    private $mention;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
@@ -116,18 +116,6 @@ class Formation
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getMention(): ?string
-    {
-        return $this->mention;
-    }
-
-    public function setMention(?string $mention): self
-    {
-        $this->mention = $mention;
-
-        return $this;
     }
 
     public function getStructureHaute(): ?int
@@ -380,6 +368,18 @@ class Formation
                 $parcour->setFormation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMention(): ?Mention
+    {
+        return $this->mention;
+    }
+
+    public function setMention(?Mention $mention): self
+    {
+        $this->mention = $mention;
 
         return $this;
     }

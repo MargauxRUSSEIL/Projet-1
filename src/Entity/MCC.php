@@ -33,19 +33,9 @@ class MCC
     private $site;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $mention;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $annee;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $niveau;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -66,6 +56,16 @@ class MCC
      * @ORM\OneToOne(targetEntity=Parcours::class, inversedBy="mCC", cascade={"persist", "remove"})
      */
     private $parcours;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Niveau::class)
+     */
+    private $niveau;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Mention::class)
+     */
+    private $mention;
 
     public function __construct()
     {
@@ -101,18 +101,6 @@ class MCC
         return $this;
     }
 
-    public function getMention(): ?string
-    {
-        return $this->mention;
-    }
-
-    public function setMention(?string $mention): self
-    {
-        $this->mention = $mention;
-
-        return $this;
-    }
-
     public function getAnnee(): ?\DateTimeInterface
     {
         return $this->annee;
@@ -121,18 +109,6 @@ class MCC
     public function setAnnee(?\DateTimeInterface $annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getNiveau(): ?string
-    {
-        return $this->niveau;
-    }
-
-    public function setNiveau(?string $niveau): self
-    {
-        $this->niveau = $niveau;
 
         return $this;
     }
@@ -199,6 +175,30 @@ class MCC
     public function setParcours(?Parcours $parcours): self
     {
         $this->parcours = $parcours;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): self
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getMention(): ?Mention
+    {
+        return $this->mention;
+    }
+
+    public function setMention(?Mention $mention): self
+    {
+        $this->mention = $mention;
 
         return $this;
     }

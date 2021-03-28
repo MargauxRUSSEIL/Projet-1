@@ -45,6 +45,4 @@ symfony server:start
 
 Les requêtes sur les différentes tables de la base de donnée sont ensuite accessibles ici : [https://127.0.0.1:8000/api/](https://127.0.0.1:8000/api/)
 
-### Question ? Problème ?
-
-Sur Discord ! Channel *projet-1*. 
+    > :warning: Pour les questions, rendez-vous sur Discord, channel projet-1 !

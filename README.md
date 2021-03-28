@@ -21,7 +21,7 @@ Après avoir clone le projet, lancez la commande
 composer install
 ```
 
-afin de générer un dossier vendor. 
+afin de générer un dossier /vendor. 
 
 Après avoir lancé votre serveur, sur phpmyadmin :
 * Créez une base de donnée que vous appelez *lpdw*, au format *utf8_general_ci*

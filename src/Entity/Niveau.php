@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\NiveauRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=NiveauRepository::class)
  */
 class Niveau

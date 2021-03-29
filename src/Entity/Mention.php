@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\MentionRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=MentionRepository::class)
  */
 class Mention

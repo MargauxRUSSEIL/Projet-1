@@ -1,30 +1,48 @@
-# Projet-1
+# API Projet 1
 
+## Installation
 
-API en Symfony
--------------------
+Suivez les étapes ci-dessous pour obtenir un accès vers l'API du projet 1. 
 
-- API:
+### Prérequis
 
-    *Il n'y a pour l'instant que la table formations dans l'API pour que les groupes puissent avancer*
-    - Settings :
-        * Dans le dossier du projet "Symfony-rest-api":
-            - Faire un : *composer update* pour pouvoir utiliser les outils
-            - Créer un fichier *.env.local* et écrire la ligne :
-                * DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
-                * *Remplacez db_user par le nom d'utilisateur de base de données, db_password par son mot de passe et db_name par le nom de la base de données.*
-    * Utilisation API :
-        - Créer la base de données : 
-            - php bin/console doctrine:database:create
-        - Migrer la base de données : 
-            1. php bin/console make:migration
-            2. php bin/console doctrine:migrations:migrate
-        - Ouvrir l'API dans le navigateur : 
-            1. Exécuter dans le terminal à la racine du projet : php -S localhost:8000 -t public/ ou symfony server:start 
-            2. Mettre dans l'URL : http://localhost:8000/api
-        - Dans l'API pour ajouter/supprimer/modifier 
-            * Aller dans les onglets delete/put/pach/post 
-                * Clicker sur "Try it out"
-                * Insérer les valeurs en JSON, exécuter et vérifier si les données on bien été insérées dans la base.
+Il faut avoir installé sur votre machine : 
 
-    > :warning: Si vous avez une erreur d'encodage quand vous faites vos get/post/delete il faut que vous changiez la colonne durée et la mettre sans accents. CHANGER TOUT DANS LA METHODE. (durée -> duree)  
+* [Composer](https://getcomposer.org/download/)
+* [Symfony](https://symfony.com/download)
+* [WAMP](https://www.wampserver.com) - Seulement sur Windows
+* [MAMP](https://www.mamp.info/en/downloads/) - Seulement sur macOS
+
+### Récupérer le projet
+
+Après avoir clone le projet, lancez la commande 
+
+```
+composer install
+```
+
+afin de générer un dossier /vendor. 
+
+Après avoir lancé votre serveur, sur phpmyadmin :
+* Créez une base de donnée que vous appelez *api_cy*, au format *utf8_general_ci*
+* Insérer le fichier *api_cy.sql* dans la base de donnée
+
+## Lancer le projet
+
+Créez un fichier **.env.local** dans lequel vous mettez vos informations de connexion à la base de donnée :
+
+```
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+```
+*Remplacez db_user par le nom d'utilisateur de base de données, db_password par son mot de passe et db_name par le nom de la base de données (api_cy). Pensez aussi à mettre à jour votre port et votre version de serveur.*
+
+Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
+
+```
+cd Projet-1
+symfony server:start
+```
+
+Les requêtes sur les différentes tables de la base de donnée sont ensuite accessibles ici : [https://127.0.0.1:8000/api/](https://127.0.0.1:8000/api/)
+
+> :warning: Pour les questions, rendez-vous sur Discord, channel projet-1 !

@@ -40,7 +40,7 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.
 Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
 
 ```
-symfony server:start
+symfony server:start ou php -S localhost:8000 -t public/
 ```
 
 Les requêtes sur les différentes tables de la base de donnée sont ensuite accessibles ici : [https://127.0.0.1:8000/api/](https://127.0.0.1:8000/api/)

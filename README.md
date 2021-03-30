@@ -18,6 +18,7 @@ Il faut avoir installé sur votre machine :
 Après avoir clone le projet, lancez la commande 
 
 ```
+cd Projet-1
 composer install
 ```
 
@@ -39,7 +40,6 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.
 Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
 
 ```
-cd Projet-1
 symfony server:start
 ```
 

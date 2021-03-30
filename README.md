@@ -15,7 +15,7 @@ Il faut avoir installé sur votre machine :
 
 ### Récupérer le projet
 
-Après avoir clone le projet, lancez la commande 
+Après avoir clone le projet et avoir pull la dernière version de la branche *main*, lancez la commande 
 
 ```
 cd Projet-1

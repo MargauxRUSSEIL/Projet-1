@@ -4,9 +4,8 @@
            Création de formulaire:
            <div>
     <p>Création d’une mention de diplôme national en :</p>
-  <input type="checkbox" id="licence" name="licence"
-         checked>
-  <label for="licence"> Licence</label>
+  <input type="checkbox" id="licence" name="licence"  v-model="licence">
+  <label for="licence">{{ licence }} Licence </label>
 </div>
 <div>
   <input type="checkbox" id="licencePro" name="licencePro">

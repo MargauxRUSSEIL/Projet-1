@@ -18,6 +18,7 @@ Il faut avoir installé sur votre machine :
 Après avoir clone le projet, lancez la commande 
 
 ```
+cd Projet-1
 composer install
 ```
 
@@ -25,7 +26,7 @@ afin de générer un dossier /vendor.
 
 Après avoir lancé votre serveur, sur phpmyadmin :
 * Créez une base de donnée que vous appelez *api_cy*, au format *utf8_general_ci*
-* Insérer le fichier *api_cy.sql* dans la base de donnée
+* Insérer le fichier *api_cy.sql*, (présent dans /db), dans la base de donnée
 
 ## Lancer le projet
 
@@ -39,7 +40,6 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.
 Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
 
 ```
-cd Projet-1
 symfony server:start
 ```
 

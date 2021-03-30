@@ -24,6 +24,11 @@ composer install
 
 afin de générer un dossier /vendor. 
 
+Dans le cas où vous avez déjà un /vendor dans /Projet-1, faites simplement un
+```
+composer update
+```
+
 Après avoir lancé votre serveur, sur phpmyadmin :
 * Créez une base de donnée que vous appelez *api_cy*, au format *utf8_general_ci*
 * Insérer le fichier *api_cy.sql*, (présent dans /db), dans la base de donnée

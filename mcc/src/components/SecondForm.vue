@@ -24,7 +24,7 @@
 </div>
 <div class="mt-4">
       <label for="ue">UE : </label>
-      <select id="ue" name="country">
+      <select id="ue" name="ue">
         <option value="ue1">UE1</option>
         <option value="ue2">UE2</option>
         <option value="ue3">UE3</option>

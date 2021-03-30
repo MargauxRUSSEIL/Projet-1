@@ -25,7 +25,7 @@ afin de générer un dossier /vendor.
 
 Après avoir lancé votre serveur, sur phpmyadmin :
 * Créez une base de donnée que vous appelez *api_cy*, au format *utf8_general_ci*
-* Insérer le fichier *api_cy.sql* dans la base de donnée
+* Insérer le fichier *api_cy.sql*, (présent dans /db), dans la base de donnée
 
 ## Lancer le projet
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : lun. 29 mars 2021 à 16:53
+-- Généré le : mar. 30 mars 2021 à 12:20
 -- Version du serveur :  5.7.30
 -- Version de PHP : 7.4.9
 
@@ -168,7 +168,10 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20210323175936', '2021-03-23 17:59:44', 141),
 ('DoctrineMigrations\\Version20210325174119', '2021-03-25 17:41:52', 391),
 ('DoctrineMigrations\\Version20210325175749', '2021-03-25 17:57:56', 168),
-('DoctrineMigrations\\Version20210325180953', '2021-03-25 18:09:59', 196);
+('DoctrineMigrations\\Version20210325180953', '2021-03-25 18:09:59', 196),
+('DoctrineMigrations\\Version20210330120811', '2021-03-30 12:08:32', 139),
+('DoctrineMigrations\\Version20210330121208', '2021-03-30 12:12:21', 47),
+('DoctrineMigrations\\Version20210330121748', '2021-03-30 12:17:58', 174);
 
 -- --------------------------------------------------------
 
@@ -486,6 +489,24 @@ INSERT INTO `roles` (`id`, `libelle_role`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `roles_user`
+--
+
+CREATE TABLE `roles_user` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `roles_user`
+--
+
+INSERT INTO `roles_user` (`id`, `user_id`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `semestre`
 --
 
@@ -664,8 +685,16 @@ CREATE TABLE `user` (
   `adjoint` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `actif` int(11) DEFAULT NULL,
   `adjoint2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `adjoint3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `adjoint3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `workflow_id`, `nom`, `prenom`, `mail`, `adjoint`, `actif`, `adjoint2`, `adjoint3`, `role_id`) VALUES
+(1, NULL, 'Toto', 'Toto', 'Toto@test.fr', 'Toto', 0, 'tata', 'titi', 1);
 
 -- --------------------------------------------------------
 
@@ -819,6 +848,13 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `roles_user`
+--
+ALTER TABLE `roles_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_57048B30A76ED395` (`user_id`);
+
+--
 -- Index pour la table `semestre`
 --
 ALTER TABLE `semestre`
@@ -880,7 +916,8 @@ ALTER TABLE `ue_cours`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_8D93D6492C7C2CBA` (`workflow_id`);
+  ADD KEY `IDX_8D93D6492C7C2CBA` (`workflow_id`),
+  ADD KEY `IDX_8D93D649D60322AC` (`role_id`);
 
 --
 -- Index pour la table `workflow`
@@ -1001,6 +1038,12 @@ ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT pour la table `roles_user`
+--
+ALTER TABLE `roles_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `semestre`
 --
 ALTER TABLE `semestre`
@@ -1046,7 +1089,7 @@ ALTER TABLE `ue`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `workflow`
@@ -1146,6 +1189,12 @@ ALTER TABLE `parcours`
   ADD CONSTRAINT `FK_99B1DEE35200282E` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`);
 
 --
+-- Contraintes pour la table `roles_user`
+--
+ALTER TABLE `roles_user`
+  ADD CONSTRAINT `FK_57048B30A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
 -- Contraintes pour la table `semestre`
 --
 ALTER TABLE `semestre`
@@ -1188,4 +1237,5 @@ ALTER TABLE `ue_cours`
 -- Contraintes pour la table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `FK_8D93D6492C7C2CBA` FOREIGN KEY (`workflow_id`) REFERENCES `workflow` (`id`);
+  ADD CONSTRAINT `FK_8D93D6492C7C2CBA` FOREIGN KEY (`workflow_id`) REFERENCES `workflow` (`id`),
+  ADD CONSTRAINT `FK_8D93D649D60322AC` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);

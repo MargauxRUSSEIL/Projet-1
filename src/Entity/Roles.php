@@ -27,13 +27,14 @@ class Roles
     private $libelleRole;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="role")
+     * @ORM\OneToMany(targetEntity=RolesUser::class, mappedBy="roles")
      */
-    private $users;
+    private $rolesUser;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->rolesUser = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,29 +55,29 @@ class Roles
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|RolesUser[]
      */
-    public function getUsers(): Collection
+    public function getRolesUser(): Collection
     {
-        return $this->users;
+        return $this->rolesUser;
     }
 
-    public function addUser(User $user): self
+    public function addRolesUser(RolesUser $rolesUser): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setRole($this);
+        if (!$this->rolesUser->contains($rolesUser)) {
+            $this->rolesUser[] = $rolesUser;
+            $rolesUser->setRoles($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeRolesUser(RolesUser $rolesUser): self
     {
-        if ($this->users->removeElement($user)) {
+        if ($this->rolesUser->removeElement($rolesUser)) {
             // set the owning side to null (unless already changed)
-            if ($user->getRole() === $this) {
-                $user->setRole(null);
+            if ($rolesUser->getRoles() === $this) {
+                $rolesUser->setRoles(null);
             }
         }
 

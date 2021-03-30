@@ -20,9 +20,14 @@ class RolesUser
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="roles")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userRoles")
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Roles::class, inversedBy="rolesUser")
+     */
+    private $roles;
 
     public function getId(): ?int
     {
@@ -37,6 +42,18 @@ class RolesUser
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRoles(): ?Roles
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(?Roles $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

@@ -63,18 +63,14 @@ class User
     private $adjoint3;
 
     /**
-     * @ORM\OneToMany(targetEntity=rolesUser::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=RolesUser::class, mappedBy="user")
      */
-    private $roles;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Roles::class, inversedBy="users")
-     */
-    private $role;
+    private $userRoles;
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,43 +175,31 @@ class User
     }
 
     /**
-     * @return Collection|rolesUser[]
+     * @return Collection|RolesUser[]
      */
-    public function getRoles(): Collection
+    public function getUserRoles(): Collection
     {
-        return $this->roles;
+        return $this->userRoles;
     }
 
-    public function addRole(rolesUser $role): self
+    public function addUserRole(RolesUser $userRole): self
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-            $role->setUser($this);
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeRole(rolesUser $role): self
+    public function removeUserRole(RolesUser $userRole): self
     {
-        if ($this->roles->removeElement($role)) {
+        if ($this->userRoles->removeElement($userRole)) {
             // set the owning side to null (unless already changed)
-            if ($role->getUser() === $this) {
-                $role->setUser(null);
+            if ($userRole->getUser() === $this) {
+                $userRole->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getRole(): ?Roles
-    {
-        return $this->role;
-    }
-
-    public function setRole(?Roles $role): self
-    {
-        $this->role = $role;
 
         return $this;
     }

@@ -52,7 +52,9 @@ php bin/console doctrine:migrations:migrate
 Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
 
 ```
-symfony server:start ou php -S localhost:8000 -t public/
+symfony server:start
+OU
+php -S localhost:8000 -t public/
 ```
 
 Les requêtes sur les différentes tables de la base de donnée sont ensuite accessibles ici : [https://127.0.0.1:8000/api/](https://127.0.0.1:8000/api/)

@@ -1,18 +1,23 @@
 <template>
    <div>
-<nav class="navbar">
-    <div class="flex">
-    <img class="mx-4 pt-3 mr-2 logo flex" src="@/assets/logo.svg"/><img class="pt-3 mr-2" src="@/assets/line.svg"/> <p class="pt-3">Portail d’Offres <br> de Formations</p>
-<div class=" ml-10 flex">
-<ul class="flex"> 
-  <li class=""><a class="flex" href="#home"> <img class="pt-3" src="@/assets/outils.svg"/> Outils</a></li>
-  <li><a href="#news"> <img class="pt-3" src="@/assets/param.svg"/>News</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#about">About</a></li>
-</ul> 
+    <nav class="navbar flex">
+<div id="title" class="flex mt-2">
+  <img class="mx-4 mt-2 mr-1 flex logo" src="@/assets/logo.svg"/><img class="pt-2 pb-3 mr-2" src="@/assets/line.svg"/> <p class="">Portail d’Offres <br> de Formations</p>
+    </div>
+<div id="b">
+       <div class="flex map">
+      <button class="boutonDec mt-3 mr-2">Deconnexion</button>
+      <div class="flex pt-5">
+      <router-link class="flex pr-10"> <img class="flex menuLogo" src="@/assets/param.svg"/><p class="pl-2"> PARAMETRES</p></router-link>
+</div>
+ <div class="flex pt-5">
+      <router-link class="flex pr-10"> <img class="flex menuLogo" src="@/assets/formation.svg"/><p class="pl-2"> Formations</p></router-link>
+</div>
+<div class="flex pt-5">
+      <router-link class="flex pr-10"> <img class="flex menuLogo" src="@/assets/outils.svg"/><p class="pl-2"> Outils</p></router-link>
+</div>
 </div>
     </div>
-
        </nav>
    </div>
 </template>
@@ -25,6 +30,15 @@
     font-family: Montserrat;
     color: white;
 }  
+#title {
+    width: 20%;
+    margin-right: auto;  
+    font-size: 20px; 
+}
+.logo{
+  height: 49px;
+  width: 43,51px;
+}
 
 .navbar ul {
  list-style-type: none;
@@ -35,7 +49,20 @@
   display: flex;
  
 }
+.map{
+   display: flex;
+  flex-direction: row-reverse;
+ font-size: 24px;
+}
+.boutonDec{
+  background: #DD0E27;
+  border-radius: 50px;
+  height: 50px;
+  width: 185,79px;
+  padding: 8px 10px 10px 10px;
 
+  
+}
 
 .navbar li a {
   text-decoration: none;
@@ -43,9 +70,10 @@
   display: flex;
   
 }
-
-
-.menuPage{
-    float: left;
+.menuLogo{
+  height: 36px;
+  width: 35,93px;
 }
+
+
 </style>

@@ -1,20 +1,24 @@
 <template>
   
   <Header/>
-  <Formulaire/>
-  <SecondForm/>
+  <!-- <Formulaire/> -->
+  <!-- <SecondForm/> -->
+  <Tableau/>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
-import Formulaire from '@/components/Formulaire.vue'
-import SecondForm from '@/components/SecondForm.vue'
+// import Formulaire from '@/components/Formulaire.vue'
+// import SecondForm from '@/components/SecondForm.vue'
+import Tableau from '@/components/Tableau.vue'
+
 export default {
   name: 'App',
   components: {
     Header,
-    Formulaire,
-    SecondForm
+    Tableau,
+    // Formulaire,
+    // SecondForm
   }
 }
 </script>

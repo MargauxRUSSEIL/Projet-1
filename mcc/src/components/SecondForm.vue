@@ -31,7 +31,7 @@
       </select>
 </div>
 <div class="mt-4">
-      <label for="diplome">TypeDiplome</label>
+      <label for="diplome">Type de Diplome</label>
       <select id="diplome" name="diplome">
         <option value="licence">Licence</option>
         <option value="master">Master</option>
@@ -39,8 +39,8 @@
       </select>
 </div>
 <div class="mt-4">
-      <label for="parcourt">parcourt</label>
-      <select id="parcourt" name="parcourt">
+      <label for="parcours">Parcours</label>
+      <select id="parcours" name="parcours">
         <option value="informatique">Informatique</option>
         <option value="web">Developpement Web</option>
         <option value="managment">Managment</option>

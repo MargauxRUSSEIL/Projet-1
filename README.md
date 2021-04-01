@@ -42,10 +42,19 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/api_cy?serverVersion=5.7
 ```
 *Remplacez db_user par le nom d'utilisateur de base de données, db_password par son mot de passe. Concervez bien api_cy en nom de base de données. Pensez aussi à mettre à jour votre port et votre version de serveur.*
 
+Lancez les commandes suivantes pour créer votre première migration
+```
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+*Faire entrer jusqu'à la fin du process*
+
 Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
 
 ```
-symfony server:start ou php -S localhost:8000 -t public/
+symfony server:start
+OU
+php -S localhost:8000 -t public/
 ```
 
 Les requêtes sur les différentes tables de la base de donnée sont ensuite accessibles ici : [https://127.0.0.1:8000/api/](https://127.0.0.1:8000/api/)

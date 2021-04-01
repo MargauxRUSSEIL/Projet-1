@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +61,17 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adjoint3;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RolesUser::class, mappedBy="user")
+     */
+    private $userRoles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,6 +170,36 @@ class User
     public function setAdjoint3(?string $adjoint3): self
     {
         $this->adjoint3 = $adjoint3;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RolesUser[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(RolesUser $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(RolesUser $userRole): self
+    {
+        if ($this->userRoles->removeElement($userRole)) {
+            // set the owning side to null (unless already changed)
+            if ($userRole->getUser() === $this) {
+                $userRole->setUser(null);
+            }
+        }
 
         return $this;
     }

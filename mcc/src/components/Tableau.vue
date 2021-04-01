@@ -14,7 +14,7 @@
                <p class="formationsTitle pt-6">Mes formations</p>
            </div>
            <div class=" mt-6 mx-auto">
-    <vue-collapsible-panel-group class="accordeon1 mx-auto">
+    <vue-collapsible-panel-group class="accordeon1 mx-auto" >
     <vue-collapsible-panel class="first">
         <template #title style="font-size:18px">
            Licence profesionnelle developpeur web
@@ -55,39 +55,46 @@
   </div>
         </template>
     </vue-collapsible-panel>
-     <vue-collapsible-panel class="second mt-4">
+     <vue-collapsible-panel class="second mt-4 accordeon1">
         <template #title>
             Licence profesionnelle developpeur web
         </template>
-        <template #content>
-            Panel B Content
+        <template #content class="bg-white">
+            <div class="div1">
+           <p> Panel B Content</p>
+           <p> cdfnkv</p>
+           <p>cfnjnfk</p>
+            </div>
         </template>
     </vue-collapsible-panel>
-     <vue-collapsible-panel class="second mt-4">
+    <vue-collapsible-panel >
         <template #title>
-            Licence profesionnelle developpeur web
+            Panel A Title
         </template>
         <template #content>
-            Panel B Content
+            Panel A Content
         </template>
     </vue-collapsible-panel>
 </vue-collapsible-panel-group>
-           </div>
+</div>
         </div>
     </div>
 </template>
 
 <style lang="css" scoped>
+.div1{
+    color:black;
+}
 .first {
 margin-left: 20px;
 color:white;
 border-radius: 15px;
 }
 .second{
-    background-color:#00296B;
     border-radius: 15px;
-    color:white;
     padding-left: 20px;
+    background-color:white ;
+    color: white;
 }
 .accordeon1{
     background-color:#00296B;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : lun. 29 mars 2021 à 16:53
+-- Généré le : mar. 30 mars 2021 à 13:02
 -- Version du serveur :  5.7.30
 -- Version de PHP : 7.4.9
 
@@ -168,7 +168,12 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20210323175936', '2021-03-23 17:59:44', 141),
 ('DoctrineMigrations\\Version20210325174119', '2021-03-25 17:41:52', 391),
 ('DoctrineMigrations\\Version20210325175749', '2021-03-25 17:57:56', 168),
-('DoctrineMigrations\\Version20210325180953', '2021-03-25 18:09:59', 196);
+('DoctrineMigrations\\Version20210325180953', '2021-03-25 18:09:59', 196),
+('DoctrineMigrations\\Version20210330120811', '2021-03-30 12:08:32', 139),
+('DoctrineMigrations\\Version20210330121208', '2021-03-30 12:12:21', 47),
+('DoctrineMigrations\\Version20210330121748', '2021-03-30 12:17:58', 174),
+('DoctrineMigrations\\Version20210330125153', '2021-03-30 12:52:06', 138),
+('DoctrineMigrations\\Version20210330125623', '2021-03-30 12:56:35', 143);
 
 -- --------------------------------------------------------
 
@@ -481,7 +486,27 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `libelle_role`) VALUES
-(1, 'user');
+(2, 'User'),
+(3, 'Admin');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `roles_user`
+--
+
+CREATE TABLE `roles_user` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `roles_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `roles_user`
+--
+
+INSERT INTO `roles_user` (`id`, `user_id`, `roles_id`) VALUES
+(2, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -667,6 +692,13 @@ CREATE TABLE `user` (
   `adjoint3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `workflow_id`, `nom`, `prenom`, `mail`, `adjoint`, `actif`, `adjoint2`, `adjoint3`) VALUES
+(2, NULL, 'Ricard', 'Laurent', 'lebg@lpdw.fr', 'JLB', NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -817,6 +849,14 @@ ALTER TABLE `parcours`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `roles_user`
+--
+ALTER TABLE `roles_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_57048B30A76ED395` (`user_id`),
+  ADD KEY `IDX_57048B3038C751C4` (`roles_id`);
 
 --
 -- Index pour la table `semestre`
@@ -998,7 +1038,13 @@ ALTER TABLE `parcours`
 -- AUTO_INCREMENT pour la table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `roles_user`
+--
+ALTER TABLE `roles_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `semestre`
@@ -1046,7 +1092,7 @@ ALTER TABLE `ue`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `workflow`
@@ -1144,6 +1190,13 @@ ALTER TABLE `nb_groupe_type_cours`
 --
 ALTER TABLE `parcours`
   ADD CONSTRAINT `FK_99B1DEE35200282E` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`);
+
+--
+-- Contraintes pour la table `roles_user`
+--
+ALTER TABLE `roles_user`
+  ADD CONSTRAINT `FK_57048B3038C751C4` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`),
+  ADD CONSTRAINT `FK_57048B30A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Contraintes pour la table `semestre`

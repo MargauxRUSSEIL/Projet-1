@@ -102,7 +102,7 @@
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: 'SecondForm',
+        name: 'MCCForm',
         data() {
             return {
                 mentions: '',
@@ -167,6 +167,6 @@
     }
 </script>
 
-<style>
+<style scoped>
 
 </style>

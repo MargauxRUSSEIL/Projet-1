@@ -71,7 +71,7 @@
           <div>
             <label class="inline-flex items-center">
               <input type="checkbox" value="licence">
-              <span class="ml-2 mr-3">Formation Initiale</span>
+              <span class="ml-2 mr-3">Formation initiale</span>
             </label>
           </div>
           <div>

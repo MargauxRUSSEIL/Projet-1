@@ -10,15 +10,15 @@
             Création d’une mention de diplôme national en
           </label>
           <label class="inline-flex items-center">
-            <input type="radio" class="form-radio" name="radio" value="licence">
+            <input type="radio" class="form-radio" name="radio" value="licence" v-model="form.typeFormation">
             <span class="ml-2 mr-3">Licence Générale</span>
           </label>
           <label class="inline-flex items-center">
-            <input type="radio" class="form-radio" name="radio" value="licencePro">
+            <input type="radio" class="form-radio" name="radio" value="licencePro" v-model="form.typeFormation">
             <span class="ml-2 mr-3">Licence Professionelle</span>
           </label>
           <label class="inline-flex items-center">
-            <input type="radio" class="form-radio" name="radio" value="master">
+            <input type="radio" class="form-radio" name="radio" value="master" v-model="form.typeFormation">
             <span class="ml-2 mr-3">Master</span>
           </label>
         </div>
@@ -58,7 +58,7 @@
         </div>
         <div class="w-full md:w-1/2 px-3">
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Il ne s’agit pas d’un diplôme national (DU…) – Indiquer l’intitulé complet
+            S'il ne s’agit pas d’un diplôme national (DU…) – Indiquer l’intitulé complet
           </label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                  type="text"
@@ -105,6 +105,7 @@
           </label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                  type="text"
+                 v-model="form.composante"
           >
         </div>
         <div class="w-full md:w-2/2 px-3 mb-6">
@@ -113,6 +114,7 @@
           </label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                  type="text"
+                 v-model="form.localisation"
           >
         </div>
         <div class="w-full md:w-2/2 px-3 mb-2">
@@ -466,7 +468,7 @@
       getCompetence: function () {
         axios
                 .get(BaseUrl + 'competences')
-                .then(res => (this.competences = res.data))
+                .then(res => (this.competences = res.data['hydra:member']))
       },
     }
   }

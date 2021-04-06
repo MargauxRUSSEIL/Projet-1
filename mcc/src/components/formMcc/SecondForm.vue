@@ -43,10 +43,11 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Niveau
                     </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                           v-model="form.niveau"
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.niveau"
                     >
+                        <option v-for="item in niveaux" v-bind:key="item">{{ item }}</option>
+                    </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -58,11 +59,10 @@
                     >
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="ue">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         UE
                     </label>
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            id="ue"
                             v-model="form.UE"
                     >
                         <option v-for="item in ues" v-bind:key="item">{{ item }}</option>
@@ -75,9 +75,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.typeDiplome"
                     >
-                        <option value="licence">Licence</option>
-                        <option value="master">Master</option>
-                        <option value="licencepro">Licence Pro</option>
+                        <option v-for="item in diplome" v-bind:key="item">{{ item }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -111,6 +109,7 @@
                 parcoursform: '',
                 niveaux: '',
                 ues: '',
+                diplome: '',
                 form: {
                     departement: '',
                     site: '',
@@ -121,7 +120,6 @@
                     parcours: '',
                     niveau: '',
                     mention: '',
-                    uE: ''
                 }
             }
         },
@@ -130,6 +128,7 @@
             this.getParcours()
             this.getNiveaux()
             this.getUE()
+            this.getTypeDiplome()
         },
         methods: {
             submit: function () {
@@ -142,22 +141,27 @@
             getMentions: function () {
                 axios
                     .get(BaseUrl + 'mentions')
-                    .then(res => (this.mentions = res.data))
+                    .then(res => (this.mentions = res.data['hydra:member']))
             },
             getParcours: function () {
                 axios
                     .get(BaseUrl + 'parcours')
-                    .then(res => (this.parcoursform = res.data))
+                    .then(res => (this.parcoursform = res.data['hydra:member']))
             },
             getNiveaux: function () {
                 axios
                     .get(BaseUrl + 'niveaux')
-                    .then(res => (this.niveaux = res.data))
+                    .then(res => (this.niveaux = res.data['hydra:member']))
             },
             getUE: function () {
                 axios
                     .get(BaseUrl + 'u_es')
-                    .then(res => (this.ues = res.data))
+                    .then(res => (this.ues = res.data['hydra:member']))
+            },
+            getTypeDiplome: function () {
+                axios
+                    .get(BaseUrl + 'type_diplomes')
+                    .then(res => (this.diplome = res.data['hydra:member']))
             }
         }
     }

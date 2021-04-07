@@ -7,6 +7,14 @@ import MentionTable from "../components/table/MentionTable";
 import NiveauTable from "../components/table/NiveauTable";
 import SemestreTable from "../components/table/SemestreTable";
 import CompetenceForm from "../components/form/CompetenceForm";
+import UETable from "../components/table/UETable";
+import UEForm from "../components/form/UEForm";
+import SemestreForm from "../components/form/SemestreForm";
+import DomaineForm from "../components/form/DomaineForm";
+import DiplomeEtablissementForm from "../components/form/DiplomeEtablissementForm";
+import FormationNonDiplomanteForm from "../components/form/FormationNonDiplomanteForm";
+import MentionForm from "../components/form/MentionForm";
+import NiveauForm from "../components/form/NiveauForm";
 
 const routes = [
   {
@@ -15,8 +23,8 @@ const routes = [
     component: CompetenceTable
   },
   {
-    path: '/newcompetence',
-    name: 'NewCompetence',
+    path: '/newCompetence',
+    name: 'newCompetence',
     component: CompetenceForm
   },
   {
@@ -25,9 +33,19 @@ const routes = [
     component: DomaineTable
   },
   {
+    path: '/newDomaine',
+    name: 'newDomaine',
+    component: DomaineForm
+  },
+  {
     path: '/diplome',
     name: 'Diplome',
     component: DiplomeEtablissementTable
+  },
+  {
+    path: '/newDiplome',
+    name: 'newDiplome',
+    component: DiplomeEtablissementForm
   },
   {
     path: '/formation',
@@ -35,9 +53,19 @@ const routes = [
     component: FormationNonDiplomanteTable
   },
   {
+    path: '/newFormation',
+    name: 'newFormation',
+    component: FormationNonDiplomanteForm
+  },
+  {
     path: '/mention',
     name: 'Mention',
     component: MentionTable
+  },
+  {
+    path: '/newMention',
+    name: 'newMention',
+    component: MentionForm
   },
   {
     path: '/niveau',
@@ -45,11 +73,30 @@ const routes = [
     component: NiveauTable
   },
   {
+    path: '/newNiveau',
+    name: 'newNiveau',
+    component: NiveauForm
+  },
+  {
     path: '/semestre',
     name: 'Semestre',
     component: SemestreTable
   },
-
+  {
+    path: '/newsemestre',
+    name: 'newSemestre',
+    component: SemestreForm
+  },
+  {
+    path: '/ue',
+    name: 'UE',
+    component: UETable
+  },
+  {
+    path: '/newUE',
+    name: 'newUE',
+    component: UEForm
+  },
 ]
 
 const router = createRouter({

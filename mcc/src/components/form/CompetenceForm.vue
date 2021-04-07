@@ -64,7 +64,6 @@
         name: "CompetenceForm",
         data() {
             return {
-                libelleDomaine: '',
                 form: {
                     blocs: '',
                     seuilBlocs: '',

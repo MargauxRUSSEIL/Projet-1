@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link to="/newMention">
+                            <router-link to="/newUE">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -24,21 +24,19 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé mention</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Liste des domaines associés</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé UE</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in mention" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleMention }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.domaine }}</td>
+                    <tr v-for="item in ue" :key="item">
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleUE }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifMention(item.id)">Modifier</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifUE(item.id)">Modifier</button>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteMention(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteUE(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -50,32 +48,33 @@
 </template>
 
 <script>
+
     import axios from "axios";
 
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: "MentionTable",
+        name: "UETable",
         data () {
             return {
-                mention: []
+                ue: []
             }
         },
         mounted() {
-            this.getMention()
+            this.getUE()
         },
         methods: {
-            getMention: function () {
+            getUE: function () {
                 axios
-                    .get(BaseUrl + 'mentions')
-                    .then(res => (this.mention = res.data['hydra:member']))
+                    .get(BaseUrl + 'u_es')
+                    .then(res => (this.ue = res.data['hydra:member']))
             },
-            deleteMention: function (id) {
+            deleteUE: function (id) {
                 axios
-                    .delete(BaseUrl + 'mentions/' + id)
-                    .then(() => { this.getMention() })
+                    .delete(BaseUrl + 'u_es/' + id)
+                    .then(() => { this.getUE() })
             },
-            modifMention: function () {
+            modifUE: function () {
 
             }
         }

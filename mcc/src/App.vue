@@ -6,7 +6,8 @@
     <router-link to="/formation">Formation non diplomante</router-link> |
     <router-link to="/mention">Mention</router-link> |
     <router-link to="/niveau">Niveau</router-link> |
-    <router-link to="/semestre">Semestre</router-link>
+    <router-link to="/semestre">Semestre</router-link> |
+    <router-link to="/ue">UE</router-link>
   </div>
   <router-view/>
 </template>

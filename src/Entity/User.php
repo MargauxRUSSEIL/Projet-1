@@ -48,11 +48,6 @@ class User
     private $actif;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Workflow::class, inversedBy="users")
-     */
-    private $workflow;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adjoint2;
@@ -67,9 +62,15 @@ class User
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Workflow::class, mappedBy="users")
+     */
+    private $workflows;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->workflows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,18 +138,6 @@ class User
         return $this;
     }
 
-    public function getWorkflow(): ?Workflow
-    {
-        return $this->workflow;
-    }
-
-    public function setWorkflow(?Workflow $workflow): self
-    {
-        $this->workflow = $workflow;
-
-        return $this;
-    }
-
     public function getAdjoint2(): ?string
     {
         return $this->adjoint2;
@@ -193,6 +182,33 @@ class User
     public function removeRole(Roles $role): self
     {
         $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Workflow[]
+     */
+    public function getWorkflows(): Collection
+    {
+        return $this->workflows;
+    }
+
+    public function addWorkflow(Workflow $workflow): self
+    {
+        if (!$this->workflows->contains($workflow)) {
+            $this->workflows[] = $workflow;
+            $workflow->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkflow(Workflow $workflow): self
+    {
+        if ($this->workflows->removeElement($workflow)) {
+            $workflow->removeUser($this);
+        }
 
         return $this;
     }

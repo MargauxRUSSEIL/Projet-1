@@ -15,18 +15,12 @@ import DiplomeEtablissementForm from "../components/form/DiplomeEtablissementFor
 import FormationNonDiplomanteForm from "../components/form/FormationNonDiplomanteForm";
 import MentionForm from "../components/form/MentionForm";
 import NiveauForm from "../components/form/NiveauForm";
+import CompetenceUpdate from "../components/update/CompetenceUpdate";
 
 const routes = [
-  {
-    path: '/',
-    name: 'Competence',
-    component: CompetenceTable
-  },
-  {
-    path: '/newCompetence',
-    name: 'newCompetence',
-    component: CompetenceForm
-  },
+  { path: '/', name: 'Competence', component: CompetenceTable },
+  { path: '/newCompetence', name: 'newCompetence', component: CompetenceForm },
+  { path: '/updateCompetence/:id', name: 'updateCompetence', component: CompetenceUpdate },
   {
     path: '/domaine',
     name: 'Domaine',

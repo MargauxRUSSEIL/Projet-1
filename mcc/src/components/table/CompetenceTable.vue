@@ -49,7 +49,9 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.seuil}}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifCompetence(item.id)">Modifier</button>
+                                <router-link :to="{ name: 'updateCompetence', params: { id: item.id }}">
+                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifCompetence(item.id)">Modifier</button>
+                                </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
                                 <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteCompetence(item.id)">Supprimer</button>

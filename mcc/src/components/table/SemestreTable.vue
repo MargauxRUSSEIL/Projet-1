@@ -2,14 +2,20 @@
     <div class="container w-auto">
         <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
             <div class="flex flex-wrap ">
-                <div class="w-full md:w-1/4 px-3">
-                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
-                </div>
-                <div class="w-full md:w-1/4 px-3 mb-6">
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="search"
-                           placeholder="Rechercher"
-                    >
+                <div class="grid grid-cols-6 w-full gap-2">
+                    <div class="col-start-1 col-end-3 ...">
+                        <div class="w-full px-3">
+                            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                        </div>
+                    </div>
+                    <div class="col-end-7 col-span-2 ...">
+                        <div class="w-full px-3 mb-6">
+                            <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                                   type="search"
+                                   placeholder="Rechercher"
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">

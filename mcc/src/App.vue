@@ -1,60 +1,28 @@
 <template>
-  <Header/>
-  <Formulaire/>
-  <SecondForm/>
-  <DomaineForm/>
-  <NiveauForm/>
-  <MentionForm/>
-  <SemestreForm/>
-  <CompetenceForm/>
-  <DiplomeEtablissementForm/>
-  <FormationNonDiplomanteForm/>
-  <CompetenceTable/>
-  <DomaineTable/>
-  <DiplomeEtablissementTable/>
-  <FormationNonDiplomanteTable/>
-  <MentionTable/>
-  <NiveauTable/>
-  <SemestreTable/>
+  <div id="nav">
+    <router-link to="/">Competence</router-link> |
+    <router-link to="/diplome">Diplome</router-link> |
+    <router-link to="/domaine">Domaine</router-link> |
+    <router-link to="/formation">Formation non diplomante</router-link> |
+    <router-link to="/mention">Mention</router-link> |
+    <router-link to="/niveau">Niveau</router-link> |
+    <router-link to="/semestre">Semestre</router-link>
+  </div>
+  <router-view/>
 </template>
-
-<script>
-  import DomaineForm from "./components/form/DomaineForm";
-  import NiveauForm from "./components/form/NiveauForm";
-  import MentionForm from "./components/form/MentionForm";
-  import SemestreForm from "./components/form/SemestreForm";
-  import CompetenceForm from "./components/form/CompetenceForm";
-  import DiplomeEtablissementForm from "./components/form/DiplomeEtablissementForm";
-  import FormationNonDiplomanteForm from "./components/form/FormationNonDiplomanteForm";
-  import CompetenceTable from "./components/table/CompetenceTable";
-  import DomaineTable from "./components/table/DomaineTable";
-  import DiplomeEtablissementTable from "./components/table/DiplomeEtablissementTable";
-  import FormationNonDiplomanteTable from "./components/table/FormationNonDiplomanteTable";
-  import MentionTable from "./components/table/MentionTable";
-  import NiveauTable from "./components/table/NiveauTable";
-  import SemestreTable from "./components/table/SemestreTable";
-
-  export default {
-    name: 'App',
-    components: {
-      SemestreTable,
-      NiveauTable,
-      MentionTable,
-      FormationNonDiplomanteTable,
-      DiplomeEtablissementTable,
-      DomaineTable,
-      CompetenceTable,
-      FormationNonDiplomanteForm,
-      DiplomeEtablissementForm,
-      CompetenceForm,
-      SemestreForm,
-      MentionForm,
-      NiveauForm,
-      DomaineForm
-    }
-  }
-</script>
 
 <style>
 
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
 </style>

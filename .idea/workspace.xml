@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/mcc/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/CompetenceTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/CompetenceTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/DiplomeEtablissementTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/DiplomeEtablissementTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/DomaineTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/DomaineTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/FormationNonDiplomanteTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/FormationNonDiplomanteTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/NiveauTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/NiveauTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/SemestreTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/SemestreTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1qplJZyc41bOFfYYovsXATaA0C7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="" />
+      <created>1617784341071</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617784341071</updated>
+      <workItem from="1617784345939" duration="10000" />
+    </task>
+    <servers />
+  </component>
+</project>

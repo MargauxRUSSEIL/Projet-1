@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link to="/newFormation">
+                            <router-link :to="{ name: 'newFormation'}">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -35,7 +35,9 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.nbAnneeFormation }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifFormationNonDiplomante(item.id)">Modifier</button>
+                                <router-link :to="{ name: 'updateFormation', params: { id: item.id }}">
+                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
+                                </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
                                 <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteFormationNonDiplomante(item.id)">Supprimer</button>
@@ -74,9 +76,6 @@
                 axios
                     .delete(BaseUrl + 'formation_non_diplomantes/' + id)
                     .then(() => { this.getFormationNonDiplomante() })
-            },
-            modifFormationNonDiplomante: function () {
-
             }
         }
     }

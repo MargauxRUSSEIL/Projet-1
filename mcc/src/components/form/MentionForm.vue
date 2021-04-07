@@ -50,11 +50,13 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl+ 'mentions', this.form)
+                axios.post( BaseUrl + 'mentions', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
                     }.bind(this));
+
+                this.$router.push({ name: 'Mention' })
             },
             getLibelleDomaine: function () {
                 axios

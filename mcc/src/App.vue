@@ -1,6 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">Competence</router-link> |
+    <router-link to="/">MCC</router-link> |
+    <router-link to="/parcours">Parcours</router-link> |
+    <router-link to="/competence">Competence</router-link> |
     <router-link to="/diplome">Diplome</router-link> |
     <router-link to="/domaine">Domaine</router-link> |
     <router-link to="/formation">Formation non diplomante</router-link> |

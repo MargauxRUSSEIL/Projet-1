@@ -46,11 +46,13 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl+ 'semestres', this.form)
+                axios.post( BaseUrl + 'semestres', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
                     }.bind(this));
+
+                this.$router.push({ name: 'Semestre' })
             }
         }
     }

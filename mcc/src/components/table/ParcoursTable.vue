@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link :to="{ name: 'newCompetence' }">
+                            <router-link :to="{ name: 'newParcours' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -24,16 +24,20 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bloc</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seuil Bloc</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ECTS</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coefficient</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seuil</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé de la formation</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Structure prolonge</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé niveau</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Structure basse</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Commentaire</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Intitulé du parcours</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé du parcours</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Second vet</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in competence" :key="item">
+                    <tr v-for="item in parcours" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.blocs }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.seuilBlocs }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -49,12 +53,12 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.seuil}}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'updateCompetence', params: { id: item.id }}">
+                                <router-link :to="{ name: 'updateParcours', params: { id: item.id }}">
                                     <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                                 </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteCompetence(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteParcours(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -71,25 +75,25 @@
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: "CompetenceTable",
+        name: "ParcoursTable",
         data () {
             return {
-                competence: []
+                parcours: []
             }
         },
         mounted() {
-            this.getCompetence()
+            this.getParcours()
         },
         methods: {
-            getCompetence: function () {
+            getParcours: function () {
                 axios
-                    .get(BaseUrl + 'competences')
-                    .then(res => (this.competence = res.data['hydra:member']))
+                    .get(BaseUrl + 'parcours')
+                    .then(res => (this.parcours = res.data['hydra:member']))
             },
-            deleteCompetence: function (id) {
+            deleteParcours: function (id) {
                 axios
-                    .delete(BaseUrl + 'competences/' + id)
-                    .then(() => { this.getCompetence() })
+                    .delete(BaseUrl + 'parcours/' + id)
+                    .then(() => { this.getParcours() })
             }
         }
     }

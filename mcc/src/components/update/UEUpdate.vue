@@ -4,20 +4,11 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé certificat
+                        Libellé UE
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleCertificat"
-                    >
-                </div>
-                <div class="w-full px-3 mb-6 md:mb-4">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Nombre année de la formation
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="number"
-                           v-model="form.nbAnneeFormation"
+                           v-model="form.libelleUE"
                     >
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -34,25 +25,25 @@
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: "FormationNonDiplomanteForm",
+        name: "UEUpdate",
         data() {
             return {
-                libelleDomaine: '',
                 form: {
-                    libelleCertificat: '',
-                    nbAnneeFormation: '',
+                    libelleUE: '',
                 }
             }
         },
         methods: {
-            submit: function () {
-                axios.post( BaseUrl + 'formation_non_diplomantes', this.form)
+            submit: function (id) {
+                id = this.$route.params.id;
+
+                axios.put( BaseUrl + 'u_es/' + id, this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
-                    }.bind(this));
+                    }.bind(this))
 
-                this.$router.push({ name: 'Formation' })
+                this.$router.push({ name: 'UE' })
             }
         }
     }

@@ -34,7 +34,7 @@
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: "FormationNonDiplomanteForm",
+        name: "FormationNonDiplomanteUpdate",
         data() {
             return {
                 libelleDomaine: '',
@@ -45,8 +45,10 @@
             }
         },
         methods: {
-            submit: function () {
-                axios.post( BaseUrl + 'formation_non_diplomantes', this.form)
+            submit: function (id) {
+                id = this.$route.params.id;
+
+                axios.put( BaseUrl + 'formation_non_diplomantes/' + id, this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success

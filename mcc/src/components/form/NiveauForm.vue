@@ -35,11 +35,13 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl+ 'niveaux', this.form)
+                axios.post( BaseUrl + 'niveaux', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
-                    }.bind(this));
+                    }.bind(this))
+
+                this.$router.push({ name: 'Niveau' })
             }
         }
     }

@@ -46,7 +46,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.niveau"
                     >
-                        <option v-for="item in niveaux" v-bind:key="item">{{ item }}</option>
+                        <option v-for="item in niveaux" v-bind:key="item">{{ item.libelleNiveau }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -65,7 +65,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.UE"
                     >
-                        <option v-for="item in ues" v-bind:key="item">{{ item }}</option>
+                        <option v-for="item in ues" v-bind:key="item">{{ item.libelleUE }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -75,7 +75,9 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.typeDiplome"
                     >
-                        <option v-for="item in diplome" v-bind:key="item">{{ item }}</option>
+                        <option value="licence">Licence</option>
+                        <option value="master">Master</option>
+                        <option value="licencepro">Licence Pro</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -109,7 +111,6 @@
                 parcoursform: '',
                 niveaux: '',
                 ues: '',
-                diplome: '',
                 form: {
                     departement: '',
                     site: '',
@@ -128,7 +129,6 @@
             this.getParcours()
             this.getNiveaux()
             this.getUE()
-            this.getTypeDiplome()
         },
         methods: {
             submit: function () {
@@ -136,7 +136,9 @@
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
-                    }.bind(this));
+                    }.bind(this))
+
+                this.$router.push({ name: 'MCC'})
             },
             getMentions: function () {
                 axios
@@ -157,11 +159,6 @@
                 axios
                     .get(BaseUrl + 'u_es')
                     .then(res => (this.ues = res.data['hydra:member']))
-            },
-            getTypeDiplome: function () {
-                axios
-                    .get(BaseUrl + 'type_diplomes')
-                    .then(res => (this.diplome = res.data['hydra:member']))
             }
         }
     }

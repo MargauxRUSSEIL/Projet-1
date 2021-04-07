@@ -61,42 +61,35 @@
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: "CompetenceUpdate",
+        name: "ParcoursForm",
         data() {
             return {
-                competences: null,
                 form: {
-                    blocs: '',
-                    seuilBlocs: '',
-                    ECT: '',
-                    COEFF: '',
-                    seuil: '',
+                    structureProlongee: '',
+                    structureBasse: '',
+                    contact: '',
+                    commentaire: '',
+                    createdAt: '',
+                    updatedAt: '',
+                    semestre: [],
+                    libelleParcours: '',
+                    libelleParcoursApogee: '',
+                    secondVET: '',
+                    annuOuSemest: '',
+                    formation: '',
+                    mCC: ''
                 }
             }
         },
-        mounted() {
-            this.getCompetenceByID()
-        },
         methods: {
-            submit: function (id) {
-                id = this.$route.params.id;
-
-                axios.put( BaseUrl+ 'competences/' + id, this.form)
+            submit: function () {
+                axios.post( BaseUrl+ 'parcours', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
                     }.bind(this));
 
-                this.$router.push({ name: 'Competence' })
-            },
-            getCompetenceByID: function (id) {
-                id = this.$route.params.id;
-
-                axios
-                    .get(BaseUrl + 'competences/' + id )
-                    .then(response => {
-                        this.competences = response.data['hydra:member']
-                    })
+                this.$router.push({ name: 'Parcours'})
             }
         }
     }

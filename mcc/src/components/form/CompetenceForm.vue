@@ -80,6 +80,8 @@
                     .then(function( response ){
                         // Handle success
                     }.bind(this));
+
+                this.$router.push({ name: 'Competence'})
             }
         }
     }

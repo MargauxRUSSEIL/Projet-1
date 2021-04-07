@@ -70,7 +70,7 @@ class User
     public function __construct()
     {
         $this->roles = new ArrayCollection();
-        $this->workflows = new ArrayCollection();
+        //$this->workflows = new ArrayCollection();
     }
 
     public function getId(): ?int

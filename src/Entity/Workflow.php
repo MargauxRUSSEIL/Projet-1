@@ -68,8 +68,9 @@ class Workflow
 
     public function __construct()
     {
-        $this->formation = new ArrayCollection();
+        //$this->formation = new ArrayCollection();
         $this->etapes = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,4 +233,5 @@ class Workflow
 
         return $this;
     }
+
 }

@@ -27,7 +27,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.mention"
                     >
-                        <option v-for="item in mentions" v-bind:key="item">{{ item }}</option>
+                        <option v-for="item in mentions" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleMention }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -46,7 +46,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.niveau"
                     >
-                        <option v-for="item in niveaux" v-bind:key="item">{{ item.libelleNiveau }}</option>
+                        <option v-for="item in niveaux" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleNiveau }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -63,9 +63,9 @@
                         UE
                     </label>
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.UE"
+                            v-model="form.UE[0]"
                     >
-                        <option v-for="item in ues" v-bind:key="item">{{ item.libelleUE }}</option>
+                        <option v-for="item in ues" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleUE }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -87,7 +87,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.parcours"
                     >
-                        <option v-for="item in parcoursform" v-bind:key="item">{{ item }}</option>
+                        <option v-for="item in parcoursform" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleParcours }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -114,7 +114,11 @@
                     site: '',
                     annee: '',
                     contact: '',
+                    UE: [],
                     typeDiplome: '',
+                    parcours: '',
+                    niveau: '',
+                    mention: ''
                 }
             }
         },
@@ -133,7 +137,7 @@
                         // Handle success
                     }.bind(this))
 
-                this.$router.push({ name: 'MCC'})
+                this.$router.push({ name: 'MCC' })
             },
             getMentions: function () {
                 http

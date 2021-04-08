@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchSemestre"
                             >
                         </div>
                     </div>
@@ -30,7 +31,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in semestre" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.codeSemestre }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -52,14 +53,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "SemestreTable",
         data () {
             return {
+                searchSemestre: '',
                 semestre: []
             }
         },
@@ -68,14 +68,30 @@
         },
         methods: {
             getSemestre: function () {
-                axios
-                    .get(BaseUrl + 'semestres')
+                http
+                    .get('semestres')
                     .then(res => (this.semestre = res.data['hydra:member']))
             },
             deleteSemestre: function (id) {
-                axios
-                    .delete(BaseUrl + 'semestres/' + id)
+                http
+                    .delete('semestres/' + id)
                     .then(() => { this.getSemestre() })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.semestre;
+                const searchSemestre = this.searchSemestre;
+
+                if (!searchSemestre) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelle.toLowerCase().indexOf(searchSemestre) !== -1 || item.libelle.toUpperCase().indexOf(searchSemestre) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

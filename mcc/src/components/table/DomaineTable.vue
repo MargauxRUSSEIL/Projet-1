@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchDomaine"
                             >
                         </div>
                     </div>
@@ -29,7 +30,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in domaine" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleDomaine }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
@@ -56,6 +57,7 @@
         name: "DomaineTable",
         data () {
             return {
+                searchDomaine: '',
                 domaine: []
             }
         },
@@ -72,6 +74,22 @@
                 http
                     .delete( 'domaines/' + id)
                     .then(() => { this.getDomaine() })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.domaine;
+                const searchDomaine = this.searchDomaine;
+
+                if (!searchDomaine) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelleDomaine.toLowerCase().indexOf(searchDomaine) !== -1 || item.libelleDomaine.toUpperCase().indexOf(searchDomaine) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

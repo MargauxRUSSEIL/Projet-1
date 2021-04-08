@@ -15,32 +15,37 @@ Il faut avoir installé sur votre machine :
 
 ### Récupérer le projet
 
-Après avoir clone le projet, lancez la commande 
+Après avoir clone le projet et avoir pull la dernière version de la branche *main*, lancez les commandes 
 
 ```
+cd Projet-1
 composer install
 ```
 
 afin de générer un dossier /vendor. 
 
+Dans le cas où vous avez déjà un /vendor dans /Projet-1, faites simplement un
+```
+composer update
+```
+
 Après avoir lancé votre serveur, sur phpmyadmin :
 * Créez une base de donnée que vous appelez *api_cy*, au format *utf8_general_ci*
-* Insérer le fichier *api_cy.sql* dans la base de donnée
+* Insérer le fichier *api_cy.sql*, (présent dans /db), dans la base de donnée
 
 ## Lancer le projet
 
 Créez un fichier **.env.local** dans lequel vous mettez vos informations de connexion à la base de donnée :
 
 ```
-DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/api_cy?serverVersion=5.7
 ```
-*Remplacez db_user par le nom d'utilisateur de base de données, db_password par son mot de passe et db_name par le nom de la base de données (api_cy). Pensez aussi à mettre à jour votre port et votre version de serveur.*
+*Remplacez db_user par le nom d'utilisateur de base de données, db_password par son mot de passe. Concervez bien api_cy en nom de base de données. Pensez aussi à mettre à jour votre port et votre version de serveur.*
 
 Rendez-vous sur le répertoire du projet, lancez le serveur symfony :
 
 ```
-cd Projet-1
-symfony server:start
+symfony server:start ou php -S localhost:8000 -t public/
 ```
 
 Les requêtes sur les différentes tables de la base de donnée sont ensuite accessibles ici : [https://127.0.0.1:8000/api/](https://127.0.0.1:8000/api/)

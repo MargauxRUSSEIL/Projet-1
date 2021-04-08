@@ -2,5 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/tailwind.css'
 import VueCollapsiblePanel from '@dafcoe/vue-collapsible-panel'
-const app = createApp(App)
+import router from './router'
+const app = createApp(App).use(router).use(router)
 app.use(VueCollapsiblePanel).mount('#app')

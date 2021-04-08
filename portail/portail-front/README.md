@@ -16,5 +16,5 @@ npm run serve
 
 ### packages installés 
 ```
-vue-router, vuex, chakra-ui/vue, sass-loader
+vue-router, vuex, chakra-ui/vue, sass-loader, tailwind, axios
 ``` 

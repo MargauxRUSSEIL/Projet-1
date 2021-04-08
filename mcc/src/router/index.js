@@ -27,16 +27,16 @@ import ParcoursTable from "../components/table/ParcoursTable";
 import MCCTable from "../components/MCC/MCCTable";
 import MCCForm from "../components/MCC/MCCForm";
 import ParcoursForm from "../components/form/ParcoursForm";
+import MCCUpdate from "../components/MCC/MCCUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
   { path: '/newMCC', name: 'newMCC', component: MCCForm },
-  { path: '/updateMCC', name: 'updateMCC', component: CompetenceTable },
+  { path: '/updateMCC', name: 'updateMCC', component: MCCUpdate },
 
   { path: '/parcours', name: 'Parcours', component: ParcoursTable },
   { path: '/newParcours', name: 'newParcours', component: ParcoursForm },
   { path: '/updateParcours', name: 'updateParcours', component: CompetenceTable },
-
 
   { path: '/competence', name: 'Competence', component: CompetenceTable },
   { path: '/newCompetence', name: 'newCompetence', component: CompetenceForm },

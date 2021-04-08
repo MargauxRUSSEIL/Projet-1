@@ -56,9 +56,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "CompetenceForm",
@@ -75,11 +73,8 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl+ 'competences', this.form)
-                    // eslint-disable-next-line no-unused-vars
-                    .then(function( response ){
-                        // Handle success
-                    }.bind(this));
+                http
+                    .post( 'competences', this.form)
 
                 this.$router.push({ name: 'Competence'})
             }

@@ -29,10 +29,7 @@
 </template>
 
 <script>
-
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "DiplomeEtablissementUpdate",
@@ -49,7 +46,8 @@
             submit: function (id) {
                 id = this.$route.params.id;
 
-                axios.put( BaseUrl+ 'diplome_etablissements/' + id, this.form)
+                http
+                    .put( 'diplome_etablissements/' + id, this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success

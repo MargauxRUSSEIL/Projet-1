@@ -99,7 +99,7 @@
     import http from "../../http-common"
 
     export default {
-        name: "ParcoursForm",
+        name: "ParcoursUpdate",
         data() {
             return {
                 formations: '',
@@ -120,9 +120,9 @@
             this.getFormations()
         },
         methods: {
-            submit: function () {
+            submit: function (id) {
                 http
-                    .post( 'parcours', this.form)
+                    .put( 'parcours/' + id , this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success

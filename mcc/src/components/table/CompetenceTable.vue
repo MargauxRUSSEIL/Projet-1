@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchCompetence"
                             >
                         </div>
                     </div>
@@ -33,7 +34,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in competence" :key="item">
+                    <tr v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.blocs }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.seuilBlocs }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -66,14 +67,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common.js";
 
     export default {
         name: "CompetenceTable",
-        data () {
+        data() {
             return {
+                searchCompetence: '',
                 competence: []
             }
         },
@@ -82,14 +82,32 @@
         },
         methods: {
             getCompetence: function () {
-                axios
-                    .get(BaseUrl + 'competences')
+                http
+                    .get('competences')
                     .then(res => (this.competence = res.data['hydra:member']))
             },
             deleteCompetence: function (id) {
-                axios
-                    .delete(BaseUrl + 'competences/' + id)
-                    .then(() => { this.getCompetence() })
+                http
+                    .delete('competences/' + id)
+                    .then(() => {
+                        this.getCompetence()
+                    })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.competence;
+                const searchCompetence = this.searchCompetence;
+
+                if (!searchCompetence) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.blocs.toLowerCase().indexOf(searchCompetence) !== -1 || item.blocs.toUpperCase().indexOf(searchCompetence) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

@@ -52,9 +52,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "DiplomeEtablissementTable",
@@ -68,13 +66,13 @@
         },
         methods: {
             getDiplome: function () {
-                axios
-                    .get(BaseUrl + 'diplome_etablissements')
+                http
+                    .get('diplome_etablissements')
                     .then(res => (this.diplome = res.data['hydra:member']))
             },
             deleteDiplome: function (id) {
-                axios
-                    .delete(BaseUrl + 'diplome_etablissements/' + id)
+                http
+                    .delete('diplome_etablissements/' + id)
                     .then(() => { this.getDiplome() })
             }
         }

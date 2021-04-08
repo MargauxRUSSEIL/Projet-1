@@ -102,7 +102,7 @@
     import http from "../../http-common"
 
     export default {
-        name: 'MCCForm',
+        name: "MCCUpdate",
         data() {
             return {
                 mentions: '',
@@ -114,7 +114,11 @@
                     site: '',
                     annee: '',
                     contact: '',
+                    UE: '',
                     typeDiplome: '',
+                    parcours: '',
+                    niveau: '',
+                    mention: '',
                 }
             }
         },
@@ -125,9 +129,11 @@
             this.getUE()
         },
         methods: {
-            submit: function () {
+            submit: function (id) {
+                id = this.$route.params.id;
+
                 http
-                    .post( 'm_c_cs', this.form)
+                    .put( 'm_c_cs/' + id, this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success

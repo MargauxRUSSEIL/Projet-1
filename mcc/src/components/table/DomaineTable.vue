@@ -50,9 +50,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "DomaineTable",
@@ -66,13 +64,13 @@
         },
         methods: {
             getDomaine: function () {
-                axios
-                    .get(BaseUrl + 'domaines')
+                http
+                    .get('domaines')
                     .then(res => (this.domaine = res.data['hydra:member']))
             },
             deleteDomaine: function (id) {
-                axios
-                    .delete(BaseUrl + 'domaines/' + id)
+                http
+                    .delete( 'domaines/' + id)
                     .then(() => { this.getDomaine() })
             }
         }

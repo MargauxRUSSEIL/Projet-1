@@ -62,9 +62,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "MCCTable",
@@ -78,13 +76,13 @@
         },
         methods: {
             getMCC: function () {
-                axios
-                    .get(BaseUrl + 'm_c_cs')
+                http
+                    .get('m_c_cs')
                     .then(res => (this.mcc = res.data['hydra:member']))
             },
             deleteMCC: function (id) {
-                axios
-                    .delete(BaseUrl + 'm_c_cs/' + id)
+                http
+                    .delete('m_c_cs/' + id)
                     .then(() => { this.getMCC() })
             }
         }

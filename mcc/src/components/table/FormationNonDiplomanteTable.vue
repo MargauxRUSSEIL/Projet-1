@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchfnonDiplomante"
                             >
                         </div>
                     </div>
@@ -30,7 +31,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in fnonDiplomante" :key="item">
+                    <tr v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleCertificat }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.nbAnneeFormation }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -52,14 +53,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "FormationNonDiplomanteTable",
         data () {
             return {
+                searchfnonDiplomante: '',
                 fnonDiplomante: []
             }
         },
@@ -68,14 +68,30 @@
         },
         methods: {
             getFormationNonDiplomante: function () {
-                axios
-                    .get(BaseUrl + 'formation_non_diplomantes')
+                http
+                    .get('formation_non_diplomantes')
                     .then(res => (this.fnonDiplomante = res.data['hydra:member']))
             },
             deleteFormationNonDiplomante: function (id) {
-                axios
-                    .delete(BaseUrl + 'formation_non_diplomantes/' + id)
+                http
+                    .delete('formation_non_diplomantes/' + id)
                     .then(() => { this.getFormationNonDiplomante() })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.fnonDiplomante;
+                const searchfnonDiplomante = this.searchfnonDiplomante;
+
+                if (!searchfnonDiplomante) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelleCertificat.toLowerCase().indexOf(searchfnonDiplomante) !== -1 || item.libelleCertificat.toUpperCase().indexOf(searchfnonDiplomante) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

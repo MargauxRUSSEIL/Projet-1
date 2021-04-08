@@ -56,9 +56,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "CompetenceUpdate",
@@ -80,8 +78,8 @@
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
-
-                axios.put( BaseUrl+ 'competences/' + id, this.form)
+                http
+                    .put( 'competences/' + id, this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
@@ -92,8 +90,8 @@
             getCompetenceByID: function (id) {
                 id = this.$route.params.id;
 
-                axios
-                    .get(BaseUrl + 'competences/' + id )
+                http
+                    .get('competences/' + id )
                     .then(response => {
                         this.competences = response.data['hydra:member']
                     })

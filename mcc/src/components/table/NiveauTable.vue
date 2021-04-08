@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchNiveau"
                             >
                         </div>
                     </div>
@@ -29,7 +30,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in niveau" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleNiveau }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
@@ -50,14 +51,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+  import http from "../../http-common"
 
     export default {
         name: "NiveauTable",
         data () {
             return {
+                searchNiveau: '',
                 niveau: []
             }
         },
@@ -66,14 +66,30 @@
         },
         methods: {
             getNiveau: function () {
-                axios
-                    .get(BaseUrl + 'niveaux')
+                http
+                    .get('niveaux')
                     .then(res => (this.niveau = res.data['hydra:member']))
             },
             deleteNiveau: function (id) {
-                axios
-                    .delete(BaseUrl + 'niveaux/' + id)
+                http
+                    .delete('niveaux/' + id)
                     .then(() => { this.getNiveau() })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.niveau;
+                const searchNiveau = this.searchNiveau;
+
+                if (!searchNiveau) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelleNiveau.toLowerCase().indexOf(searchNiveau) !== -1 || item.libelleNiveau.toUpperCase().indexOf(searchNiveau) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

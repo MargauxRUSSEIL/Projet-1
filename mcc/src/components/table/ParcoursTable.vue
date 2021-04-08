@@ -1,6 +1,6 @@
 <template>
     <div class="container w-auto">
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-20 lg:mx-20">
             <div class="flex flex-wrap ">
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchParcours"
                             >
                         </div>
                     </div>
@@ -26,7 +27,6 @@
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé formation</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Structure prolonge</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé niveau</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Structure basse</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Commentaire</th>
@@ -37,20 +37,16 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in parcours" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.blocs }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.seuilBlocs }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                            {{ item.ECT }}
-                        </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                            {{ item.COEFF }}
-                        </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.seuil}}</td>
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.formation }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.structureProlongee }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.structureBasse }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.contact }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.commentaire }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleParcours }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleParcoursApogee }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.secondVET }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.annuOuSemest }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateParcours', params: { id: item.id }}">
@@ -70,14 +66,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+ import http from "../../http-common"
 
     export default {
         name: "ParcoursTable",
         data () {
             return {
+                searchParcours: '',
                 parcours: []
             }
         },
@@ -86,14 +81,30 @@
         },
         methods: {
             getParcours: function () {
-                axios
-                    .get(BaseUrl + 'parcours')
+                http
+                    .get('parcours')
                     .then(res => (this.parcours = res.data['hydra:member']))
             },
             deleteParcours: function (id) {
-                axios
-                    .delete(BaseUrl + 'parcours/' + id)
+                http
+                    .delete( 'parcours/' + id)
                     .then(() => { this.getParcours() })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.parcours;
+                const searchParcours = this.searchParcours;
+
+                if (!searchParcours) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelleParcours.toLowerCase().indexOf(searchParcours) !== -1 || item.libelleParcours.toUpperCase().indexOf(searchParcours) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

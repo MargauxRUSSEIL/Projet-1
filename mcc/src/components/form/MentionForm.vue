@@ -18,7 +18,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.domaine"
                     >
-                        <option v-for="item in libelleDomaine" v-bind:key="item">{{ item.libelleDomaine }}</option>
+                        <option v-for="item in libelleDomaines" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleDomaine }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -30,15 +30,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "MentionForm",
         data() {
             return {
-                libelleDomaine: '',
+                libelleDomaines: '',
                 form: {
                     domaine: '',
                     libelleMention: ''
@@ -50,7 +48,8 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl + 'mentions', this.form)
+                http
+                    .post( 'mentions', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
@@ -59,9 +58,9 @@
                 this.$router.push({ name: 'Mention' })
             },
             getLibelleDomaine: function () {
-                axios
-                    .get(BaseUrl + 'domaines')
-                    .then(res => (this.libelleDomaine = res.data['hydra:member']))
+                http
+                    .get('domaines')
+                    .then(res => (this.libelleDomaines = res.data['hydra:member']))
             }
         }
     }

@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchUE"
                             >
                         </div>
                     </div>
@@ -29,7 +30,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in ue" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleUE }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
@@ -51,14 +52,13 @@
 
 <script>
 
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+import http from "../../http-common"
 
     export default {
         name: "UETable",
         data () {
             return {
+                searchUE: '',
                 ue: []
             }
         },
@@ -67,14 +67,30 @@
         },
         methods: {
             getUE: function () {
-                axios
-                    .get(BaseUrl + 'u_es')
+                http
+                    .get('u_es')
                     .then(res => (this.ue = res.data['hydra:member']))
             },
             deleteUE: function (id) {
-                axios
-                    .delete(BaseUrl + 'u_es/' + id)
+                http
+                    .delete('u_es/' + id)
                     .then(() => { this.getUE() })
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.ue;
+                const searchUE = this.searchUE;
+
+                if (!searchUE) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelleUE.toLowerCase().indexOf(searchUE) !== -1 || item.libelleUE.toUpperCase().indexOf(searchUE) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

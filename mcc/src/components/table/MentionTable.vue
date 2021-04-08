@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link to="/newMention">
+                            <router-link :to="{ name: 'newMention' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -15,6 +15,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchMention"
                             >
                         </div>
                     </div>
@@ -30,12 +31,14 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in mention" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleMention }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.domaine }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifMention(item.id)">Modifier</button>
+                                <router-link :to="{ name: 'updateMention', params: { id: item.id }}">
+                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
+                                </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
                                 <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteMention(item.id)">Supprimer</button>
@@ -50,14 +53,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+ import http from "../../http-common"
 
     export default {
         name: "MentionTable",
         data () {
             return {
+                searchMention: '',
                 mention: []
             }
         },
@@ -66,17 +68,30 @@
         },
         methods: {
             getMention: function () {
-                axios
-                    .get(BaseUrl + 'mentions')
+                http
+                    .get('mentions')
                     .then(res => (this.mention = res.data['hydra:member']))
             },
             deleteMention: function (id) {
-                axios
-                    .delete(BaseUrl + 'mentions/' + id)
+                http
+                    .delete( 'mentions/' + id)
                     .then(() => { this.getMention() })
-            },
-            modifMention: function () {
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.mention;
+                const searchMention = this.searchMention;
 
+                if (!searchMention) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelleMention.toLowerCase().indexOf(searchMention) !== -1 || item.libelleMention.toUpperCase().indexOf(searchMention) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

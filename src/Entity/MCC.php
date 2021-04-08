@@ -51,7 +51,7 @@ class MCC
     private $contact;
 
     /**
-     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="mCC")
+     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="mCC", cascade={"persist", "remove"})
      */
     private $UE;
 

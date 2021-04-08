@@ -48,11 +48,6 @@ class User
     private $actif;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Workflow::class, inversedBy="users")
-     */
-    private $workflow;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adjoint2;
@@ -63,14 +58,19 @@ class User
     private $adjoint3;
 
     /**
-     * @ORM\OneToMany(targetEntity=RolesUser::class, mappedBy="user")
+     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="users", cascade={"persist", "remove"})
      */
-    private $userRoles;
+    private $roles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Workflow::class, mappedBy="users", cascade={"persist", "remove"})
+     */
+    private $workflows;
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
-        $this->userRoles = new ArrayCollection();
+        //$this->workflows = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,18 +138,6 @@ class User
         return $this;
     }
 
-    public function getWorkflow(): ?Workflow
-    {
-        return $this->workflow;
-    }
-
-    public function setWorkflow(?Workflow $workflow): self
-    {
-        $this->workflow = $workflow;
-
-        return $this;
-    }
-
     public function getAdjoint2(): ?string
     {
         return $this->adjoint2;
@@ -175,30 +163,51 @@ class User
     }
 
     /**
-     * @return Collection|RolesUser[]
+     * @return Collection|Roles[]
      */
-    public function getUserRoles(): Collection
+    public function getRoles(): Collection
     {
-        return $this->userRoles;
+        return $this->roles;
     }
 
-    public function addUserRole(RolesUser $userRole): self
+    public function addRole(Roles $role): self
     {
-        if (!$this->userRoles->contains($userRole)) {
-            $this->userRoles[] = $userRole;
-            $userRole->setUser($this);
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
         }
 
         return $this;
     }
 
-    public function removeUserRole(RolesUser $userRole): self
+    public function removeRole(Roles $role): self
     {
-        if ($this->userRoles->removeElement($userRole)) {
-            // set the owning side to null (unless already changed)
-            if ($userRole->getUser() === $this) {
-                $userRole->setUser(null);
-            }
+        $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Workflow[]
+     */
+    public function getWorkflows(): Collection
+    {
+        return $this->workflows;
+    }
+
+    public function addWorkflow(Workflow $workflow): self
+    {
+        if (!$this->workflows->contains($workflow)) {
+            $this->workflows[] = $workflow;
+            $workflow->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkflow(Workflow $workflow): self
+    {
+        if ($this->workflows->removeElement($workflow)) {
+            $workflow->removeUser($this);
         }
 
         return $this;

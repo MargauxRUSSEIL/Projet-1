@@ -54,7 +54,7 @@ class Parcours
   
 
     /**
-     * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="parcours")
+     * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="parcours", cascade={"persist", "remove"})
      */
     private $semestre;
 

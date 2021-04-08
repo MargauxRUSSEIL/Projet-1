@@ -27,7 +27,7 @@ class Domaine
     private $libelleDomaine;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mention::class, mappedBy="domaine")
+     * @ORM\OneToMany(targetEntity=Mention::class, mappedBy="domaine", cascade={"persist", "remove"})
      */
     private $mentions;
 

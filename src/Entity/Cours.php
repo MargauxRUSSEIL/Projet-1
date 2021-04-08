@@ -37,12 +37,12 @@ class Cours
     private $nbGroupeTypeCoursHasCours;
 
     /**
-     * @ORM\ManyToMany(targetEntity=UE::class, mappedBy="cours")
+     * @ORM\ManyToMany(targetEntity=UE::class, mappedBy="cours", cascade={"persist", "remove"})
      */
     private $uEs;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="cours")
+     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="cours", cascade={"persist", "remove"})
      */
     private $typeControle;
 

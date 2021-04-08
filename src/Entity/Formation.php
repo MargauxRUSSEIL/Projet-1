@@ -71,17 +71,7 @@ class Formation
     private $VDI;
 
     /**
-     * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="formation")
-     */
-    private $localisation;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Composante::class, mappedBy="formation")
-     */
-    private $composante;
-
-    /**
-     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="formation")
+     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="formation", cascade={"persist", "remove"})
      */
     private $typeDiplome;
 
@@ -96,7 +86,7 @@ class Formation
     private $statuts;
 
     /**
-     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation")
+     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation", cascade={"persist", "remove"})
      */
     private $parcours;
 
@@ -105,11 +95,19 @@ class Formation
      */
     private $mention;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Composante::class, inversedBy="formation")
+     */
+    private $composante;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Localisation::class, inversedBy="formation")
+     */
+    private $localisation;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
-        $this->localisation = new ArrayCollection();
-        $this->composante = new ArrayCollection();
         $this->typeDiplome = new ArrayCollection();
     }
 
@@ -229,66 +227,6 @@ class Formation
     }
 
     /**
-     * @return Collection|Localisation[]
-     */
-    public function getLocalisation(): Collection
-    {
-        return $this->localisation;
-    }
-
-    public function addLocalisation(Localisation $localisation): self
-    {
-        if (!$this->localisation->contains($localisation)) {
-            $this->localisation[] = $localisation;
-            $localisation->setFormation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLocalisation(Localisation $localisation): self
-    {
-        if ($this->localisation->removeElement($localisation)) {
-            // set the owning side to null (unless already changed)
-            if ($localisation->getFormation() === $this) {
-                $localisation->setFormation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Composante[]
-     */
-    public function getComposante(): Collection
-    {
-        return $this->composante;
-    }
-
-    public function addComposante(Composante $composante): self
-    {
-        if (!$this->composante->contains($composante)) {
-            $this->composante[] = $composante;
-            $composante->setFormation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComposante(Composante $composante): self
-    {
-        if ($this->composante->removeElement($composante)) {
-            // set the owning side to null (unless already changed)
-            if ($composante->getFormation() === $this) {
-                $composante->setFormation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|TypeDiplome[]
      */
     public function getTypeDiplome(): Collection
@@ -380,6 +318,30 @@ class Formation
     public function setMention(?Mention $mention): self
     {
         $this->mention = $mention;
+
+        return $this;
+    }
+
+    public function getComposante(): ?Composante
+    {
+        return $this->composante;
+    }
+
+    public function setComposante(?Composante $composante): self
+    {
+        $this->composante = $composante;
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?Localisation
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(?Localisation $localisation): self
+    {
+        $this->localisation = $localisation;
 
         return $this;
     }

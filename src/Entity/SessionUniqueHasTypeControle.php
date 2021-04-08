@@ -22,17 +22,17 @@ class SessionUniqueHasTypeControle
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=SessionUnique::class, mappedBy="sessionUniqueHasTypeControle")
+     * @ORM\OneToMany(targetEntity=SessionUnique::class, mappedBy="sessionUniqueHasTypeControle", cascade={"persist", "remove"})
      */
     private $sessionUnique;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="sessionUniqueHasTypeControle")
+     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="sessionUniqueHasTypeControle", cascade={"persist", "remove"})
      */
     private $typeControle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Competences::class, mappedBy="sessionUniqueHasTypeControle")
+     * @ORM\OneToMany(targetEntity=Competences::class, mappedBy="sessionUniqueHasTypeControle", cascade={"persist", "remove"})
      */
     private $competences;
 

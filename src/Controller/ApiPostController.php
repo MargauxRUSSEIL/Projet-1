@@ -2,47 +2,33 @@
 
 namespace App\Controller;
 
-use App\Entity\MCC;
-use App\Repository\MCCRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
-
-class ApiPostController extends AbstractController
+class WorkflowController extends AbstractController
 {
     /**
-     * @Route("/api/post", name="api_post_getAllDataMCC",methods={"GET"})
+     * @Route("/api/workflow/{id}/formations", name="formationsByUser",methods={"GET"})
      */
-    public function getAllDataMCC(MCCRepository $mccRepo) 
+    public function getAllFormationsByUser($id) 
     {
-        return $this->json($mccRepo->findAll(), 200, []);
-    }
-    /**
-     * @Route("/api/post", name="api_post_data",methods={"POST"})
-     */
-    public function data(Request $req, SerializerInterface $serializer, EntityManagerInterface $em) 
-    {
-        $jsonRecu = $req->getContent();
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
-        try {
-            $post = $serializer->deserialize($jsonRecu, MCC::class, 'json');
+        $formations = [];
 
-            $em->persist($post);
-            $em->flush();
+        if ($user !== null) {
 
-            return $this->json($post, 201, []);
-        } catch(NotEncodableValueException $e){
-            return $this->json([
-                'status' => 400,
-                'message' => $e->getMessage()
-            ], 400);
+            $workflows = $user->getWorkflows();
+
+            foreach ($workflows as $workflow) {
+                $formations = $workflow->getFormations();
+            }
+
+            return $this->json($formations, 200, []);
         }
+
+        return $this->json(['error' => 'user is null'], 400, []);
     }
 
 }

@@ -3,9 +3,11 @@
     <router-link to="/">MCC</router-link> |
     <router-link to="/parcours">Parcours</router-link> |
     <router-link to="/competence">Competence</router-link> |
+    <router-link to="/composante">Composante</router-link> |
     <router-link to="/diplome">Diplome</router-link> |
     <router-link to="/domaine">Domaine</router-link> |
     <router-link to="/formation">Formation non diplomante</router-link> |
+    <router-link to="/localisation">Localisation</router-link> |
     <router-link to="/mention">Mention</router-link> |
     <router-link to="/niveau">Niveau</router-link> |
     <router-link to="/semestre">Semestre</router-link> |

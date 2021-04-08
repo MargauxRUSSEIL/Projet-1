@@ -37,7 +37,7 @@ class Localisation
     private $codePostal;
 
     /**
-     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="localisation")
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="localisation", cascade={"persist", "remove"})
      */
     private $formation;
 

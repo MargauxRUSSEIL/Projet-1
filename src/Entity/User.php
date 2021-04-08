@@ -58,12 +58,12 @@ class User
     private $adjoint3;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="users", cascade={"persist", "remove"})
      */
     private $roles;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Workflow::class, mappedBy="users")
+     * @ORM\ManyToMany(targetEntity=Workflow::class, mappedBy="users", cascade={"persist", "remove"})
      */
     private $workflows;
 

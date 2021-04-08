@@ -62,7 +62,7 @@ class Workflow
     private $statut;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="workflows")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="workflows", cascade={"persist", "remove"})
      */
     private $users;
 

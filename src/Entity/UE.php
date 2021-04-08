@@ -32,7 +32,7 @@ class UE
     private $mCC;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Cours::class, inversedBy="uEs")
+     * @ORM\ManyToMany(targetEntity=Cours::class, inversedBy="uEs", cascade={"persist", "remove"})
      */
     private $cours;
 

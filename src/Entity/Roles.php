@@ -27,7 +27,7 @@ class Roles
     private $libelleRole;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="roles", cascade={"persist", "remove"})
      */
     private $users;
 

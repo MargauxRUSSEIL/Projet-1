@@ -22,22 +22,22 @@ class NbGroupeTypeCoursHasCours
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=CoutHETD::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\OneToMany(targetEntity=CoutHETD::class, mappedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $coutHETD;
 
     /**
-     * @ORM\OneToMany(targetEntity=NbGroupeTypeCours::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCours::class, mappedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $nbGroupeTypeCours;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cours::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\OneToMany(targetEntity=Cours::class, mappedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $cours;
 
     /**
-     * @ORM\OneToMany(targetEntity=HoraireTypeCours::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\OneToMany(targetEntity=HoraireTypeCours::class, mappedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $horaireTypeCours;
 

@@ -22,17 +22,17 @@ class TypeDiplomeHasDiplomeEtablissement
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="typeDiplomeHasDiplomeEtablissement")
+     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="typeDiplomeHasDiplomeEtablissement", cascade={"persist", "remove"})
      */
     private $typeDiplome;
 
     /**
-     * @ORM\OneToMany(targetEntity=DiplomeEtablissement::class, mappedBy="typeDiplomeHasDiplomeEtablissement")
+     * @ORM\OneToMany(targetEntity=DiplomeEtablissement::class, mappedBy="typeDiplomeHasDiplomeEtablissement", cascade={"persist", "remove"})
      */
     private $diplomeEtablissement;
 
     /**
-     * @ORM\OneToMany(targetEntity=FormationNonDiplomante::class, mappedBy="typeDiplomeHasDiplomeEtablissement")
+     * @ORM\OneToMany(targetEntity=FormationNonDiplomante::class, mappedBy="typeDiplomeHasDiplomeEtablissement", cascade={"persist", "remove"})
      */
     private $formationNonDiplomante;
 

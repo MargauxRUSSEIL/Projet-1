@@ -71,7 +71,7 @@ class Formation
     private $VDI;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="formation")
+     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="formation", cascade={"persist", "remove"})
      */
     private $typeDiplome;
 
@@ -86,7 +86,7 @@ class Formation
     private $statuts;
 
     /**
-     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation")
+     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation", cascade={"persist", "remove"})
      */
     private $parcours;
 

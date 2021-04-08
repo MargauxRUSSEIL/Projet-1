@@ -27,7 +27,8 @@ class Composante
     private $libelleInstitut;
 
     /**
-     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="composante")
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="composante", cascade={"persist", "remove"})
+     *     
      */
     private $formation;
 

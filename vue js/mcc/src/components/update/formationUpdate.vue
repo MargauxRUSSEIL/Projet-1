@@ -4,11 +4,11 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé Domaine
+                        structure Haute
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleDomaine"
+                           v-model.number="form.structureHaute"
                     >
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -25,11 +25,11 @@
     const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
-        name: "DomaineUpdate",
+        name: "FormationUpdate",
         data() {
             return {
                 form: {
-                    libelleDomaine: ''
+                    structureHaute: ''
                 }
             }
         },
@@ -37,13 +37,13 @@
             submit: function (id) {
                 id = this.$route.params.id;
 
-                axios.put( BaseUrl + 'domaines/' + id, this.form)
+                axios.put( BaseUrl + 'formations/' + id, this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
                     }.bind(this))
 
-                this.$router.push({ name: 'Domaine' })
+                this.$router.push({ name: 'Tableau' })
             }
         }
     }

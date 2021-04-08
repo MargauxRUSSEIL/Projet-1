@@ -24,7 +24,7 @@ const routes = [
     path: '/formationUpdate',
     name: 'formationUpdate',
     component: formationUpdate
-  },
+ },
 
  
 ]

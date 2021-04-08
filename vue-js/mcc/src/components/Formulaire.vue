@@ -24,6 +24,7 @@
 <label for="name">Intitulé : </label>
 <input type="text" id="intitule" name="intitule" required>
 </div>
+
 <div class="mt-2">
 <label for="name">Domaine : </label>
 <input type="text" id="domaine" name="domaine" required>

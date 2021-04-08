@@ -56,7 +56,11 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    //import http from "../../http-common"
+
+      import axios from "axios";
+
+      const BaseUrl = 'http://localhost:8000/api/';
 
     export default {
         name: "CompetenceForm",
@@ -71,12 +75,22 @@
                 }
             }
         },
+        // methods: {
+        //     submit: function () {
+        //         http
+        //             .post( 'competences', this.form)
+
+        //         this.$router.push({ name: 'Competence'})
+        //     }
+        // }
+
         methods: {
             submit: function () {
-                http
-                    .post( 'competences', this.form)
-
-                this.$router.push({ name: 'Competence'})
+                axios.post( BaseUrl+ 'competences', this.form)
+                    // eslint-disable-next-line no-unused-vars
+                    .then(function( response ){
+                        this.$router.push('Competence');
+                    }.bind(this));
             }
         }
     }

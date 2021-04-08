@@ -34,6 +34,7 @@ import ParcoursForm from "../components/form/ParcoursForm";
 import MCCUpdate from "../components/MCC/MCCUpdate";
 import ComposanteUpdateForm from "../components/form/ComposanteUpdateForm";
 import LocalisationUpdateForm from "../components/form/LocalisationUpdateForm";
+import ParcoursUpdate from "../components/update/ParcoursUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
@@ -42,7 +43,7 @@ const routes = [
 
   { path: '/parcours', name: 'Parcours', component: ParcoursTable },
   { path: '/newParcours', name: 'newParcours', component: ParcoursForm },
-  { path: '/updateParcours', name: 'updateParcours', component: CompetenceTable },
+  { path: '/updateParcours', name: 'updateParcours', component: ParcoursUpdate },
 
   { path: '/competence', name: 'Competence', component: CompetenceTable },
   { path: '/newCompetence', name: 'newCompetence', component: CompetenceForm },
@@ -84,86 +85,6 @@ const routes = [
   { path: '/newLocalisation', name: 'newLocalisation', component: LocalisationForm },
   { path: '/updateLocalisation/:id', name: 'updateLocalisation', component: LocalisationUpdateForm },
   
-  // {
-    //     path: '/',
-//     name: 'Competence',
-//     component: CompetenceTable
-//   },
-//   {
-//     path: '/newCompetence',
-//     name: 'newCompetence',
-//     component: CompetenceForm
-//   },
-  // {
-  //   path: '/domaine',
-  //   name: 'Domaine',
-  //   component: DomaineTable
-  // },
-  // {
-  //   path: '/newDomaine',
-  //   name: 'newDomaine',
-  //   component: DomaineForm
-  // },
-  // {
-  //   path: '/diplome',
-  //   name: 'Diplome',
-  //   component: DiplomeEtablissementTable
-  // },
-  // {
-  //   path: '/newDiplome',
-  //   name: 'newDiplome',
-  //   component: DiplomeEtablissementForm
-  // },
-  // {
-  //   path: '/formation',
-  //   name: 'Formation',
-  //   component: FormationNonDiplomanteTable
-  // },
-  // {
-  //   path: '/newFormation',
-  //   name: 'newFormation',
-  //   component: FormationNonDiplomanteForm
-  // },
-  // {
-  //   path: '/mention',
-  //   name: 'Mention',
-  //   component: MentionTable
-  // },
-  // {
-  //   path: '/newMention',
-  //   name: 'newMention',
-  //   component: MentionForm
-  // },
-  // {
-  //   path: '/niveau',
-  //   name: 'Niveau',
-  //   component: NiveauTable
-  // },
-  // {
-  //   path: '/newNiveau',
-  //   name: 'newNiveau',
-  //   component: NiveauForm
-  // },
-  // {
-  //   path: '/semestre',
-  //   name: 'Semestre',
-  //   component: SemestreTable
-  // },
-  // {
-  //   path: '/newsemestre',
-  //   name: 'newSemestre',
-  //   component: SemestreForm
-  // },
-  // {
-  //   path: '/ue',
-  //   name: 'UE',
-  //   component: UETable
-  // },
-  // {
-  //   path: '/newUE',
-  //   name: 'newUE',
-  //   component: UEForm
-  // },
 ]
 
 const router = createRouter({

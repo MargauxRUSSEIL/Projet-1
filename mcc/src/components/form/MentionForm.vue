@@ -32,6 +32,11 @@
 <script>
     import http from "../../http-common"
 
+    import axios from "axios";
+
+    const BaseUrl = 'http://localhost:8000/api/';
+
+
     export default {
         name: "MentionForm",
         data() {
@@ -46,24 +51,34 @@
         mounted() {
             this.getLibelleDomaine()
         },
+        // methods: {
+        //     submit: function () {
+        //         http
+        //             .post( 'mentions', this.form)
+        //             // eslint-disable-next-line no-unused-vars
+        //             .then(function( response ){
+        //                 // Handle success
+        //             }.bind(this));
+
+        //         this.$router.push({ name: 'Mention' })
+        //     },
+
         methods: {
             submit: function () {
-                http
-                    .post( 'mentions', this.form)
+                axios.post( BaseUrl+ 'mentions', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
+                        this.$router.push('Mention');
                     }.bind(this));
-
-                this.$router.push({ name: 'Mention' })
-            },
+            }
+        },
             getLibelleDomaine: function () {
                 http
                     .get('domaines')
                     .then(res => (this.libelleDomaines = res.data['hydra:member']))
             }
         }
-    }
+   
 </script>
 
 <style scoped>

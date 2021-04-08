@@ -34,9 +34,11 @@
 </template>
 
 <script>
-    import axios from "axios";
+//      import axios from "axios";
 
-    const BaseUrl = 'http://localhost:8000/api/';
+//    const BaseUrl = 'http://localhost:8000/api/';
+
+    import http from "../../http-common"
 
     export default {
         name: "LocalisationForm",
@@ -51,14 +53,15 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl+ 'localisations', this.form)
-                    // eslint-disable-next-line no-unused-vars
-                    .then(function( response ){
-                        this.$router.push('Localisation');
-                    }.bind(this));
+                http.post( 'localisations', this.form)
+                //    .then(function( response ){
+                //         // Handle success
+                //     }.bind(this));
+                        this.$router.push({name : 'Localisation'})
+                    }
             }
         }
-    }
+    
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
     <div class="container w-auto">
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-20 lg:mx-20">
             <div class="flex flex-wrap ">
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
@@ -29,20 +29,20 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé niveau</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé mention</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type diplome</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Année</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Année</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in mcc" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in mcc" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.departement }} - {{ item.site }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.annee }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.contact }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.typeDiplome }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.parcours }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.niveau }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.mention }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.typeDiplome }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ formatDate(item.annee) }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.contact }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateMCC', params: { id: item.id }}">
@@ -63,6 +63,8 @@
 
 <script>
     import http from "../../http-common"
+    import moment from 'moment'
+    import 'moment/locale/fr'
 
     export default {
         name: "MCCTable",
@@ -84,7 +86,10 @@
                 http
                     .delete('m_c_cs/' + id)
                     .then(() => { this.getMCC() })
-            }
+            },
+            formatDate(value) {
+                return moment(value).format("LL")
+            },
         }
     }
 </script>

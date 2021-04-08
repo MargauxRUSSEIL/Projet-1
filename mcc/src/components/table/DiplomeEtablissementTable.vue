@@ -30,7 +30,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in diplome" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in diplome" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleDiplome }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.nbAnneeDiplome }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

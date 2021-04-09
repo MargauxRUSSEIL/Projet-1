@@ -35,7 +35,7 @@
                                             <th> statuts </th>
                                             <th>Parcours</th>
                                             <th>mention</th>
-                                             <th>Modifier</th>
+                                            <th>Modifier</th>
                                             <th>Supprimé</th>
                                         </tr>
                                     </thead>
@@ -57,7 +57,7 @@
                                                     <button id="myButton" class="foo bar">Modifier</button>
                                                 </router-link>
                                             </td>
-                                             <td><button class="btn btn-danger"
+                                            <td><button class="btn btn-danger"
                                                     @click="deleteData(formation.id)">Delete</button></td>
                                         </tr>
                                     </tbody>

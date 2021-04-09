@@ -62,6 +62,7 @@
         name: "CompetenceForm",
         data() {
             return {
+                stat: '',
                 form: {
                     blocs: '',
                     seuilBlocs: '',

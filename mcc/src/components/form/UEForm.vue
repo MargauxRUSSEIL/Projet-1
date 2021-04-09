@@ -26,6 +26,7 @@
         name: "UEForm",
         data() {
             return {
+                stat: '',
                 form: {
                     libelleUE: '',
                 }

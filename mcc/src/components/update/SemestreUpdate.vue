@@ -35,9 +35,8 @@
         name: "SemestreUpdate",
         data() {
             return {
-                libelleDomaine: '',
+                stat: '',
                 form: {
-                    stat: '',
                     libelle: '',
                     codeSemestre: '',
                 }
@@ -78,9 +77,9 @@
                         }
                     }.bind(this))
             },
-            getSemestre: function () {
+            getSemestre: function (id) {
                 const self = this;
-                let id = this.$route.params.id;
+                id = this.$route.params.id;
 
                 http
                     .get('semestres/' + id)

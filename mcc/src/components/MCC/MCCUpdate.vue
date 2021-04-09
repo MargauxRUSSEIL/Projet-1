@@ -87,7 +87,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.parcours"
                     >
-                        <option v-for="item in parcoursform" v-bind:key="item">{{ item }}</option>
+                        <option v-for="item in parcoursform" v-bind:key="item">{{ item.libelleParcours }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -109,6 +109,7 @@
                 parcoursform: '',
                 niveaux: '',
                 ues: '',
+                stat: '',
                 form: {
                     departement: '',
                     site: '',
@@ -127,6 +128,7 @@
             this.getParcours()
             this.getNiveaux()
             this.getUE()
+            this.getMCC()
         },
         methods: {
             submit: function (id) {
@@ -134,12 +136,41 @@
 
                 http
                     .put( 'm_c_cs/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`MCC resource updated`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'MCC' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
                     }.bind(this))
+            },
+            getMCC: function (id) {
+                const self = this;
+                id = this.$route.params.id;
 
-                this.$router.push({ name: 'MCC'})
+                http
+                    .get('m_c_cs/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             },
             getMentions: function () {
                 http

@@ -35,7 +35,7 @@
         name: "DiplomeEtablissementForm",
         data() {
             return {
-                libelleDomaine: '',
+                stat: '',
                 form: {
                     libelleDiplome: '',
                     nbAnneeDiplome: '',

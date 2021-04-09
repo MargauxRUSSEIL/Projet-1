@@ -43,6 +43,7 @@
         name: "LocalisationForm",
         data() {
             return {
+                stat: '',
                 form: {
                     adresse: '',
                     codePostal: '',

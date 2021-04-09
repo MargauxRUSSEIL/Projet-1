@@ -109,6 +109,7 @@
                 parcoursform: '',
                 niveaux: '',
                 ues: '',
+                stat: '',
                 form: {
                     departement: '',
                     site: '',

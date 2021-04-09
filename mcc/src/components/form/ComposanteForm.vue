@@ -27,6 +27,7 @@
         name: "ComposanteForm",
         data() {
             return {
+                stat: '',
                 form: {
                     libelleInstitut: '',
                 }

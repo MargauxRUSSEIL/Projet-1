@@ -114,6 +114,7 @@
             return {
                 formations: '',
                 semestreForm: '',
+                stat: '',
                 form: {
                     structureProlongee: '',
                     structureBasse: '',

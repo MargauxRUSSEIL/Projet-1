@@ -35,7 +35,7 @@
         name: "FormationNonDiplomanteForm",
         data() {
             return {
-                libelleDomaine: '',
+                stat: '',
                 form: {
                     libelleCertificat: '',
                     nbAnneeFormation: '',

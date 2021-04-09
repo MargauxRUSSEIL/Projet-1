@@ -26,6 +26,7 @@ import  http from "../../http-common"
         name: "DomaineForm",
         data() {
             return {
+                stat: '',
                 form: {
                     libelleDomaine: ''
                 }

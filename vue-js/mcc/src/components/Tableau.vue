@@ -32,7 +32,6 @@
                                             <th>Commentaire</th>
                                             <th>Créer le</th>
                                             <th>VDI</th>
-                                            <th>typeDiplome</th>
                                             <th> statuts </th>
                                             <th>Parcours</th>
                                             <th>mention</th>
@@ -50,12 +49,11 @@
                                             <td>{{formation.commentaire}}</td>
                                             <td>{{formation.createdAt}}</td>
                                             <td>{{formation.VDI}}</td>
-                                            <td>{{formation.typeDiplome}}</td>
                                             <td>{{formation.statuts}}</td>
-                                            <td>{{formation.parcours}}</td>
-                                            <td>{{formation.mention}}</td>
+                                            <td>{{formation.parcours.structureProlongee}}</td>
+                                            <td>{{formation.mention.libelleMention}}</td>
                                             <td>
-                                                <router-link :to="{name: 'formationUpdate', params:{ id:formation.id }}">
+                                                <router-link :to="{name: 'formationUpdate', params:{ id:formation.id}}">
                                                     <button id="myButton" class="foo bar">Modifier</button>
                                                 </router-link>
                                             </td>
@@ -79,14 +77,14 @@
                             </div>
                         </template>
                     </vue-collapsible-panel>
-                    <vue-collapsible-panel>
+                    <!-- <vue-collapsible-panel>
                         <template #title>
                             Panel A Title
                         </template>
                         <template #content>
                             Panel A Content
                         </template>
-                    </vue-collapsible-panel>
+                    </vue-collapsible-panel> -->
                 </vue-collapsible-panel-group>
             </div>
         </div>
@@ -240,14 +238,20 @@
                 .then(function (response) {
                     self.info = response.data
                     self.info.forEach(formation => {
-                        axios.get(`http://localhost:8000${formation.typeDiplome}`).then(
+                        axios.get(`http://localhost:8000${formation.parcours}`).then(
                             function (response) {
-                                formation.typeDiplome = response.data
-                                console.log(response.data)
+                                formation.parcours = response.data
+                                //console.log(response.data)
                             })
                     });
-
-                    console.log(response.data)
+                    self.info.forEach(formation => {
+                        axios.get(`http://localhost:8000${formation.mention}`).then(
+                            function (response) {
+                                formation.mention = response.data
+                                //console.log(response.data)
+                            })
+                    });
+                    // console.log(response.data)
                 })
 
 

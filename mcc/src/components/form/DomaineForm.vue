@@ -20,9 +20,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
-    const BaseUrl = 'http://localhost:8000/api/';
+import  http from "../../http-common"
 
     export default {
         name: "DomaineForm",
@@ -35,7 +33,8 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl + 'domaines', this.form)
+                http
+                    .post( 'domaines', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success

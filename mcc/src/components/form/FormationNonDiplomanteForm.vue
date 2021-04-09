@@ -29,9 +29,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "FormationNonDiplomanteForm",
@@ -46,7 +44,8 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl + 'formation_non_diplomantes', this.form)
+                http
+                    .post( 'formation_non_diplomantes', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success

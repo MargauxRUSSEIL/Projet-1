@@ -36,11 +36,12 @@
                                             <th> statuts </th>
                                             <th>Parcours</th>
                                             <th>mention</th>
+                                             <th>Modifier</th>
                                             <th>Supprimé</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="formation in info" :key="formation.id">
+                                        <tr v-for="formation in info" :key="formation">
                                             <td>{{formation.typeFormation}}</td>
                                             <td> {{formation.structureHaute}}</td>
                                             <td> {{formation.codeDiplome}}</td>
@@ -52,14 +53,14 @@
                                             <td>{{formation.typeDiplome}}</td>
                                             <td>{{formation.statuts}}</td>
                                             <td>{{formation.parcours}}</td>
-                                            <td>{{formation.mention.libelleMention}}</td>
-                                            <td><button class="btn btn-danger"
-                                                    @click="deleteData(formation.id)">Delete</button></td>
+                                            <td>{{formation.mention}}</td>
                                             <td>
-                                                <router-link :to="{name: 'formationUpdate'}">
-                                                    <button id="myButton" class="foo bar">Go!</button>
+                                                <router-link :to="{name: 'formationUpdate', params:{ id:formation.id }}">
+                                                    <button id="myButton" class="foo bar">Modifier</button>
                                                 </router-link>
                                             </td>
+                                             <td><button class="btn btn-danger"
+                                                    @click="deleteData(formation.id)">Delete</button></td>
                                         </tr>
                                     </tbody>
                                 </table>

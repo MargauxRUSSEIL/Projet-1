@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Tableau from "../components/Tableau.vue"
-
+import Tableau from "../components/Tableau"
+import Formulaire from "../components/Formulaire"
+import Second from "../components/SecondForm"
+import formationUpdate from "../components/update/formationUpdate"
 
 const routes = [
   {
@@ -8,7 +10,23 @@ const routes = [
     name: 'Tableau',
     component: Tableau
   },
-  
+  {
+    path: '/formulaire',
+    name: 'Formulaire',
+    component: Formulaire
+  },
+  {
+    path: '/second',
+    name: 'second',
+    component: Second
+  },
+  {
+    path: '/formationUpdate/:id',
+    name: 'formationUpdate',
+    component: formationUpdate
+ },
+
+ 
 ]
 
 const router = createRouter({

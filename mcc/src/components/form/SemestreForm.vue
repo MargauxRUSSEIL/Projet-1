@@ -36,6 +36,7 @@
         data() {
             return {
                 libelleDomaine: '',
+                stat: '',
                 form: {
                     libelle: '',
                     codeSemestre: '',
@@ -46,12 +47,26 @@
             submit: function () {
                 http
                     .post( 'semestres', this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
-
-                this.$router.push({ name: 'Semestre' })
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Semestre resource created`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Semestre' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         }
     }

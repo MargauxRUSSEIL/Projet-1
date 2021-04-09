@@ -426,9 +426,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: 'FormationForm',
@@ -459,15 +457,16 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl+ 'formations', this.form)
+                http
+                    .post( 'formations', this.form)
                     // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
                         // Handle success
                     }.bind(this));
             },
             getCompetence: function () {
-                axios
-                    .get(BaseUrl + 'competences')
+                http
+                    .get('competences')
                     .then(res => (this.competences = res.data['hydra:member']))
             },
         }

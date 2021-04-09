@@ -1,6 +1,22 @@
 <template>
     <div class="container w-auto">
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+            <div class="flex flex-wrap ">
+                <div class="grid grid-cols-6 w-full gap-2">
+                    <div class="col-start-1 col-end-3 ...">
+                        <div class="w-full px-3 mb-6">
+                            <router-link :to="{ name: 'newSemestre' }">
+                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="my-32 mx-auto text-center">
+                <p class="text-lg mt-6">Aucun enregistrement</p>
+            </section>
+        </div>
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56" v-else>
             <div class="flex flex-wrap ">
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
@@ -60,6 +76,8 @@
         data () {
             return {
                 searchSemestre: '',
+                stat: '',
+                errored: false,
                 semestre: []
             }
         },
@@ -70,12 +88,33 @@
             getSemestre: function () {
                 http
                     .get('semestres')
-                    .then(res => (this.semestre = res.data['hydra:member']))
+                    .then(res => {
+                        this.semestre = res.data['hydra:member']
+                        const total = res.data['hydra:totalItems']
+                        if (total === 0) {
+                            this.errored = true
+                        }
+                    })
+
             },
             deleteSemestre: function (id) {
                 http
                     .delete('semestres/' + id)
-                    .then(() => { this.getSemestre() })
+                    .then(function( response ){
+                        this.stat = response.status
+                        if (this.stat === 204) {
+                            this.getSemestre()
+                            this.$toast.success(`Semestre resource deleted`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         },
         computed: {

@@ -29,9 +29,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "SemestreUpdate",
@@ -39,22 +37,56 @@
             return {
                 libelleDomaine: '',
                 form: {
+                    stat: '',
                     libelle: '',
                     codeSemestre: '',
                 }
             }
         },
+        mounted() {
+            this.getSemestre()
+        },
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
 
-                axios.put( BaseUrl + 'semestres/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
+                http
+                    .put( 'semestres/' + id, this.form)
                     .then(function( response ){
-                        // Handle success
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`Semestre resource updated`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Semestre' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
                     }.bind(this))
+            },
+            getSemestre: function () {
+                const self = this;
+                let id = this.$route.params.id;
 
-                this.$router.push({ name: 'Semestre' })
+                http
+                    .get('semestres/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             }
         }
     }

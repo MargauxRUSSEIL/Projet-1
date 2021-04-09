@@ -4,15 +4,16 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé Domaine
+                        Libellé Institut
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleDomaine"
+                           v-model="form.libelleInstitut"
+                           required
                     >
                 </div>
                 <div class="w-full px-3 mt-12">
-                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">AJOUTER</button>
                 </div>
             </div>
         </div>
@@ -20,29 +21,29 @@
 </template>
 
 <script>
-import  http from "../../http-common"
+    import http from "../../http-common"
 
     export default {
-        name: "DomaineForm",
+        name: "ComposanteForm",
         data() {
             return {
                 form: {
-                    libelleDomaine: ''
+                    libelleInstitut: '',
                 }
             }
         },
         methods: {
             submit: function () {
                 http
-                    .post( 'domaines', this.form)
+                    .post( 'composantes', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
-                            this.$toast.success(`Domaine resource created`, {
+                            this.$toast.success(`Composante resource created`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Domaine' })
+                            this.$router.push({ name: 'Composante' })
                         }
                         else if (this.stat === 400) {
                             this.$toast.error(`Invalid input`, {
@@ -61,5 +62,4 @@ import  http from "../../http-common"
 </script>
 
 <style scoped>
-
 </style>

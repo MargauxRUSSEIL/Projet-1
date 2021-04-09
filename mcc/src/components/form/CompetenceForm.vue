@@ -75,8 +75,26 @@
             submit: function () {
                 http
                     .post( 'competences', this.form)
-
-                this.$router.push({ name: 'Competence'})
+                    .then(function( response ){
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Competence resource created`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Competence' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         }
     }

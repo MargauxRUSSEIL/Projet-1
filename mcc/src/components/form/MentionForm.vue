@@ -50,12 +50,26 @@
             submit: function () {
                 http
                     .post( 'mentions', this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
-
-                this.$router.push({ name: 'Mention' })
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Mention resource created`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Mention' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             },
             getLibelleDomaine: function () {
                 http

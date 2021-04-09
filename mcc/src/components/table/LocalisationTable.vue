@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3 mb-6">
-                            <router-link :to="{ name: 'newUE' }">
+                            <router-link :to="{ name: 'newLocalisation' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -21,8 +21,8 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link :to="{ name: 'newUE' }">
-                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            <router-link :to="{name: 'newLocalisation'}">
+                                <span class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Ajouter</span>
                             </router-link>
                         </div>
                     </div>
@@ -31,7 +31,6 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
-                                   v-model="searchUE"
                             >
                         </div>
                     </div>
@@ -41,21 +40,25 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé UE</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code Postal</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ville</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleUE }}</td>
+                    <tr class="hover:bg-gray-100" v-for="item in localisation" :key="item">
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.adresse }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.codePostal }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.ville }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'updateUE', params: { id: item.id }}">
+                                <router-link :to="{ name: 'updateLocalisation', params: { id: item.id }}">
                                     <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                                 </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteUE(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteLocalisation(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -67,41 +70,40 @@
 </template>
 
 <script>
-
-import http from "../../http-common"
+    import http from "../../http-common"
 
     export default {
-        name: "UETable",
+        name: "LocalisationTable",
         data () {
             return {
-                searchUE: '',
+                stat: '',
                 errored: false,
-                ue: []
+                localisation: [],
             }
         },
         mounted() {
-            this.getUE()
+            this.getLocalisation()
         },
         methods: {
-            getUE: function () {
+            getLocalisation: function () {
                 http
-                    .get('u_es')
+                    .get('localisations')
                     .then(res => {
-                        this.ue = res.data['hydra:member']
+                        this.localisation = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
                     })
             },
-            deleteUE: function (id) {
+            deleteLocalisation: function (id) {
                 http
-                    .delete('u_es/' + id)
+                    .delete('localisations/' + id)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getUE()
-                            this.$toast.success(`UE resource deleted`, {
+                            this.getLocalisation()
+                            this.$toast.success(`Localisation resource deleted`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
@@ -112,22 +114,6 @@ import http from "../../http-common"
                             })
                         }
                     }.bind(this))
-            }
-        },
-        computed: {
-            filtered: function () {
-                let search = this.ue;
-                const searchUE = this.searchUE;
-
-                if (!searchUE) {
-                    return search;
-                }
-                search = search.filter(function (item) {
-                    if (item.libelleUE.toLowerCase().indexOf(searchUE) !== -1 || item.libelleUE.toUpperCase().indexOf(searchUE) !== -1) {
-                        return item;
-                    }
-                })
-                return search;
             }
         }
     }

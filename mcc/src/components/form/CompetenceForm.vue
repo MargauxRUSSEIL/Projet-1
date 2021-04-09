@@ -1,6 +1,7 @@
 <template>
     <form class="container w-auto">
         <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <h1>Ajouter une compétence</h1>
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -8,7 +9,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.blocs"
+                           v-model="form.blocs" required
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -17,7 +18,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.seuilBlocs"
+                           v-model="form.seuilBlocs" required
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -26,7 +27,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.ECT"
+                           v-model="form.ECT" required
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -35,7 +36,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.COEFF"
+                           v-model="form.COEFF" required
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -44,11 +45,11 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.seuil"
+                           v-model="form.seuil" required
                     >
                 </div>
                 <div class="w-full px-3 mt-12">
-                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">AJOUTER</button>
                 </div>
             </div>
         </div>

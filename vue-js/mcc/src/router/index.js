@@ -21,7 +21,7 @@ const routes = [
     component: Second
   },
   {
-    path: '/formationUpdate',
+    path: '/formationUpdate/:id',
     name: 'formationUpdate',
     component: formationUpdate
  },

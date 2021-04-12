@@ -143,12 +143,17 @@
                             this.$router.push({ name: 'MCC' })
                         }
                         else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
+                            this.$toast.warning(`Invalid input`, {
                                 position: "top-right"
                             })
                         }
                         else if (this.stat === 422) {
                             this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 500) {
+                            this.$toast.error(`Internal Server Error`, {
                                 position: "top-right"
                             })
                         }

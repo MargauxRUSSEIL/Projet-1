@@ -31,6 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchMCC"
                             >
                         </div>
                     </div>
@@ -51,7 +52,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-100" v-for="item in mcc" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.departement }} - {{ item.site }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.parcours }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.niveau }}</td>
@@ -86,6 +87,7 @@
         name: "MCCTable",
         data () {
             return {
+                searchMCC: '',
                 errored: false,
                 stat: '',
                 mcc: []
@@ -128,6 +130,22 @@
             formatDate(value) {
                 return moment(value).format("LL")
             },
+        },
+        computed: {
+            filtered: function () {
+                let search = this.mcc;
+                const searchMCC = this.searchMCC;
+
+                if (!searchMCC) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.departement.toLowerCase().indexOf(searchMCC) !== -1 || item.departement.toUpperCase().indexOf(searchMCC) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
+            }
         }
     }
 </script>

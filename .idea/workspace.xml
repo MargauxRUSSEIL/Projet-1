@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mcc/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/CompetenceTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/CompetenceTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/DiplomeEtablissementTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/DiplomeEtablissementTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/DomaineTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/DomaineTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/FormationNonDiplomanteTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/FormationNonDiplomanteTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/NiveauTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/NiveauTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/SemestreTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/SemestreTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="ComposerSettings">
     <execution />
@@ -35,6 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -47,6 +46,7 @@
       <option name="presentableId" value="Default" />
       <updated>1617784341071</updated>
       <workItem from="1617784345939" duration="10000" />
+      <workItem from="1618146500749" duration="12000" />
     </task>
     <servers />
   </component>

@@ -32,9 +32,15 @@ class Composante
      */
     private $formation;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="composantes")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->formation = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,30 @@ class Composante
                 $formation->setComposante(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
 
         return $this;
     }

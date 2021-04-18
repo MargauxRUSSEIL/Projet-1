@@ -63,22 +63,10 @@ class Formation
      */
     private $typeFormation;
 
-  
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $VDI;
-
-    /**
-     * @ORM\OneToMany(targetEntity=TypeDiplome::class, mappedBy="formation", cascade={"persist", "remove"})
-     */
-    private $typeDiplome;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Workflow::class, inversedBy="formation")
-     */
-    private $workflow;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -91,11 +79,6 @@ class Formation
     private $parcours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Mention::class)
-     */
-    private $mention;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Composante::class, inversedBy="formation")
      */
     private $composante;
@@ -105,10 +88,40 @@ class Formation
      */
     private $localisation;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $libelle;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Creationformation::class, mappedBy="formation", cascade={"persist", "remove"})
+     */
+    private $creationformation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeDiplome::class, inversedBy="formations")
+     */
+    private $typeDiplome;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Domaine::class, inversedBy="formations")
+     */
+    private $domaine;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="formations")
+     */
+    private $mention;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Niveau::class, inversedBy="formations")
+     */
+    private $niveau;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
-        $this->typeDiplome = new ArrayCollection();
+        //$this->typeDiplome = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,48 +239,6 @@ class Formation
         return $this;
     }
 
-    /**
-     * @return Collection|TypeDiplome[]
-     */
-    public function getTypeDiplome(): Collection
-    {
-        return $this->typeDiplome;
-    }
-
-    public function addTypeDiplome(TypeDiplome $typeDiplome): self
-    {
-        if (!$this->typeDiplome->contains($typeDiplome)) {
-            $this->typeDiplome[] = $typeDiplome;
-            $typeDiplome->setFormation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTypeDiplome(TypeDiplome $typeDiplome): self
-    {
-        if ($this->typeDiplome->removeElement($typeDiplome)) {
-            // set the owning side to null (unless already changed)
-            if ($typeDiplome->getFormation() === $this) {
-                $typeDiplome->setFormation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getWorkflow(): ?Workflow
-    {
-        return $this->workflow;
-    }
-
-    public function setWorkflow(?Workflow $workflow): self
-    {
-        $this->workflow = $workflow;
-
-        return $this;
-    }
-
     public function getStatuts(): ?string
     {
         return $this->statuts;
@@ -310,18 +281,6 @@ class Formation
         return $this;
     }
 
-    public function getMention(): ?Mention
-    {
-        return $this->mention;
-    }
-
-    public function setMention(?Mention $mention): self
-    {
-        $this->mention = $mention;
-
-        return $this;
-    }
-
     public function getComposante(): ?Composante
     {
         return $this->composante;
@@ -342,6 +301,88 @@ class Formation
     public function setLocalisation(?Localisation $localisation): self
     {
         $this->localisation = $localisation;
+
+        return $this;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(?string $libelle): self
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getCreationformation(): ?Creationformation
+    {
+        return $this->creationformation;
+    }
+
+    public function setCreationformation(?Creationformation $creationformation): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($creationformation === null && $this->creationformation !== null) {
+            $this->creationformation->setFormation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($creationformation !== null && $creationformation->getFormation() !== $this) {
+            $creationformation->setFormation($this);
+        }
+
+        $this->creationformation = $creationformation;
+
+        return $this;
+    }
+
+    public function getTypeDiplome(): ?TypeDiplome
+    {
+        return $this->typeDiplome;
+    }
+
+    public function setTypeDiplome(?TypeDiplome $typeDiplome): self
+    {
+        $this->typeDiplome = $typeDiplome;
+
+        return $this;
+    }
+
+    public function getDomaine(): ?Domaine
+    {
+        return $this->domaine;
+    }
+
+    public function setDomaine(?Domaine $domaine): self
+    {
+        $this->domaine = $domaine;
+
+        return $this;
+    }
+
+    public function getMention(): ?Mention
+    {
+        return $this->mention;
+    }
+
+    public function setMention(?Mention $mention): self
+    {
+        $this->mention = $mention;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveau
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveau $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

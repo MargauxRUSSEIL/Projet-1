@@ -24,7 +24,7 @@ class SessionUnique
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $typeControle;
+    private $controleConnaissance;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -42,23 +42,23 @@ class SessionUnique
     private $session;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasTypeControle::class, inversedBy="sessionUnique")
+     * @ORM\ManyToOne(targetEntity=SessionUniqueHasControleConnaissance::class, inversedBy="sessionUnique")
      */
-    private $sessionUniqueHasTypeControle;
+    private $sessionUniqueHasControleConnaissance;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTypeControle(): ?string
+    public function getControleConnaissance(): ?string
     {
-        return $this->typeControle;
+        return $this->controleConnaissance;
     }
 
-    public function setTypeControle(?string $typeControle): self
+    public function setControleConnaissance(?string $controleConnaissance): self
     {
-        $this->typeControle = $typeControle;
+        $this->controleConnaissance = $controleConnaissance;
 
         return $this;
     }
@@ -99,14 +99,14 @@ class SessionUnique
         return $this;
     }
 
-    public function getSessionUniqueHasTypeControle(): ?SessionUniqueHasTypeControle
+    public function getSessionUniqueHasControleConnaissance(): ?SessionUniqueHasControleConnaissance
     {
-        return $this->sessionUniqueHasTypeControle;
+        return $this->sessionUniqueHasControleConnaissance;
     }
 
-    public function setSessionUniqueHasTypeControle(?SessionUniqueHasTypeControle $sessionUniqueHasTypeControle): self
+    public function setSessionUniqueHasControleConnaissance(?SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
     {
-        $this->sessionUniqueHasTypeControle = $sessionUniqueHasTypeControle;
+        $this->sessionUniqueHasControleConnaissance = $sessionUniqueHasControleConnaissance;
 
         return $this;
     }

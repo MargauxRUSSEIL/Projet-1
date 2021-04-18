@@ -42,14 +42,14 @@ class Cours
     private $uEs;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="cours", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=ControleConnaissance::class, mappedBy="cours", cascade={"persist", "remove"})
      */
-    private $typeControle;
+    private $controleConnaissance;
 
     public function __construct()
     {
         $this->uEs = new ArrayCollection();
-        $this->typeControle = new ArrayCollection();
+        $this->controleConnaissance = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,29 +121,29 @@ class Cours
     }
 
      /**
-     * @return Collection|TypeControle[]
+     * @return Collection|ControleConnaissance[]
      */
-    public function getTypeControle(): Collection
+    public function getControleConnaissance(): Collection
     {
-        return $this->typeControle;
+        return $this->controleConnaissance;
     }
 
-    public function addTypeControle(TypeControle $typeControle): self
+    public function addControleConnaissance(ControleConnaissance $controleConnaissance): self
     {
-        if (!$this->typeControle->contains($typeControle)) {
-            $this->typeControle[] = $typeControle;
-            $typeControle->setCours($this);
+        if (!$this->controleConnaissance->contains($controleConnaissance)) {
+            $this->controleConnaissance[] = $controleConnaissance;
+            $controleConnaissance->setCours($this);
         }
 
         return $this;
     }
 
-    public function removeTypeControle(TypeControle $typeControle): self
+    public function removeControleConnaissance(ControleConnaissance $controleConnaissance): self
     {
-        if ($this->typeControle->removeElement($typeControle)) {
+        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
             // set the owning side to null (unless already changed)
-            if ($typeControle->getCours() === $this) {
-                $typeControle->setCours(null);
+            if ($controleConnaissance->getCours() === $this) {
+                $controleConnaissance->setCours(null);
             }
         }
 

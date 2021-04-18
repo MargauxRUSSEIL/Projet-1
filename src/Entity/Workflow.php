@@ -22,11 +22,6 @@ class Workflow
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="workflow")
-     */
-    private $formation;
-
-    /**
      * @ORM\OneToMany(targetEntity=Etape::class, mappedBy="workflow")
      */
     private $etapes;
@@ -76,36 +71,6 @@ class Workflow
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Formation[]
-     */
-    public function getFormation(): Collection
-    {
-        return $this->formation;
-    }
-
-    public function addFormation(Formation $formation): self
-    {
-        if (!$this->formation->contains($formation)) {
-            $this->formation[] = $formation;
-            $formation->setWorkflow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFormation(Formation $formation): self
-    {
-        if ($this->formation->removeElement($formation)) {
-            // set the owning side to null (unless already changed)
-            if ($formation->getWorkflow() === $this) {
-                $formation->setWorkflow(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

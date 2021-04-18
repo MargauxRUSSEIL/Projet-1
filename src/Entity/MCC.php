@@ -43,11 +43,6 @@ class MCC
     private $contact;
 
     /**
-     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="mCC", cascade={"persist", "remove"})
-     */
-    private $UE;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $typeDiplome;
@@ -63,13 +58,19 @@ class MCC
     private $niveau;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Mention::class)
+     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mcc")
      */
     private $mention;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=UE::class, inversedBy="mCCs")
+     */
+    private $ue;
+
     public function __construct()
     {
-        $this->UE = new ArrayCollection();
+        //$this->UE = new ArrayCollection();
+        $this->ue = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,36 +126,6 @@ class MCC
         return $this;
     }
 
-    /**
-     * @return Collection|UE[]
-     */
-    public function getUE(): Collection
-    {
-        return $this->UE;
-    }
-
-    public function addUE(UE $uE): self
-    {
-        if (!$this->UE->contains($uE)) {
-            $this->UE[] = $uE;
-            $uE->setMCC($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUE(UE $uE): self
-    {
-        if ($this->UE->removeElement($uE)) {
-            // set the owning side to null (unless already changed)
-            if ($uE->getMCC() === $this) {
-                $uE->setMCC(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getTypeDiplome(): ?string
     {
         return $this->typeDiplome;
@@ -202,4 +173,29 @@ class MCC
 
         return $this;
     }
+
+    /**
+     * @return Collection|UE[]
+     */
+    public function getUe(): Collection
+    {
+        return $this->ue;
+    }
+
+    public function addUe(UE $ue): self
+    {
+        if (!$this->ue->contains($ue)) {
+            $this->ue[] = $ue;
+        }
+
+        return $this;
+    }
+
+    public function removeUe(UE $ue): self
+    {
+        $this->ue->removeElement($ue);
+
+        return $this;
+    }
+
 }

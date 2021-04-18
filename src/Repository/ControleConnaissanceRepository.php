@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\TypeControle;
+use App\Entity\ControleConnaissance;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method TypeControle|null find($id, $lockMode = null, $lockVersion = null)
- * @method TypeControle|null findOneBy(array $criteria, array $orderBy = null)
- * @method TypeControle[]    findAll()
- * @method TypeControle[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ControleConnaissance|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ControleConnaissance|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ControleConnaissance[]    findAll()
+ * @method ControleConnaissance[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypeControleRepository extends ServiceEntityRepository
+class ControleConnaissanceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TypeControle::class);
+        parent::__construct($registry, ControleConnaissance::class);
     }
 
     // /**
-    //  * @return TypeControle[] Returns an array of TypeControle objects
+    //  * @return ControleConnaissance[] Returns an array of ControleConnaissance objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TypeControleRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?TypeControle
+    public function findOneBySomeField($value): ?ControleConnaissance
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

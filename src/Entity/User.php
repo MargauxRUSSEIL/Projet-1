@@ -67,10 +67,16 @@ class User
      */
     private $workflows;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Composante::class, mappedBy="users")
+     */
+    private $composantes;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         //$this->workflows = new ArrayCollection();
+        $this->composantes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +214,33 @@ class User
     {
         if ($this->workflows->removeElement($workflow)) {
             $workflow->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Composante[]
+     */
+    public function getComposantes(): Collection
+    {
+        return $this->composantes;
+    }
+
+    public function addComposante(Composante $composante): self
+    {
+        if (!$this->composantes->contains($composante)) {
+            $this->composantes[] = $composante;
+            $composante->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposante(Composante $composante): self
+    {
+        if ($this->composantes->removeElement($composante)) {
+            $composante->removeUser($this);
         }
 
         return $this;

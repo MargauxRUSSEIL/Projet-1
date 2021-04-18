@@ -61,7 +61,7 @@ class Parcours
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $libelleParcours;
+    private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -200,14 +200,14 @@ class Parcours
         return $this;
     }
 
-    public function getLibelleParcours(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelleParcours;
+        return $this->libelle;
     }
 
-    public function setLibelleParcours(?string $libelleParcours): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->libelleParcours = $libelleParcours;
+        $this->libelle = $libelle;
 
         return $this;
     }

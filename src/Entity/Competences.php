@@ -45,9 +45,9 @@ class Competences
     private $seuil;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasTypeControle::class, inversedBy="competences")
+     * @ORM\ManyToOne(targetEntity=SessionUniqueHasControleConnaissance::class, inversedBy="competences")
      */
-    private $sessionUniqueHasTypeControle;
+    private $sessionUniqueHasControleConnaissance;
 
     public function getId(): ?int
     {
@@ -114,14 +114,14 @@ class Competences
         return $this;
     }
 
-    public function getSessionUniqueHasTypeControle(): ?SessionUniqueHasTypeControle
+    public function getSessionUniqueHasControleConnaissance(): ?SessionUniqueHasControleConnaissance
     {
-        return $this->sessionUniqueHasTypeControle;
+        return $this->sessionUniqueHasControleConnaissance;
     }
 
-    public function setSessionUniqueHasTypeControle(?SessionUniqueHasTypeControle $sessionUniqueHasTypeControle): self
+    public function setSessionUniqueHasControleConnaissance(?SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
     {
-        $this->sessionUniqueHasTypeControle = $sessionUniqueHasTypeControle;
+        $this->sessionUniqueHasControleConnaissance = $sessionUniqueHasControleConnaissance;
 
         return $this;
     }

@@ -34,6 +34,11 @@ class Semestre
      */
     private $parcours;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="semestres")
+     */
+    private $mention;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +76,18 @@ class Semestre
     public function setParcours(?Parcours $parcours): self
     {
         $this->parcours = $parcours;
+
+        return $this;
+    }
+
+    public function getMention(): ?Mention
+    {
+        return $this->mention;
+    }
+
+    public function setMention(?Mention $mention): self
+    {
+        $this->mention = $mention;
 
         return $this;
     }

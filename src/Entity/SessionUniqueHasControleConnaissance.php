@@ -3,16 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\SessionUniqueHasTypeControleRepository;
+use App\Repository\SessionUniqueHasControleConnaissanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass=SessionUniqueHasTypeControleRepository::class)
+ * @ORM\Entity(repositoryClass=SessionUniqueHasControleConnaissanceRepository::class)
  */
-class SessionUniqueHasTypeControle
+class SessionUniqueHasControleConnaissance
 {
     /**
      * @ORM\Id
@@ -22,24 +22,24 @@ class SessionUniqueHasTypeControle
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=SessionUnique::class, mappedBy="sessionUniqueHasTypeControle", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=SessionUnique::class, mappedBy="sessionUniqueHasControleConnaissance", cascade={"persist", "remove"})
      */
     private $sessionUnique;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="sessionUniqueHasTypeControle", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=ControleConnaissance::class, mappedBy="sessionUniqueHasControleConnaissance", cascade={"persist", "remove"})
      */
-    private $typeControle;
+    private $controleConnaissance;
 
     /**
-     * @ORM\OneToMany(targetEntity=Competences::class, mappedBy="sessionUniqueHasTypeControle", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Competences::class, mappedBy="sessionUniqueHasControleConnaissance", cascade={"persist", "remove"})
      */
     private $competences;
 
     public function __construct()
     {
         $this->sessionUnique = new ArrayCollection();
-        $this->typeControle = new ArrayCollection();
+        $this->controleConnaissance = new ArrayCollection();
         $this->competences = new ArrayCollection();
     }
 
@@ -60,7 +60,7 @@ class SessionUniqueHasTypeControle
     {
         if (!$this->sessionUnique->contains($sessionUnique)) {
             $this->sessionUnique[] = $sessionUnique;
-            $sessionUnique->setSessionUniqueHasTypeControle($this);
+            $sessionUnique->setSessionUniqueHasControleConnaissance($this);
         }
 
         return $this;
@@ -70,8 +70,8 @@ class SessionUniqueHasTypeControle
     {
         if ($this->sessionUnique->removeElement($sessionUnique)) {
             // set the owning side to null (unless already changed)
-            if ($sessionUnique->getSessionUniqueHasTypeControle() === $this) {
-                $sessionUnique->setSessionUniqueHasTypeControle(null);
+            if ($sessionUnique->getSessionUniqueHasControleConnaissance() === $this) {
+                $sessionUnique->setSessionUniqueHasControleConnaissance(null);
             }
         }
 
@@ -79,29 +79,29 @@ class SessionUniqueHasTypeControle
     }
 
     /**
-     * @return Collection|TypeControle[]
+     * @return Collection|ControleConnaissance[]
      */
-    public function getTypeControle(): Collection
+    public function getControleConnaissance(): Collection
     {
-        return $this->typeControle;
+        return $this->controleConnaissance;
     }
 
-    public function addTypeControle(TypeControle $typeControle): self
+    public function addControleConnaissance(ControleConnaissance $controleConnaissance): self
     {
-        if (!$this->typeControle->contains($typeControle)) {
-            $this->typeControle[] = $typeControle;
-            $typeControle->setSessionUniqueHasTypeControle($this);
+        if (!$this->controleConnaissance->contains($controleConnaissance)) {
+            $this->controleConnaissance[] = $controleConnaissance;
+            $controleConnaissance->setSessionUniqueHasControleConnaissance($this);
         }
 
         return $this;
     }
 
-    public function removeTypeControle(TypeControle $typeControle): self
+    public function removeControleConnaissance(ControleConnaissance $controleConnaissance): self
     {
-        if ($this->typeControle->removeElement($typeControle)) {
+        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
             // set the owning side to null (unless already changed)
-            if ($typeControle->getSessionUniqueHasTypeControle() === $this) {
-                $typeControle->setSessionUniqueHasTypeControle(null);
+            if ($controleConnaissance->getSessionUniqueHasControleConnaissance() === $this) {
+                $controleConnaissance->setSessionUniqueHasControleConnaissance(null);
             }
         }
 
@@ -120,7 +120,7 @@ class SessionUniqueHasTypeControle
     {
         if (!$this->competences->contains($competence)) {
             $this->competences[] = $competence;
-            $competence->setSessionUniqueHasTypeControle($this);
+            $competence->setSessionUniqueHasControleConnaissance($this);
         }
 
         return $this;
@@ -130,8 +130,8 @@ class SessionUniqueHasTypeControle
     {
         if ($this->competences->removeElement($competence)) {
             // set the owning side to null (unless already changed)
-            if ($competence->getSessionUniqueHasTypeControle() === $this) {
-                $competence->setSessionUniqueHasTypeControle(null);
+            if ($competence->getSessionUniqueHasControleConnaissance() === $this) {
+                $competence->setSessionUniqueHasControleConnaissance(null);
             }
         }
 

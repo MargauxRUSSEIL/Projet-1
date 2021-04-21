@@ -34,11 +34,6 @@ class Parcours
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $contact;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $commentaire;
 
     /**
@@ -50,8 +45,6 @@ class Parcours
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
-
-  
 
     /**
      * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="parcours", cascade={"persist", "remove"})
@@ -74,11 +67,6 @@ class Parcours
     private $secondVET;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $annuOuSemest;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="parcours")
      */
     private $formation;
@@ -87,6 +75,11 @@ class Parcours
      * @ORM\OneToOne(targetEntity=MCC::class, mappedBy="parcours", cascade={"persist", "remove"})
      */
     private $mCC;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $annuel;
 
     public function __construct()
     {
@@ -118,18 +111,6 @@ class Parcours
     public function setStructureBasse(?string $structureBasse): self
     {
         $this->structureBasse = $structureBasse;
-
-        return $this;
-    }
-
-    public function getContact(): ?string
-    {
-        return $this->contact;
-    }
-
-    public function setContact(?string $contact): self
-    {
-        $this->contact = $contact;
 
         return $this;
     }
@@ -236,18 +217,6 @@ class Parcours
         return $this;
     }
 
-    public function getAnnuOuSemest(): ?string
-    {
-        return $this->annuOuSemest;
-    }
-
-    public function setAnnuOuSemest(?string $annuOuSemest): self
-    {
-        $this->annuOuSemest = $annuOuSemest;
-
-        return $this;
-    }
-
     public function getFormation(): ?Formation
     {
         return $this->formation;
@@ -278,6 +247,18 @@ class Parcours
         }
 
         $this->mCC = $mCC;
+
+        return $this;
+    }
+
+    public function getAnnuel(): ?bool
+    {
+        return $this->annuel;
+    }
+
+    public function setAnnuel(?bool $annuel): self
+    {
+        $this->annuel = $annuel;
 
         return $this;
     }

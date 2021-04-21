@@ -24,7 +24,7 @@ class Composante
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $libelleInstitut;
+    private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="composante", cascade={"persist", "remove"})
@@ -48,14 +48,14 @@ class Composante
         return $this->id;
     }
 
-    public function getLibelleInstitut(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelleInstitut;
+        return $this->libelle;
     }
 
-    public function setLibelleInstitut(?string $libelleInstitut): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->libelleInstitut = $libelleInstitut;
+        $this->libelle = $libelle;
 
         return $this;
     }

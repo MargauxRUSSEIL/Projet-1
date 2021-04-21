@@ -28,19 +28,9 @@ class MCC
     private $departement;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $site;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $annee;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $contact;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -67,6 +57,11 @@ class MCC
      */
     private $ue;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="mcc")
+     */
+    private $formation;
+
     public function __construct()
     {
         //$this->UE = new ArrayCollection();
@@ -90,18 +85,6 @@ class MCC
         return $this;
     }
 
-    public function getSite(): ?string
-    {
-        return $this->site;
-    }
-
-    public function setSite(?string $site): self
-    {
-        $this->site = $site;
-
-        return $this;
-    }
-
     public function getAnnee(): ?\DateTimeInterface
     {
         return $this->annee;
@@ -110,18 +93,6 @@ class MCC
     public function setAnnee(?\DateTimeInterface $annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getContact(): ?string
-    {
-        return $this->contact;
-    }
-
-    public function setContact(?string $contact): self
-    {
-        $this->contact = $contact;
 
         return $this;
     }
@@ -194,6 +165,18 @@ class MCC
     public function removeUe(UE $ue): self
     {
         $this->ue->removeElement($ue);
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
 
         return $this;
     }

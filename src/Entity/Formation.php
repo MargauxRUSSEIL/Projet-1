@@ -61,11 +61,6 @@ class Formation
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $typeFormation;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $VDI;
 
     /**
@@ -118,10 +113,22 @@ class Formation
      */
     private $niveau;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MCC::class, mappedBy="formation")
+     */
+    private $mcc;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="formation")
+     */
+    private $semestre;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
         //$this->typeDiplome = new ArrayCollection();
+        $this->mcc = new ArrayCollection();
+        $this->semestre = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,20 +219,6 @@ class Formation
 
         return $this;
     }
-
-    public function getTypeFormation(): ?string
-    {
-        return $this->typeFormation;
-    }
-
-    public function setTypeFormation(?string $typeFormation): self
-    {
-        $this->typeFormation = $typeFormation;
-
-        return $this;
-    }
-
-    
 
     public function getVDI(): ?string
     {
@@ -383,6 +376,66 @@ class Formation
     public function setNiveau(?Niveau $niveau): self
     {
         $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MCC[]
+     */
+    public function getMcc(): Collection
+    {
+        return $this->mcc;
+    }
+
+    public function addMcc(MCC $mcc): self
+    {
+        if (!$this->mcc->contains($mcc)) {
+            $this->mcc[] = $mcc;
+            $mcc->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMcc(MCC $mcc): self
+    {
+        if ($this->mcc->removeElement($mcc)) {
+            // set the owning side to null (unless already changed)
+            if ($mcc->getFormation() === $this) {
+                $mcc->setFormation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Semestre[]
+     */
+    public function getSemestre(): Collection
+    {
+        return $this->semestre;
+    }
+
+    public function addSemestre(Semestre $semestre): self
+    {
+        if (!$this->semestre->contains($semestre)) {
+            $this->semestre[] = $semestre;
+            $semestre->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSemestre(Semestre $semestre): self
+    {
+        if ($this->semestre->removeElement($semestre)) {
+            // set the owning side to null (unless already changed)
+            if ($semestre->getFormation() === $this) {
+                $semestre->setFormation(null);
+            }
+        }
 
         return $this;
     }

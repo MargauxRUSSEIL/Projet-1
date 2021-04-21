@@ -22,11 +22,6 @@ class TypeDiplome
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeDiplomeHasDiplomeEtablissement::class, inversedBy="typeDiplome")
-     */
-    private $typeDiplomeHasDiplomeEtablissement;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $libelle;
@@ -55,18 +50,6 @@ class TypeDiplome
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTypeDiplomeHasDiplomeEtablissement(): ?TypeDiplomeHasDiplomeEtablissement
-    {
-        return $this->typeDiplomeHasDiplomeEtablissement;
-    }
-
-    public function setTypeDiplomeHasDiplomeEtablissement(?TypeDiplomeHasDiplomeEtablissement $typeDiplomeHasDiplomeEtablissement): self
-    {
-        $this->typeDiplomeHasDiplomeEtablissement = $typeDiplomeHasDiplomeEtablissement;
-
-        return $this;
     }
 
     public function getLibelle(): ?string

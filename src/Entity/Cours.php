@@ -24,7 +24,7 @@ class Cours
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $libelleCours;
+    private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,14 +57,14 @@ class Cours
         return $this->id;
     }
 
-    public function getLibelleCours(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelleCours;
+        return $this->libelle;
     }
 
-    public function setLibelleCours(?string $libelleCours): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->libelleCours = $libelleCours;
+        $this->libelle = $libelle;
 
         return $this;
     }

@@ -43,11 +43,6 @@ class MCC
     private $parcours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Niveau::class)
-     */
-    private $niveau;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mcc")
      */
     private $mention;
@@ -66,6 +61,11 @@ class MCC
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $statut;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $niveau;
 
     public function __construct()
     {
@@ -126,18 +126,6 @@ class MCC
         return $this;
     }
 
-    public function getNiveau(): ?Niveau
-    {
-        return $this->niveau;
-    }
-
-    public function setNiveau(?Niveau $niveau): self
-    {
-        $this->niveau = $niveau;
-
-        return $this;
-    }
-
     public function getMention(): ?Mention
     {
         return $this->mention;
@@ -194,6 +182,18 @@ class MCC
     public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?string $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

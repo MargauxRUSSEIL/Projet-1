@@ -64,11 +64,6 @@ class Formation
     private $VDI;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $statuts;
-
-    /**
      * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="formation", cascade={"persist", "remove"})
      */
     private $parcours;
@@ -238,18 +233,6 @@ class Formation
     public function setVDI(?string $VDI): self
     {
         $this->VDI = $VDI;
-
-        return $this;
-    }
-
-    public function getStatuts(): ?string
-    {
-        return $this->statuts;
-    }
-
-    public function setStatuts(?string $statuts): self
-    {
-        $this->statuts = $statuts;
 
         return $this;
     }

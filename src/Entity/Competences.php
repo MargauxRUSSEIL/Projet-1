@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompetencesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,9 +47,14 @@ class Competences
     private $seuil;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasControleConnaissance::class, inversedBy="competences")
+     * @ORM\OneToMany(targetEntity=SessionUniqueHasControleConnaissance::class, mappedBy="competences")
      */
     private $sessionUniqueHasControleConnaissance;
+
+    public function __construct()
+    {
+        $this->sessionUniqueHasControleConnaissance = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -114,15 +121,34 @@ class Competences
         return $this;
     }
 
-    public function getSessionUniqueHasControleConnaissance(): ?SessionUniqueHasControleConnaissance
+    /**
+     * @return Collection|SessionUniqueHasControleConnaissance[]
+     */
+    public function getSessionUniqueHasControleConnaissance(): Collection
     {
         return $this->sessionUniqueHasControleConnaissance;
     }
 
-    public function setSessionUniqueHasControleConnaissance(?SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
+    public function addSessionUniqueHasControleConnaissance(SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
     {
-        $this->sessionUniqueHasControleConnaissance = $sessionUniqueHasControleConnaissance;
+        if (!$this->sessionUniqueHasControleConnaissance->contains($sessionUniqueHasControleConnaissance)) {
+            $this->sessionUniqueHasControleConnaissance[] = $sessionUniqueHasControleConnaissance;
+            $sessionUniqueHasControleConnaissance->setCompetences($this);
+        }
 
         return $this;
     }
+
+    public function removeSessionUniqueHasControleConnaissance(SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
+    {
+        if ($this->sessionUniqueHasControleConnaissance->removeElement($sessionUniqueHasControleConnaissance)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionUniqueHasControleConnaissance->getCompetences() === $this) {
+                $sessionUniqueHasControleConnaissance->setCompetences(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -32,7 +32,7 @@ class SessionUniqueHasControleConnaissance
     private $controleConnaissance;
 
     /**
-     * @ORM\OneToMany(targetEntity=Competences::class, mappedBy="sessionUniqueHasControleConnaissance", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Competences::class, inversedBy="sessionUniqueHasControleConnaissance")
      */
     private $competences;
 
@@ -40,7 +40,7 @@ class SessionUniqueHasControleConnaissance
     {
         $this->sessionUnique = new ArrayCollection();
         $this->controleConnaissance = new ArrayCollection();
-        $this->competences = new ArrayCollection();
+        //$this->competences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,33 +108,16 @@ class SessionUniqueHasControleConnaissance
         return $this;
     }
 
-    /**
-     * @return Collection|Competences[]
-     */
-    public function getCompetences(): Collection
+    public function getCompetences(): ?Competences
     {
         return $this->competences;
     }
 
-    public function addCompetence(Competences $competence): self
+    public function setCompetences(?Competences $competences): self
     {
-        if (!$this->competences->contains($competence)) {
-            $this->competences[] = $competence;
-            $competence->setSessionUniqueHasControleConnaissance($this);
-        }
+        $this->competences = $competences;
 
         return $this;
     }
 
-    public function removeCompetence(Competences $competence): self
-    {
-        if ($this->competences->removeElement($competence)) {
-            // set the owning side to null (unless already changed)
-            if ($competence->getSessionUniqueHasControleConnaissance() === $this) {
-                $competence->setSessionUniqueHasControleConnaissance(null);
-            }
-        }
-
-        return $this;
-    }
 }

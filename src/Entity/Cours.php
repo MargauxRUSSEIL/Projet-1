@@ -32,11 +32,6 @@ class Cours
     private $codeAPOGEE;
 
     /**
-     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="cours")
-     */
-    private $nbGroupeTypeCoursHasCours;
-
-    /**
      * @ORM\ManyToMany(targetEntity=UE::class, mappedBy="cours", cascade={"persist", "remove"})
      */
     private $uEs;
@@ -46,10 +41,16 @@ class Cours
      */
     private $controleConnaissance;
 
+    /**
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="cours")
+     */
+    private $nbGroupeTypeCoursHasCours;
+
     public function __construct()
     {
         $this->uEs = new ArrayCollection();
         $this->controleConnaissance = new ArrayCollection();
+        $this->nbGroupeTypeCoursHasCours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,18 +78,6 @@ class Cours
     public function setCodeAPOGEE(?string $codeAPOGEE): self
     {
         $this->codeAPOGEE = $codeAPOGEE;
-
-        return $this;
-    }
-
-    public function getNbGroupeTypeCoursHasCours(): ?NbGroupeTypeCoursHasCours
-    {
-        return $this->nbGroupeTypeCoursHasCours;
-    }
-
-    public function setNbGroupeTypeCoursHasCours(?NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCours): self
-    {
-        $this->nbGroupeTypeCoursHasCours = $nbGroupeTypeCoursHasCours;
 
         return $this;
     }
@@ -144,6 +133,36 @@ class Cours
             // set the owning side to null (unless already changed)
             if ($controleConnaissance->getCours() === $this) {
                 $controleConnaissance->setCours(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|NbGroupeTypeCoursHasCours[]
+     */
+    public function getNbGroupeTypeCoursHasCours(): Collection
+    {
+        return $this->nbGroupeTypeCoursHasCours;
+    }
+
+    public function addNbGroupeTypeCoursHasCour(NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCour): self
+    {
+        if (!$this->nbGroupeTypeCoursHasCours->contains($nbGroupeTypeCoursHasCour)) {
+            $this->nbGroupeTypeCoursHasCours[] = $nbGroupeTypeCoursHasCour;
+            $nbGroupeTypeCoursHasCour->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNbGroupeTypeCoursHasCour(NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCour): self
+    {
+        if ($this->nbGroupeTypeCoursHasCours->removeElement($nbGroupeTypeCoursHasCour)) {
+            // set the owning side to null (unless already changed)
+            if ($nbGroupeTypeCoursHasCour->getCours() === $this) {
+                $nbGroupeTypeCoursHasCour->setCours(null);
             }
         }
 

@@ -81,6 +81,11 @@ class Parcours
      */
     private $annuel;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="parcours")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->semestre = new ArrayCollection();
@@ -259,6 +264,18 @@ class Parcours
     public function setAnnuel(?bool $annuel): self
     {
         $this->annuel = $annuel;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

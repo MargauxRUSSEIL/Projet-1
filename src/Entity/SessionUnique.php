@@ -24,11 +24,6 @@ class SessionUnique
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $controleConnaissance;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $typeEpreuve;
 
     /**
@@ -49,18 +44,6 @@ class SessionUnique
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getControleConnaissance(): ?string
-    {
-        return $this->controleConnaissance;
-    }
-
-    public function setControleConnaissance(?string $controleConnaissance): self
-    {
-        $this->controleConnaissance = $controleConnaissance;
-
-        return $this;
     }
 
     public function getTypeEpreuve(): ?string

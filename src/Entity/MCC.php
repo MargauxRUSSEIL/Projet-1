@@ -33,11 +33,6 @@ class MCC
     private $annee;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $typeDiplome;
-
-    /**
      * @ORM\OneToOne(targetEntity=Parcours::class, inversedBy="mCC", cascade={"persist", "remove"})
      */
     private $parcours;
@@ -98,18 +93,6 @@ class MCC
     public function setAnnee(?\DateTimeInterface $annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getTypeDiplome(): ?string
-    {
-        return $this->typeDiplome;
-    }
-
-    public function setTypeDiplome(?string $typeDiplome): self
-    {
-        $this->typeDiplome = $typeDiplome;
 
         return $this;
     }

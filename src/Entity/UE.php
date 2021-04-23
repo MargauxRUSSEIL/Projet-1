@@ -24,21 +24,22 @@ class UE
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $libelleUE;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=MCC::class, inversedBy="UE")
-     */
-    private $mCC;
+    private $libelle;
 
     /**
      * @ORM\ManyToMany(targetEntity=Cours::class, inversedBy="uEs", cascade={"persist", "remove"})
      */
     private $cours;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=MCC::class, mappedBy="ue")
+     */
+    private $mCCs;
+
     public function __construct()
     {
         $this->cours = new ArrayCollection();
+        $this->mCCs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,26 +47,14 @@ class UE
         return $this->id;
     }
 
-    public function getLibelleUE(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelleUE;
+        return $this->libelle;
     }
 
-    public function setLibelleUE(?string $libelleUE): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->libelleUE = $libelleUE;
-
-        return $this;
-    }
-
-    public function getMCC(): ?MCC
-    {
-        return $this->mCC;
-    }
-
-    public function setMCC(?MCC $mCC): self
-    {
-        $this->mCC = $mCC;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -90,6 +79,33 @@ class UE
     public function removeCour(Cours $cour): self
     {
         $this->cours->removeElement($cour);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MCC[]
+     */
+    public function getMCCs(): Collection
+    {
+        return $this->mCCs;
+    }
+
+    public function addMCC(MCC $mCC): self
+    {
+        if (!$this->mCCs->contains($mCC)) {
+            $this->mCCs[] = $mCC;
+            $mCC->addUe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMCC(MCC $mCC): self
+    {
+        if ($this->mCCs->removeElement($mCC)) {
+            $mCC->removeUe($this);
+        }
 
         return $this;
     }

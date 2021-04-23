@@ -24,7 +24,7 @@ class Roles
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $libelleRole;
+    private $libelle;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="roles", cascade={"persist", "remove"})
@@ -41,14 +41,14 @@ class Roles
         return $this->id;
     }
 
-    public function getLibelleRole(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelleRole;
+        return $this->libelle;
     }
 
-    public function setLibelleRole(?string $libelleRole): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->libelleRole = $libelleRole;
+        $this->libelle = $libelle;
 
         return $this;
     }

@@ -67,10 +67,28 @@ class User
      */
     private $workflows;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Composante::class, mappedBy="users")
+     */
+    private $composantes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="user")
+     */
+    private $formation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="user")
+     */
+    private $parcours;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
         //$this->workflows = new ArrayCollection();
+        $this->composantes = new ArrayCollection();
+        $this->formation = new ArrayCollection();
+        $this->parcours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +226,93 @@ class User
     {
         if ($this->workflows->removeElement($workflow)) {
             $workflow->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Composante[]
+     */
+    public function getComposantes(): Collection
+    {
+        return $this->composantes;
+    }
+
+    public function addComposante(Composante $composante): self
+    {
+        if (!$this->composantes->contains($composante)) {
+            $this->composantes[] = $composante;
+            $composante->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposante(Composante $composante): self
+    {
+        if ($this->composantes->removeElement($composante)) {
+            $composante->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Formation[]
+     */
+    public function getFormation(): Collection
+    {
+        return $this->formation;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formation->contains($formation)) {
+            $this->formation[] = $formation;
+            $formation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formation->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getUser() === $this) {
+                $formation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parcours[]
+     */
+    public function getParcours(): Collection
+    {
+        return $this->parcours;
+    }
+
+    public function addParcour(Parcours $parcour): self
+    {
+        if (!$this->parcours->contains($parcour)) {
+            $this->parcours[] = $parcour;
+            $parcour->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParcour(Parcours $parcour): self
+    {
+        if ($this->parcours->removeElement($parcour)) {
+            // set the owning side to null (unless already changed)
+            if ($parcour->getUser() === $this) {
+                $parcour->setUser(null);
+            }
         }
 
         return $this;

@@ -24,7 +24,7 @@ class Cours
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $libelleCours;
+    private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -32,24 +32,25 @@ class Cours
     private $codeAPOGEE;
 
     /**
-     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="cours")
-     */
-    private $nbGroupeTypeCoursHasCours;
-
-    /**
      * @ORM\ManyToMany(targetEntity=UE::class, mappedBy="cours", cascade={"persist", "remove"})
      */
     private $uEs;
 
     /**
-     * @ORM\OneToMany(targetEntity=TypeControle::class, mappedBy="cours", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=ControleConnaissance::class, mappedBy="cours", cascade={"persist", "remove"})
      */
-    private $typeControle;
+    private $controleConnaissance;
+
+    /**
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="cours")
+     */
+    private $nbGroupeTypeCoursHasCours;
 
     public function __construct()
     {
         $this->uEs = new ArrayCollection();
-        $this->typeControle = new ArrayCollection();
+        $this->controleConnaissance = new ArrayCollection();
+        $this->nbGroupeTypeCoursHasCours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,14 +58,14 @@ class Cours
         return $this->id;
     }
 
-    public function getLibelleCours(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelleCours;
+        return $this->libelle;
     }
 
-    public function setLibelleCours(?string $libelleCours): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->libelleCours = $libelleCours;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -77,18 +78,6 @@ class Cours
     public function setCodeAPOGEE(?string $codeAPOGEE): self
     {
         $this->codeAPOGEE = $codeAPOGEE;
-
-        return $this;
-    }
-
-    public function getNbGroupeTypeCoursHasCours(): ?NbGroupeTypeCoursHasCours
-    {
-        return $this->nbGroupeTypeCoursHasCours;
-    }
-
-    public function setNbGroupeTypeCoursHasCours(?NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCours): self
-    {
-        $this->nbGroupeTypeCoursHasCours = $nbGroupeTypeCoursHasCours;
 
         return $this;
     }
@@ -121,29 +110,59 @@ class Cours
     }
 
      /**
-     * @return Collection|TypeControle[]
+     * @return Collection|ControleConnaissance[]
      */
-    public function getTypeControle(): Collection
+    public function getControleConnaissance(): Collection
     {
-        return $this->typeControle;
+        return $this->controleConnaissance;
     }
 
-    public function addTypeControle(TypeControle $typeControle): self
+    public function addControleConnaissance(ControleConnaissance $controleConnaissance): self
     {
-        if (!$this->typeControle->contains($typeControle)) {
-            $this->typeControle[] = $typeControle;
-            $typeControle->setCours($this);
+        if (!$this->controleConnaissance->contains($controleConnaissance)) {
+            $this->controleConnaissance[] = $controleConnaissance;
+            $controleConnaissance->setCours($this);
         }
 
         return $this;
     }
 
-    public function removeTypeControle(TypeControle $typeControle): self
+    public function removeControleConnaissance(ControleConnaissance $controleConnaissance): self
     {
-        if ($this->typeControle->removeElement($typeControle)) {
+        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
             // set the owning side to null (unless already changed)
-            if ($typeControle->getCours() === $this) {
-                $typeControle->setCours(null);
+            if ($controleConnaissance->getCours() === $this) {
+                $controleConnaissance->setCours(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|NbGroupeTypeCoursHasCours[]
+     */
+    public function getNbGroupeTypeCoursHasCours(): Collection
+    {
+        return $this->nbGroupeTypeCoursHasCours;
+    }
+
+    public function addNbGroupeTypeCoursHasCour(NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCour): self
+    {
+        if (!$this->nbGroupeTypeCoursHasCours->contains($nbGroupeTypeCoursHasCour)) {
+            $this->nbGroupeTypeCoursHasCours[] = $nbGroupeTypeCoursHasCour;
+            $nbGroupeTypeCoursHasCour->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNbGroupeTypeCoursHasCour(NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCour): self
+    {
+        if ($this->nbGroupeTypeCoursHasCours->removeElement($nbGroupeTypeCoursHasCour)) {
+            // set the owning side to null (unless already changed)
+            if ($nbGroupeTypeCoursHasCour->getCours() === $this) {
+                $nbGroupeTypeCoursHasCour->setCours(null);
             }
         }
 

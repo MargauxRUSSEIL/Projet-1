@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,11 +48,6 @@ class User
     private $actif;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Workflow::class, inversedBy="users")
-     */
-    private $workflow;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adjoint2;
@@ -59,6 +56,40 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adjoint3;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Roles::class, inversedBy="users", cascade={"persist", "remove"})
+     */
+    private $roles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Workflow::class, mappedBy="users", cascade={"persist", "remove"})
+     */
+    private $workflows;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Composante::class, mappedBy="users")
+     */
+    private $composantes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="user")
+     */
+    private $formation;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="user")
+     */
+    private $parcours;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+        //$this->workflows = new ArrayCollection();
+        $this->composantes = new ArrayCollection();
+        $this->formation = new ArrayCollection();
+        $this->parcours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,18 +156,6 @@ class User
         return $this;
     }
 
-    public function getWorkflow(): ?Workflow
-    {
-        return $this->workflow;
-    }
-
-    public function setWorkflow(?Workflow $workflow): self
-    {
-        $this->workflow = $workflow;
-
-        return $this;
-    }
-
     public function getAdjoint2(): ?string
     {
         return $this->adjoint2;
@@ -157,6 +176,144 @@ class User
     public function setAdjoint3(?string $adjoint3): self
     {
         $this->adjoint3 = $adjoint3;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Roles[]
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(Roles $role): self
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Roles $role): self
+    {
+        $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Workflow[]
+     */
+    public function getWorkflows(): Collection
+    {
+        return $this->workflows;
+    }
+
+    public function addWorkflow(Workflow $workflow): self
+    {
+        if (!$this->workflows->contains($workflow)) {
+            $this->workflows[] = $workflow;
+            $workflow->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkflow(Workflow $workflow): self
+    {
+        if ($this->workflows->removeElement($workflow)) {
+            $workflow->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Composante[]
+     */
+    public function getComposantes(): Collection
+    {
+        return $this->composantes;
+    }
+
+    public function addComposante(Composante $composante): self
+    {
+        if (!$this->composantes->contains($composante)) {
+            $this->composantes[] = $composante;
+            $composante->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposante(Composante $composante): self
+    {
+        if ($this->composantes->removeElement($composante)) {
+            $composante->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Formation[]
+     */
+    public function getFormation(): Collection
+    {
+        return $this->formation;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formation->contains($formation)) {
+            $this->formation[] = $formation;
+            $formation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formation->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getUser() === $this) {
+                $formation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parcours[]
+     */
+    public function getParcours(): Collection
+    {
+        return $this->parcours;
+    }
+
+    public function addParcour(Parcours $parcour): self
+    {
+        if (!$this->parcours->contains($parcour)) {
+            $this->parcours[] = $parcour;
+            $parcour->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParcour(Parcours $parcour): self
+    {
+        if ($this->parcours->removeElement($parcour)) {
+            // set the owning side to null (unless already changed)
+            if ($parcour->getUser() === $this) {
+                $parcour->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -295,22 +295,6 @@
             //             console.log(this.formation);
             //         });
             // },
-            // updateData(id) {
-            //     let url = `http://localhost:8000/api/formations/${this.id}`;
-            //     // console.log(url);
-            //     axios
-            //         .put(url, {
-
-            //             road: this.address.road,
-            //             zip: this.address.zip,
-            //             id_department: this.address.id_department,
-            //         })
-            //         .then(() => {})
-            //         .catch((error) => {
-            //             console.log("ERREUR", error);
-            //         });
-            // },
         }
-
     }
 </script>

@@ -25,14 +25,15 @@
                                     <thead>
                                         <tr>
                                             <th>Formation</th>
+                                            <th>Code Diplome</th>
                                             <th>Structure haute</th>
-                                            <th>Code diplome</th>
-                                            <th>Ecole doctorale</th>
+                                            <th>Localisation</th>
                                             <th>Contact</th>
                                             <th>Commentaire</th>
                                             <th>Créer le</th>
+                                            <th>Composante</th>
                                             <th>VDI</th>
-                                            <th> statuts </th>
+                                            <th> Niveau </th>
                                             <th>Parcours</th>
                                             <th>mention</th>
                                              <th>Modifier</th>
@@ -41,17 +42,18 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="formation in info" :key="formation">
-                                            <td>{{formation.typeFormation}}</td>
+                                            <td>{{formation.libelle}}</td>
+                                            <td>{{formation.codeDiplome}}</td>
                                             <td> {{formation.structureHaute}}</td>
-                                            <td> {{formation.codeDiplome}}</td>
-                                            <td>{{formation.ecoleDoctorale}}</td>
+                                            <td> {{formation.localisation.adresse}} <br/> <span style="font-weight: bold"> Ville : </span> <br/> {{formation.localisation.ville}}</td>
                                             <td>{{formation.contact}}</td>
                                             <td>{{formation.commentaire}}</td>
                                             <td>{{formation.createdAt}}</td>
+                                            <td>{{formation.composante.libelle}}</td>
                                             <td>{{formation.VDI}}</td>
-                                            <td>{{formation.statuts}}</td>
+                                            <td>{{formation.niveau.libelle}}</td>
                                             <td>{{formation.parcours.structureProlongee}}</td>
-                                            <td>{{formation.mention.libelleMention}}</td>
+                                            <td>{{formation.mention.libelle}}</td>
                                             <td>
                                                 <router-link :to="{name: 'formationUpdate', params:{ id:formation.id}}">
                                                     <button id="myButton" class="foo bar">Modifier</button>
@@ -248,6 +250,27 @@
                         axios.get(`http://localhost:8000${formation.mention}`).then(
                             function (response) {
                                 formation.mention = response.data
+                                //console.log(response.data)
+                            })
+                    });
+                     self.info.forEach(formation => {
+                        axios.get(`http://localhost:8000${formation.localisation}`).then(
+                            function (response) {
+                                formation.localisation = response.data
+                                //console.log(response.data)
+                            })
+                    });
+                    self.info.forEach(formation => {
+                        axios.get(`http://localhost:8000${formation.composante}`).then(
+                            function (response) {
+                                formation.composante = response.data
+                                //console.log(response.data)
+                            })
+                    });
+                    self.info.forEach(formation => {
+                        axios.get(`http://localhost:8000${formation.niveau}`).then(
+                            function (response) {
+                                formation.niveau = response.data
                                 //console.log(response.data)
                             })
                     });

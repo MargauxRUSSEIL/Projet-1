@@ -34,31 +34,9 @@ class MCC
     private $departement;
 
     /**
-     * @Groups("post:read")
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $site;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $annee;
-
-    /**
-     * @Groups("post:read")
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $contact;
-
-    /**
-     * @ORM\OneToMany(targetEntity=UE::class, mappedBy="mCC")
-     */
-    private $UE;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $typeDiplome;
 
     /**
      * @ORM\OneToOne(targetEntity=Parcours::class, inversedBy="mCC", cascade={"persist", "remove"})
@@ -66,18 +44,34 @@ class MCC
     private $parcours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Niveau::class)
-     */
-    private $niveau;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Mention::class)
+     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mcc")
      */
     private $mention;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=UE::class, inversedBy="mCCs")
+     */
+    private $ue;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="mcc")
+     */
+    private $formation;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statut;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $niveau;
+
     public function __construct()
     {
-        $this->UE = new ArrayCollection();
+        //$this->UE = new ArrayCollection();
+        $this->ue = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,18 +91,6 @@ class MCC
         return $this;
     }
 
-    public function getSite(): ?string
-    {
-        return $this->site;
-    }
-
-    public function setSite(?string $site): self
-    {
-        $this->site = $site;
-
-        return $this;
-    }
-
     public function getAnnee(): ?\DateTimeInterface
     {
         return $this->annee;
@@ -117,60 +99,6 @@ class MCC
     public function setAnnee(?\DateTimeInterface $annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getContact(): ?string
-    {
-        return $this->contact;
-    }
-
-    public function setContact(?string $contact): self
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|UE[]
-     */
-    public function getUE(): Collection
-    {
-        return $this->UE;
-    }
-
-    public function addUE(UE $uE): self
-    {
-        if (!$this->UE->contains($uE)) {
-            $this->UE[] = $uE;
-            $uE->setMCC($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUE(UE $uE): self
-    {
-        if ($this->UE->removeElement($uE)) {
-            // set the owning side to null (unless already changed)
-            if ($uE->getMCC() === $this) {
-                $uE->setMCC(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getTypeDiplome(): ?string
-    {
-        return $this->typeDiplome;
-    }
-
-    public function setTypeDiplome(?string $typeDiplome): self
-    {
-        $this->typeDiplome = $typeDiplome;
 
         return $this;
     }
@@ -187,18 +115,6 @@ class MCC
         return $this;
     }
 
-    public function getNiveau(): ?Niveau
-    {
-        return $this->niveau;
-    }
-
-    public function setNiveau(?Niveau $niveau): self
-    {
-        $this->niveau = $niveau;
-
-        return $this;
-    }
-
     public function getMention(): ?Mention
     {
         return $this->mention;
@@ -210,4 +126,65 @@ class MCC
 
         return $this;
     }
+
+    /**
+     * @return Collection|UE[]
+     */
+    public function getUe(): Collection
+    {
+        return $this->ue;
+    }
+
+    public function addUe(UE $ue): self
+    {
+        if (!$this->ue->contains($ue)) {
+            $this->ue[] = $ue;
+        }
+
+        return $this;
+    }
+
+    public function removeUe(UE $ue): self
+    {
+        $this->ue->removeElement($ue);
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?string $niveau): self
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
 }

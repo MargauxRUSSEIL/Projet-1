@@ -6,7 +6,11 @@
     'aliases' => 
     array (
     ),
+<<<<<<< HEAD
     'reference' => '0d40a79854c4e12da1ca5fb4024d9207656f16ec',
+=======
+    'reference' => '7ff539eac3e181e53ab817c478a842d8c56010e9',
+>>>>>>> fe257a0f9044469f2151e4baf720cdbd7d28bc43
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +22,11 @@
       'aliases' => 
       array (
       ),
+<<<<<<< HEAD
       'reference' => '0d40a79854c4e12da1ca5fb4024d9207656f16ec',
+=======
+      'reference' => '7ff539eac3e181e53ab817c478a842d8c56010e9',
+>>>>>>> fe257a0f9044469f2151e4baf720cdbd7d28bc43
     ),
     'api-platform/core' => 
     array (

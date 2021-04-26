@@ -116,10 +116,10 @@ final class Versions
   'willdurand/negotiation' => '3.0.0@04e14f38d4edfcc974114a07d2777d90c98f3d9c',
   'nikic/php-parser' => 'v4.10.4@c6d052fc58cb876152f89f532b95a8d7907e7f0e',
   'symfony/maker-bundle' => 'v1.30.2@a395a85aa4ded6c1fa3da118d60329b64b6c2acd',
-  'symfony/polyfill-ctype' => '*@0d40a79854c4e12da1ca5fb4024d9207656f16ec',
-  'symfony/polyfill-iconv' => '*@0d40a79854c4e12da1ca5fb4024d9207656f16ec',
-  'symfony/polyfill-php72' => '*@0d40a79854c4e12da1ca5fb4024d9207656f16ec',
-  '__root__' => 'dev-main@0d40a79854c4e12da1ca5fb4024d9207656f16ec',
+  'symfony/polyfill-ctype' => '*@7ff539eac3e181e53ab817c478a842d8c56010e9',
+  'symfony/polyfill-iconv' => '*@7ff539eac3e181e53ab817c478a842d8c56010e9',
+  'symfony/polyfill-php72' => '*@7ff539eac3e181e53ab817c478a842d8c56010e9',
+  '__root__' => 'dev-main@7ff539eac3e181e53ab817c478a842d8c56010e9',
 );
 
     private function __construct()

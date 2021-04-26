@@ -48,7 +48,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleMention }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.domaine }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
@@ -103,13 +103,15 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getMention()
-                            this.$toast.success(`Mention resource deleted`, {
+                            this.$toast.success(`Mention supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }

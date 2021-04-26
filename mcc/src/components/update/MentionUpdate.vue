@@ -8,7 +8,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleMention"
+                           v-model="form.libelle"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -18,7 +18,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.domaine"
                     >
-                        <option v-for="item in libelleDomaine" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleDomaine }}</option>
+                        <option v-for="item in libelleDomaine" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -40,7 +40,7 @@
                 stat: '',
                 form: {
                     domaine: '',
-                    libelleMention: ''
+                    libelle: ''
                 }
             }
         },
@@ -57,24 +57,27 @@
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 200) {
-                            this.$toast.success(`Mention resource updated`, {
+                            this.$toast.success(`Mention mis à jour avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                             this.$router.push({ name: 'Mention' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                        else if (this.err === 404) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }

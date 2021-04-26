@@ -18,7 +18,7 @@
                         Code Postal
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
+                           type="number"
                            v-model="form.codePostal"
                            required
                     >
@@ -78,24 +78,27 @@
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 200) {
-                            this.$toast.success(`Localisation resource updated`, {
+                            this.$toast.success(`Localisation mis à jour avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                             this.$router.push({ name: 'Localisation' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                        else if (this.err === 404) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }

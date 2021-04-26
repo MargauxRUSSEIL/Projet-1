@@ -47,7 +47,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleNiveau }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateNiveau', params: { id: item.id }}">
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import http from "../../http-common"
+    import http from "../../http-common"
 
     export default {
         name: "NiveauTable",
@@ -101,13 +101,15 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getNiveau()
-                            this.$toast.success(`Niveau resource deleted`, {
+                            this.$toast.success(`Niveau supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }
@@ -123,7 +125,7 @@
                     return search;
                 }
                 search = search.filter(function (item) {
-                    if (item.libelleNiveau.toLowerCase().indexOf(searchNiveau) !== -1 || item.libelleNiveau.toUpperCase().indexOf(searchNiveau) !== -1) {
+                    if (item.libelle.toLowerCase().indexOf(searchNiveau) !== -1 || item.libelle.toUpperCase().indexOf(searchNiveau) !== -1) {
                         return item;
                     }
                 })

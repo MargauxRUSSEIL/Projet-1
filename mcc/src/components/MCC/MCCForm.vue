@@ -27,7 +27,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.mention"
                     >
-                        <option v-for="item in mentions" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleMention }}</option>
+                        <option v-for="item in mentions" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -46,7 +46,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.niveau"
                     >
-                        <option v-for="item in niveaux" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleNiveau }}</option>
+                        <option v-for="item in niveaux" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -65,7 +65,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.UE[0]"
                     >
-                        <option v-for="item in ues" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleUE }}</option>
+                        <option v-for="item in ues" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -87,7 +87,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.parcours"
                     >
-                        <option v-for="item in parcoursform" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleParcours }}</option>
+                        <option v-for="item in parcoursform" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -136,24 +136,22 @@
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
-                            this.$toast.success(`MCC resource created`, {
+                            this.$toast.success(`MCC créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                             this.$router.push({ name: 'MCC' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.warning(`Invalid input`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
-                                position: "top-right"
-                            })
-                        }
-                        else if (this.stat === 500) {
-                            this.$toast.error(`Internal Server Error`, {
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }

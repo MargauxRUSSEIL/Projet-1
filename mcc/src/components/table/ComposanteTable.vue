@@ -46,7 +46,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in composante" :key="item">
-                        <td scope="row" class="px-6 py-4 whitespace-nowrap">{{ item.libelleInstitut }}</td>
+                        <td scope="row" class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateComposante', params: { id: item.id }}">
@@ -99,13 +99,15 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getComposante()
-                            this.$toast.success(`Composante resource deleted`, {
+                            this.$toast.success(`Composante supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }

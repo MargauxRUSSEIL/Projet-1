@@ -11,6 +11,8 @@
                            v-model="form.adresse"
                            required
                     >
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Code Postal
                     </label>
@@ -19,6 +21,8 @@
                            required
                            v-model="form.codePostal"
                     >
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Ville
                     </label>
@@ -43,7 +47,6 @@
         name: "LocalisationForm",
         data() {
             return {
-                stat: '',
                 form: {
                     adresse: '',
                     codePostal: '',
@@ -58,19 +61,22 @@
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
-                            this.$toast.success(`Localisation resource created`, {
+                            this.$toast.success(`Localisation créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                             this.$router.push({ name: 'Localisation' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }

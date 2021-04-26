@@ -46,7 +46,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.niveau"
                     >
-                        <option v-for="item in niveaux" v-bind:key="item">{{ item.libelleNiveau }}</option>
+                        <option v-for="item in niveaux" v-bind:key="item">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -65,7 +65,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.UE"
                     >
-                        <option v-for="item in ues" v-bind:key="item">{{ item.libelleUE }}</option>
+                        <option v-for="item in ues" v-bind:key="item">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -87,7 +87,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.parcours"
                     >
-                        <option v-for="item in parcoursform" v-bind:key="item">{{ item.libelleParcours }}</option>
+                        <option v-for="item in parcoursform" v-bind:key="item">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -139,24 +139,27 @@
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 200) {
-                            this.$toast.success(`MCC resource updated`, {
+                            this.$toast.success(`MCC mis à jour avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                             this.$router.push({ name: 'MCC' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                        else if (this.err === 404) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }

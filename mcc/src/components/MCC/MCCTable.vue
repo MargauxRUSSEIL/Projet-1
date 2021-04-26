@@ -115,13 +115,15 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getMCC()
-                            this.$toast.success(`MCC resource deleted`, {
+                            this.$toast.success(`MCC supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }

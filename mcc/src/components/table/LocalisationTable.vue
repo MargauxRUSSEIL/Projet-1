@@ -31,6 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchLocalisation"
                             >
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-100" v-for="item in localisation" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.adresse }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.codePostal }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.ville }}</td>
@@ -76,9 +77,9 @@
         name: "LocalisationTable",
         data () {
             return {
-                stat: '',
                 errored: false,
                 localisation: [],
+                searchLocalisation: [],
             }
         },
         mounted() {
@@ -103,17 +104,35 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getLocalisation()
-                            this.$toast.success(`Localisation resource deleted`, {
+                            this.$toast.success(`Localisation supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }
                     }.bind(this))
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.localisation;
+                const searchLocalisation = this.searchLocalisation;
+
+                if (!searchLocalisation) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.ville.toLowerCase().indexOf(searchLocalisation) !== -1 || item.ville.toUpperCase().indexOf(searchLocalisation) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

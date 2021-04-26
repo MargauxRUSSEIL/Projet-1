@@ -53,7 +53,7 @@ class RequestController extends AbstractController
                 'roles' => $user->getRoles(),
                 'workflows' => $user->getWorkflows(),
                 'composantes' => $user->getComposantes(),
-                'formations' => $user->getFormations(),
+                'formations' => $user->getFormation(),
                 'parcours' => $user->getParcours()
             ];
         }

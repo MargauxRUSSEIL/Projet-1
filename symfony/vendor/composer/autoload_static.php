@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
+class ComposerStaticInit8ceb1c0b77dbbaa72efa55de84235c33
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -665,6 +665,7 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Exception\\ValidationException' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Exception/ValidationException.php',
         'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Metadata\\Property\\Restriction\\PropertySchemaFormat' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Metadata/Property/Restriction/PropertySchemaFormat.php',
         'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Metadata\\Property\\Restriction\\PropertySchemaLengthRestriction' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Metadata/Property/Restriction/PropertySchemaLengthRestriction.php',
+        'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Metadata\\Property\\Restriction\\PropertySchemaOneOfRestriction' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Metadata/Property/Restriction/PropertySchemaOneOfRestriction.php',
         'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Metadata\\Property\\Restriction\\PropertySchemaRegexRestriction' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Metadata/Property/Restriction/PropertySchemaRegexRestriction.php',
         'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Metadata\\Property\\Restriction\\PropertySchemaRestrictionMetadataInterface' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Metadata/Property/Restriction/PropertySchemaRestrictionMetadataInterface.php',
         'ApiPlatform\\Core\\Bridge\\Symfony\\Validator\\Metadata\\Property\\ValidatorPropertyMetadataFactory' => __DIR__ . '/..' . '/api-platform/core/src/Bridge/Symfony/Validator/Metadata/Property/ValidatorPropertyMetadataFactory.php',
@@ -957,12 +958,14 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'ApiPlatform\\Core\\Validator\\EventListener\\ValidateListener' => __DIR__ . '/..' . '/api-platform/core/src/Validator/EventListener/ValidateListener.php',
         'ApiPlatform\\Core\\Validator\\Exception\\ValidationException' => __DIR__ . '/..' . '/api-platform/core/src/Validator/Exception/ValidationException.php',
         'ApiPlatform\\Core\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/api-platform/core/src/Validator/ValidatorInterface.php',
-        'App\\Controller\\ApiPostController' => __DIR__ . '/../..' . '/src/Controller/ApiPostController.php',
         'App\\DataFixtures\\AppFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/AppFixtures.php',
+        'App\\Entity\\Caracteristiques' => __DIR__ . '/../..' . '/src/Entity/Caracteristiques.php',
         'App\\Entity\\Competences' => __DIR__ . '/../..' . '/src/Entity/Competences.php',
         'App\\Entity\\Composante' => __DIR__ . '/../..' . '/src/Entity/Composante.php',
+        'App\\Entity\\ControleConnaissance' => __DIR__ . '/../..' . '/src/Entity/ControleConnaissance.php',
         'App\\Entity\\Cours' => __DIR__ . '/../..' . '/src/Entity/Cours.php',
         'App\\Entity\\CoutHETD' => __DIR__ . '/../..' . '/src/Entity/CoutHETD.php',
+        'App\\Entity\\Creationformation' => __DIR__ . '/../..' . '/src/Entity/Creationformation.php',
         'App\\Entity\\DiplomeEtablissement' => __DIR__ . '/../..' . '/src/Entity/DiplomeEtablissement.php',
         'App\\Entity\\Domaine' => __DIR__ . '/../..' . '/src/Entity/Domaine.php',
         'App\\Entity\\Etape' => __DIR__ . '/../..' . '/src/Entity/Etape.php',
@@ -972,14 +975,19 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'App\\Entity\\Localisation' => __DIR__ . '/../..' . '/src/Entity/Localisation.php',
         'App\\Entity\\MCC' => __DIR__ . '/../..' . '/src/Entity/MCC.php',
         'App\\Entity\\Mention' => __DIR__ . '/../..' . '/src/Entity/Mention.php',
+        'App\\Entity\\ModaliteFormation' => __DIR__ . '/../..' . '/src/Entity/ModaliteFormation.php',
+        'App\\Entity\\ModalitePedagogique' => __DIR__ . '/../..' . '/src/Entity/ModalitePedagogique.php',
+        'App\\Entity\\ModaliteRecrutement' => __DIR__ . '/../..' . '/src/Entity/ModaliteRecrutement.php',
         'App\\Entity\\NbGroupeTypeCours' => __DIR__ . '/../..' . '/src/Entity/NbGroupeTypeCours.php',
         'App\\Entity\\NbGroupeTypeCoursHasCours' => __DIR__ . '/../..' . '/src/Entity/NbGroupeTypeCoursHasCours.php',
         'App\\Entity\\Niveau' => __DIR__ . '/../..' . '/src/Entity/Niveau.php',
         'App\\Entity\\Parcours' => __DIR__ . '/../..' . '/src/Entity/Parcours.php',
+        'App\\Entity\\Partenaire' => __DIR__ . '/../..' . '/src/Entity/Partenaire.php',
         'App\\Entity\\Roles' => __DIR__ . '/../..' . '/src/Entity/Roles.php',
         'App\\Entity\\RolesUser' => __DIR__ . '/../..' . '/src/Entity/RolesUser.php',
         'App\\Entity\\Semestre' => __DIR__ . '/../..' . '/src/Entity/Semestre.php',
         'App\\Entity\\SessionUnique' => __DIR__ . '/../..' . '/src/Entity/SessionUnique.php',
+        'App\\Entity\\SessionUniqueHasControleConnaissance' => __DIR__ . '/../..' . '/src/Entity/SessionUniqueHasControleConnaissance.php',
         'App\\Entity\\SessionUniqueHasTypeControle' => __DIR__ . '/../..' . '/src/Entity/SessionUniqueHasTypeControle.php',
         'App\\Entity\\TypeControle' => __DIR__ . '/../..' . '/src/Entity/TypeControle.php',
         'App\\Entity\\TypeDiplome' => __DIR__ . '/../..' . '/src/Entity/TypeDiplome.php',
@@ -988,10 +996,13 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
         'App\\Entity\\Workflow' => __DIR__ . '/../..' . '/src/Entity/Workflow.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\CaracteristiquesRepository' => __DIR__ . '/../..' . '/src/Repository/CaracteristiquesRepository.php',
         'App\\Repository\\CompetencesRepository' => __DIR__ . '/../..' . '/src/Repository/CompetencesRepository.php',
         'App\\Repository\\ComposanteRepository' => __DIR__ . '/../..' . '/src/Repository/ComposanteRepository.php',
+        'App\\Repository\\ControleConnaissanceRepository' => __DIR__ . '/../..' . '/src/Repository/ControleConnaissanceRepository.php',
         'App\\Repository\\CoursRepository' => __DIR__ . '/../..' . '/src/Repository/CoursRepository.php',
         'App\\Repository\\CoutHETDRepository' => __DIR__ . '/../..' . '/src/Repository/CoutHETDRepository.php',
+        'App\\Repository\\CreationformationRepository' => __DIR__ . '/../..' . '/src/Repository/CreationformationRepository.php',
         'App\\Repository\\DiplomeEtablissementRepository' => __DIR__ . '/../..' . '/src/Repository/DiplomeEtablissementRepository.php',
         'App\\Repository\\DomaineRepository' => __DIR__ . '/../..' . '/src/Repository/DomaineRepository.php',
         'App\\Repository\\EtapeRepository' => __DIR__ . '/../..' . '/src/Repository/EtapeRepository.php',
@@ -1001,16 +1012,19 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'App\\Repository\\LocalisationRepository' => __DIR__ . '/../..' . '/src/Repository/LocalisationRepository.php',
         'App\\Repository\\MCCRepository' => __DIR__ . '/../..' . '/src/Repository/MCCRepository.php',
         'App\\Repository\\MentionRepository' => __DIR__ . '/../..' . '/src/Repository/MentionRepository.php',
+        'App\\Repository\\ModaliteFormationRepository' => __DIR__ . '/../..' . '/src/Repository/ModaliteFormationRepository.php',
+        'App\\Repository\\ModalitePedagogiqueRepository' => __DIR__ . '/../..' . '/src/Repository/ModalitePedagogiqueRepository.php',
+        'App\\Repository\\ModaliteRecrutementRepository' => __DIR__ . '/../..' . '/src/Repository/ModaliteRecrutementRepository.php',
         'App\\Repository\\NbGroupeTypeCoursHasCoursRepository' => __DIR__ . '/../..' . '/src/Repository/NbGroupeTypeCoursHasCoursRepository.php',
         'App\\Repository\\NbGroupeTypeCoursRepository' => __DIR__ . '/../..' . '/src/Repository/NbGroupeTypeCoursRepository.php',
         'App\\Repository\\NiveauRepository' => __DIR__ . '/../..' . '/src/Repository/NiveauRepository.php',
         'App\\Repository\\ParcoursRepository' => __DIR__ . '/../..' . '/src/Repository/ParcoursRepository.php',
+        'App\\Repository\\PartenaireRepository' => __DIR__ . '/../..' . '/src/Repository/PartenaireRepository.php',
         'App\\Repository\\RolesRepository' => __DIR__ . '/../..' . '/src/Repository/RolesRepository.php',
         'App\\Repository\\RolesUserRepository' => __DIR__ . '/../..' . '/src/Repository/RolesUserRepository.php',
         'App\\Repository\\SemestreRepository' => __DIR__ . '/../..' . '/src/Repository/SemestreRepository.php',
-        'App\\Repository\\SessionUniqueHasTypeControleRepository' => __DIR__ . '/../..' . '/src/Repository/SessionUniqueHasTypeControleRepository.php',
+        'App\\Repository\\SessionUniqueHasControleConnaissanceRepository' => __DIR__ . '/../..' . '/src/Repository/SessionUniqueHasControleConnaissanceRepository.php',
         'App\\Repository\\SessionUniqueRepository' => __DIR__ . '/../..' . '/src/Repository/SessionUniqueRepository.php',
-        'App\\Repository\\TypeControleRepository' => __DIR__ . '/../..' . '/src/Repository/TypeControleRepository.php',
         'App\\Repository\\TypeDiplomeHasDiplomeEtablissementRepository' => __DIR__ . '/../..' . '/src/Repository/TypeDiplomeHasDiplomeEtablissementRepository.php',
         'App\\Repository\\TypeDiplomeRepository' => __DIR__ . '/../..' . '/src/Repository/TypeDiplomeRepository.php',
         'App\\Repository\\UERepository' => __DIR__ . '/../..' . '/src/Repository/UERepository.php',
@@ -1029,7 +1043,6 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\CollectionRegionDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/CollectionRegionDoctrineCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\ConvertMappingDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/ConvertMappingDoctrineCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\CreateSchemaDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/CreateSchemaDoctrineCommand.php',
-        'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\DelegateCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/DelegateCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\DoctrineCommandHelper' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/DoctrineCommandHelper.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\DropSchemaDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/DropSchemaDoctrineCommand.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Command\\Proxy\\EnsureProductionSettingsDoctrineCommand' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Command/Proxy/EnsureProductionSettingsDoctrineCommand.php',
@@ -1072,10 +1085,13 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepository' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Repository/ServiceEntityRepository.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Repository\\ServiceEntityRepositoryInterface' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Repository/ServiceEntityRepositoryInterface.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Twig\\DoctrineExtension' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Twig/DoctrineExtension.php',
+        'Doctrine\\Bundle\\MigrationsBundle\\Collector\\MigrationsCollector' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/Collector/MigrationsCollector.php',
+        'Doctrine\\Bundle\\MigrationsBundle\\Collector\\MigrationsFlattener' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/Collector/MigrationsFlattener.php',
         'Doctrine\\Bundle\\MigrationsBundle\\DependencyInjection\\CompilerPass\\ConfigureDependencyFactoryPass' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/DependencyInjection/CompilerPass/ConfigureDependencyFactoryPass.php',
         'Doctrine\\Bundle\\MigrationsBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/DependencyInjection/Configuration.php',
         'Doctrine\\Bundle\\MigrationsBundle\\DependencyInjection\\DoctrineMigrationsExtension' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/DependencyInjection/DoctrineMigrationsExtension.php',
         'Doctrine\\Bundle\\MigrationsBundle\\DoctrineMigrationsBundle' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/DoctrineMigrationsBundle.php',
+        'Doctrine\\Bundle\\MigrationsBundle\\MigrationsFactory\\ContainerAwareMigrationFactory' => __DIR__ . '/..' . '/doctrine/doctrine-migrations-bundle/MigrationsFactory/ContainerAwareMigrationFactory.php',
         'Doctrine\\Common\\Annotations\\Annotation' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation.php',
         'Doctrine\\Common\\Annotations\\AnnotationException' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php',
         'Doctrine\\Common\\Annotations\\AnnotationReader' => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationReader.php',
@@ -1122,6 +1138,10 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'Doctrine\\Common\\Cache\\MultiPutCache' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/MultiPutCache.php',
         'Doctrine\\Common\\Cache\\PhpFileCache' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/PhpFileCache.php',
         'Doctrine\\Common\\Cache\\PredisCache' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/PredisCache.php',
+        'Doctrine\\Common\\Cache\\Psr6\\CacheAdapter' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/CacheAdapter.php',
+        'Doctrine\\Common\\Cache\\Psr6\\CacheItem' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/CacheItem.php',
+        'Doctrine\\Common\\Cache\\Psr6\\DoctrineProvider' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/DoctrineProvider.php',
+        'Doctrine\\Common\\Cache\\Psr6\\InvalidArgument' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Psr6/InvalidArgument.php',
         'Doctrine\\Common\\Cache\\RedisCache' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/RedisCache.php',
         'Doctrine\\Common\\Cache\\SQLite3Cache' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/SQLite3Cache.php',
         'Doctrine\\Common\\Cache\\Version' => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache/Version.php',
@@ -1308,6 +1328,8 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
         'Doctrine\\DBAL\\Exception\\TableNotFoundException' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Exception/TableNotFoundException.php',
         'Doctrine\\DBAL\\Exception\\UniqueConstraintViolationException' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Exception/UniqueConstraintViolationException.php',
         'Doctrine\\DBAL\\FetchMode' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/FetchMode.php',
+        'Doctrine\\DBAL\\ForwardCompatibility\\DriverResultStatement' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/ForwardCompatibility/DriverResultStatement.php',
+        'Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/ForwardCompatibility/DriverStatement.php',
         'Doctrine\\DBAL\\ForwardCompatibility\\Result' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/ForwardCompatibility/Result.php',
         'Doctrine\\DBAL\\Id\\TableGenerator' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Id/TableGenerator.php',
         'Doctrine\\DBAL\\Id\\TableGeneratorSchemaVisitor' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Id/TableGeneratorSchemaVisitor.php',
@@ -4782,9 +4804,9 @@ class ComposerStaticInitdd2ec9eac130d35b278fc406dce61134
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdd2ec9eac130d35b278fc406dce61134::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdd2ec9eac130d35b278fc406dce61134::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdd2ec9eac130d35b278fc406dce61134::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8ceb1c0b77dbbaa72efa55de84235c33::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8ceb1c0b77dbbaa72efa55de84235c33::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8ceb1c0b77dbbaa72efa55de84235c33::$classMap;
 
         }, null, ClassLoader::class);
     }

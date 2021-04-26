@@ -1,0 +1,124 @@
+<template>
+    <div class="container w-auto">
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+            <div class="flex flex-wrap ">
+                <div class="grid grid-cols-6 w-full gap-2">
+                    <div class="col-start-1 col-end-3 ...">
+                        <div class="w-full px-3 mb-6">
+                            <router-link :to="{ name: 'newLocalisation' }">
+                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="my-32 mx-auto text-center">
+                <p class="text-lg mt-6">Aucun enregistrement</p>
+            </section>
+        </div>
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56" v-else>
+            <div class="flex flex-wrap ">
+                <div class="grid grid-cols-6 w-full gap-2">
+                    <div class="col-start-1 col-end-3 ...">
+                        <div class="w-full px-3">
+                            <router-link :to="{name: 'newLocalisation'}">
+                                <span class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Ajouter</span>
+                            </router-link>
+                        </div>
+                    </div>
+                    <div class="col-end-7 col-span-2 ...">
+                        <div class="w-full px-3 mb-6">
+                            <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                                   type="search"
+                                   placeholder="Rechercher"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <table class="w-full table-auto divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adresse</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code Postal</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ville</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-100" v-for="item in localisation" :key="item">
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.adresse }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.codePostal }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.ville }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <div class="text-sm text-gray-900">
+                                <router-link :to="{ name: 'updateLocalisation', params: { id: item.id }}">
+                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
+                                </router-link>
+                            </div>
+                            <div class="text-sm text-gray-900">
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteLocalisation(item.id)">Supprimer</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import http from "../../http-common"
+
+    export default {
+        name: "LocalisationTable",
+        data () {
+            return {
+                stat: '',
+                errored: false,
+                localisation: [],
+            }
+        },
+        mounted() {
+            this.getLocalisation()
+        },
+        methods: {
+            getLocalisation: function () {
+                http
+                    .get('localisations')
+                    .then(res => {
+                        this.localisation = res.data['hydra:member']
+                        const total = res.data['hydra:totalItems']
+                        if (total === 0) {
+                            this.errored = true
+                        }
+                    })
+            },
+            deleteLocalisation: function (id) {
+                http
+                    .delete('localisations/' + id)
+                    .then(function( response ){
+                        this.stat = response.status
+                        if (this.stat === 204) {
+                            this.getLocalisation()
+                            this.$toast.success(`Localisation resource deleted`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

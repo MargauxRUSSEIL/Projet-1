@@ -29,32 +29,62 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "FormationNonDiplomanteUpdate",
         data() {
             return {
-                libelleDomaine: '',
                 form: {
                     libelleCertificat: '',
                     nbAnneeFormation: '',
                 }
             }
         },
+        mounted() {
+            this.getFormation()
+        },
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
 
-                axios.put( BaseUrl + 'formation_non_diplomantes/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
+                http
+                    .put( 'formation_non_diplomantes/' + id, this.form)
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`Formation resource updated`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Formation' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
+            },
+            getFormation: function (id) {
+                const self = this;
+                id = this.$route.params.id;
 
-                this.$router.push({ name: 'Formation' })
+                http
+                    .get('formation_non_diplomantes/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             }
         }
     }

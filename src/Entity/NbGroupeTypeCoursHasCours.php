@@ -22,31 +22,28 @@ class NbGroupeTypeCoursHasCours
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=CoutHETD::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=HoraireTypeCours::class, inversedBy="nbGroupeTypeCoursHasCours")
      */
-    private $coutHETD;
+    private $horaireTypeCours;
 
     /**
-     * @ORM\OneToMany(targetEntity=NbGroupeTypeCours::class, mappedBy="nbGroupeTypeCoursHasCours")
-     */
-    private $nbGroupeTypeCours;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Cours::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="nbGroupeTypeCoursHasCours")
      */
     private $cours;
 
     /**
-     * @ORM\OneToMany(targetEntity=HoraireTypeCours::class, mappedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=CoutHETD::class, inversedBy="nbGroupeTypeCoursHasCours")
      */
-    private $horaireTypeCours;
+    private $coutHETD;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCours::class, inversedBy="nbGroupeTypeCoursHasCours")
+     */
+    private $nbGroupeTypeCours;
 
     public function __construct()
     {
-        $this->coutHETD = new ArrayCollection();
-        $this->nbGroupeTypeCours = new ArrayCollection();
-        $this->cours = new ArrayCollection();
-        $this->horaireTypeCours = new ArrayCollection();
+        //$this->nbGroupeTypeCoursHasCours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,123 +51,53 @@ class NbGroupeTypeCoursHasCours
         return $this->id;
     }
 
-    /**
-     * @return Collection|CoutHETD[]
-     */
-    public function getCoutHETD(): Collection
-    {
-        return $this->coutHETD;
-    }
-
-    public function addCoutHETD(CoutHETD $coutHETD): self
-    {
-        if (!$this->coutHETD->contains($coutHETD)) {
-            $this->coutHETD[] = $coutHETD;
-            $coutHETD->setNbGroupeTypeCoursHasCours($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCoutHETD(CoutHETD $coutHETD): self
-    {
-        if ($this->coutHETD->removeElement($coutHETD)) {
-            // set the owning side to null (unless already changed)
-            if ($coutHETD->getNbGroupeTypeCoursHasCours() === $this) {
-                $coutHETD->setNbGroupeTypeCoursHasCours(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|NbGroupeTypeCours[]
-     */
-    public function getNbGroupeTypeCours(): Collection
-    {
-        return $this->nbGroupeTypeCours;
-    }
-
-    public function addNbGroupeTypeCour(NbGroupeTypeCours $nbGroupeTypeCour): self
-    {
-        if (!$this->nbGroupeTypeCours->contains($nbGroupeTypeCour)) {
-            $this->nbGroupeTypeCours[] = $nbGroupeTypeCour;
-            $nbGroupeTypeCour->setNbGroupeTypeCoursHasCours($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNbGroupeTypeCour(NbGroupeTypeCours $nbGroupeTypeCour): self
-    {
-        if ($this->nbGroupeTypeCours->removeElement($nbGroupeTypeCour)) {
-            // set the owning side to null (unless already changed)
-            if ($nbGroupeTypeCour->getNbGroupeTypeCoursHasCours() === $this) {
-                $nbGroupeTypeCour->setNbGroupeTypeCoursHasCours(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Cours[]
-     */
-    public function getCours(): Collection
-    {
-        return $this->cours;
-    }
-
-    public function addCour(Cours $cour): self
-    {
-        if (!$this->cours->contains($cour)) {
-            $this->cours[] = $cour;
-            $cour->setNbGroupeTypeCoursHasCours($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCour(Cours $cour): self
-    {
-        if ($this->cours->removeElement($cour)) {
-            // set the owning side to null (unless already changed)
-            if ($cour->getNbGroupeTypeCoursHasCours() === $this) {
-                $cour->setNbGroupeTypeCoursHasCours(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|HoraireTypeCours[]
-     */
-    public function getHoraireTypeCours(): Collection
+    public function getHoraireTypeCours(): ?HoraireTypeCours
     {
         return $this->horaireTypeCours;
     }
 
-    public function addHoraireTypeCour(HoraireTypeCours $horaireTypeCour): self
+    public function setHoraireTypeCours(?HoraireTypeCours $horaireTypeCours): self
     {
-        if (!$this->horaireTypeCours->contains($horaireTypeCour)) {
-            $this->horaireTypeCours[] = $horaireTypeCour;
-            $horaireTypeCour->setNbGroupeTypeCoursHasCours($this);
-        }
+        $this->horaireTypeCours = $horaireTypeCours;
 
         return $this;
     }
 
-    public function removeHoraireTypeCour(HoraireTypeCours $horaireTypeCour): self
+    public function getCours(): ?Cours
     {
-        if ($this->horaireTypeCours->removeElement($horaireTypeCour)) {
-            // set the owning side to null (unless already changed)
-            if ($horaireTypeCour->getNbGroupeTypeCoursHasCours() === $this) {
-                $horaireTypeCour->setNbGroupeTypeCoursHasCours(null);
-            }
-        }
+        return $this->cours;
+    }
+
+    public function setCours(?Cours $cours): self
+    {
+        $this->cours = $cours;
 
         return $this;
     }
+
+    public function getCoutHETD(): ?CoutHETD
+    {
+        return $this->coutHETD;
+    }
+
+    public function setCoutHETD(?CoutHETD $coutHETD): self
+    {
+        $this->coutHETD = $coutHETD;
+
+        return $this;
+    }
+
+    public function getNbGroupeTypeCours(): ?NbGroupeTypeCours
+    {
+        return $this->nbGroupeTypeCours;
+    }
+
+    public function setNbGroupeTypeCours(?NbGroupeTypeCours $nbGroupeTypeCours): self
+    {
+        $this->nbGroupeTypeCours = $nbGroupeTypeCours;
+
+        return $this;
+    }
+
+   
 }

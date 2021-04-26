@@ -62,7 +62,6 @@
         name: "CompetenceUpdate",
         data() {
             return {
-                competences: null,
                 form: {
                     blocs: '',
                     seuilBlocs: '',
@@ -80,20 +79,40 @@
                 id = this.$route.params.id;
                 http
                     .put( 'competences/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
-
-                this.$router.push({ name: 'Competence' })
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`Competence resource updated`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Competence' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             },
             getCompetenceByID: function (id) {
                 id = this.$route.params.id;
+                const self = this;
 
                 http
-                    .get('competences/' + id )
+                    .get('competences/' + id)
                     .then(response => {
-                        this.competences = response.data['hydra:member']
+                        self.form = response.data
                     })
             }
         }

@@ -9,6 +9,8 @@
     <router-link to="/mention">Mention</router-link> |
     <router-link to="/niveau">Niveau</router-link> |
     <router-link to="/semestre">Semestre</router-link> |
+    <router-link :to="{name: 'Composante'}">Composante</router-link> |
+    <router-link :to="{name: 'Localisation'}">Localisation</router-link> |
     <router-link to="/ue">UE</router-link>
   </div>
   <router-view/>

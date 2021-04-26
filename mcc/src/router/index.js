@@ -29,6 +29,12 @@ import MCCForm from "../components/MCC/MCCForm";
 import ParcoursForm from "../components/form/ParcoursForm";
 import MCCUpdate from "../components/MCC/MCCUpdate";
 import ParcoursUpdate from "../components/update/ParcoursUpdate";
+import LocalisationTable from "../components/table/LocalisationTable";
+import LocalisationForm from "../components/form/LocalisationForm";
+import LocalisationUpdate from "../components/update/LocalisationUpdate";
+import ComposanteTable from "../components/table/ComposanteTable";
+import ComposanteForm from "../components/form/ComposanteForm";
+import ComposanteUpdate from "../components/update/ComposanteUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
@@ -70,6 +76,15 @@ const routes = [
   { path: '/ue', name: 'UE', component: UETable },
   { path: '/newUE', name: 'newUE', component: UEForm },
   { path: '/updateUE/:id', name: 'updateUE', component: UEUpdate },
+
+  { path: '/localisation', name: 'Localisation', component: LocalisationTable },
+  { path: '/newLocalisation', name: 'newLocalisation', component: LocalisationForm },
+  { path: '/updateLocalisation/:id', name: 'updateLocalisation', component: LocalisationUpdate },
+
+  { path: '/composante', name: 'Composante', component: ComposanteTable },
+  { path: '/newComposante', name: 'newComposante', component: ComposanteForm },
+  { path: '/updateComposante/:id', name: 'updateComposante', component: ComposanteUpdate },
+
 ]
 
 const router = createRouter({

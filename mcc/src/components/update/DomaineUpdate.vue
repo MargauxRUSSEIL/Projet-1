@@ -20,9 +20,7 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "DomaineUpdate",
@@ -33,17 +31,50 @@
                 }
             }
         },
+        mounted() {
+            this.getDomaine()
+        },
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
 
-                axios.put( BaseUrl + 'domaines/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
+                http
+                    .put( 'domaines/' + id, this.form)
                     .then(function( response ){
-                        // Handle success
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`Domaine resource updated`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Domaine' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 404) {
+                            this.$toast.error(`Resource not found`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
                     }.bind(this))
+            },
+            getDomaine: function (id) {
+                const self = this;
+                id = this.$route.params.id;
 
-                this.$router.push({ name: 'Domaine' })
+                http
+                    .get('domaines/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             }
         }
     }

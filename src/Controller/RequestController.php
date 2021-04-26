@@ -46,7 +46,7 @@ class RequestController extends AbstractController
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
                 'mail' => $user->getMail(),
-                'telephone' => $user->getTelephone(),
+                //'telephone' => $user->getTelephone(),
                 'adjoint' => $user->getAdjoint(),
                 'adjoint2' => $user->getAdjoint2(),
                 'adjoint3'=> $user->getAdjoint3(),

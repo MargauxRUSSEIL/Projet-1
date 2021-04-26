@@ -16,7 +16,7 @@
                 <p class="text-lg mt-6">Aucun enregistrement</p>
             </section>
         </div>
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56" v-else>
             <div class="flex flex-wrap ">
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">

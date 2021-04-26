@@ -29,33 +29,7 @@
   <component name="ChangeListManager">
     <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/MCC/MCCForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/MCC/MCCForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/MCC/MCCTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/MCC/MCCTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/MCC/MCCUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/MCC/MCCUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/CompetenceForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/CompetenceForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/ComposanteForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/ComposanteForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/DomaineForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/DomaineForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/LocalisationForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/LocalisationForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/MentionForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/MentionForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/NiveauForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/NiveauForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/SemestreForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/SemestreForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/UEForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/UEForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/CompetenceTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/CompetenceTable.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcc/src/components/table/ComposanteTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/ComposanteTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/DomaineTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/DomaineTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/LocalisationTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/LocalisationTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/NiveauTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/NiveauTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/SemestreTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/SemestreTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/UETable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/UETable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/CompetenceUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/CompetenceUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/ComposanteUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/ComposanteUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/DomaineUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/DomaineUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/LocalisationUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/LocalisationUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/MentionUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/MentionUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/NiveauUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/NiveauUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/SemestreUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/SemestreUpdate.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/UEUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/UEUpdate.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

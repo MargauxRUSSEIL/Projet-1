@@ -22,16 +22,6 @@ class Workflow
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="workflow")
-     */
-    private $formation;
-
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="workflow")
-     */
-    private $users;
-
-    /**
      * @ORM\OneToMany(targetEntity=Etape::class, mappedBy="workflow")
      */
     private $etapes;
@@ -66,76 +56,21 @@ class Workflow
      */
     private $statut;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="workflows", cascade={"persist", "remove"})
+     */
+    private $users;
+
     public function __construct()
     {
-        $this->formation = new ArrayCollection();
-        $this->users = new ArrayCollection();
+        //$this->formation = new ArrayCollection();
         $this->etapes = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Formation[]
-     */
-    public function getFormation(): Collection
-    {
-        return $this->formation;
-    }
-
-    public function addFormation(Formation $formation): self
-    {
-        if (!$this->formation->contains($formation)) {
-            $this->formation[] = $formation;
-            $formation->setWorkflow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFormation(Formation $formation): self
-    {
-        if ($this->formation->removeElement($formation)) {
-            // set the owning side to null (unless already changed)
-            if ($formation->getWorkflow() === $this) {
-                $formation->setWorkflow(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setWorkflow($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getWorkflow() === $this) {
-                $user->setWorkflow(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -239,4 +174,29 @@ class Workflow
 
         return $this;
     }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->users->removeElement($user);
+
+        return $this;
+    }
+
 }

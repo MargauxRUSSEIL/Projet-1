@@ -24,11 +24,6 @@ class SessionUnique
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $typeControle;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $typeEpreuve;
 
     /**
@@ -42,25 +37,13 @@ class SessionUnique
     private $session;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasTypeControle::class, inversedBy="sessionUnique")
+     * @ORM\ManyToOne(targetEntity=SessionUniqueHasControleConnaissance::class, inversedBy="sessionUnique")
      */
-    private $sessionUniqueHasTypeControle;
+    private $sessionUniqueHasControleConnaissance;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTypeControle(): ?string
-    {
-        return $this->typeControle;
-    }
-
-    public function setTypeControle(?string $typeControle): self
-    {
-        $this->typeControle = $typeControle;
-
-        return $this;
     }
 
     public function getTypeEpreuve(): ?string
@@ -99,14 +82,14 @@ class SessionUnique
         return $this;
     }
 
-    public function getSessionUniqueHasTypeControle(): ?SessionUniqueHasTypeControle
+    public function getSessionUniqueHasControleConnaissance(): ?SessionUniqueHasControleConnaissance
     {
-        return $this->sessionUniqueHasTypeControle;
+        return $this->sessionUniqueHasControleConnaissance;
     }
 
-    public function setSessionUniqueHasTypeControle(?SessionUniqueHasTypeControle $sessionUniqueHasTypeControle): self
+    public function setSessionUniqueHasControleConnaissance(?SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
     {
-        $this->sessionUniqueHasTypeControle = $sessionUniqueHasTypeControle;
+        $this->sessionUniqueHasControleConnaissance = $sessionUniqueHasControleConnaissance;
 
         return $this;
     }

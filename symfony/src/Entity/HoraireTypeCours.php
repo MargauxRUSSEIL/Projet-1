@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\HoraireTypeCoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,9 +42,14 @@ class HoraireTypeCours
     private $horaireAutre;
 
     /**
-     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCoursHasCours::class, inversedBy="horaireTypeCours")
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="horaireTypeCours")
      */
     private $nbGroupeTypeCoursHasCours;
+
+    public function __construct()
+    {
+        $this->nbGroupeTypeCoursHasCours = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,15 +104,34 @@ class HoraireTypeCours
         return $this;
     }
 
-    public function getNbGroupeTypeCoursHasCours(): ?NbGroupeTypeCoursHasCours
+    /**
+     * @return Collection|NbGroupeTypeCoursHasCours[]
+     */
+    public function getNbGroupeTypeCoursHasCours(): Collection
     {
         return $this->nbGroupeTypeCoursHasCours;
     }
 
-    public function setNbGroupeTypeCoursHasCours(?NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCours): self
+    public function addNbGroupeTypeCoursHasCour(NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCour): self
     {
-        $this->nbGroupeTypeCoursHasCours = $nbGroupeTypeCoursHasCours;
+        if (!$this->nbGroupeTypeCoursHasCours->contains($nbGroupeTypeCoursHasCour)) {
+            $this->nbGroupeTypeCoursHasCours[] = $nbGroupeTypeCoursHasCour;
+            $nbGroupeTypeCoursHasCour->setHoraireTypeCours($this);
+        }
 
         return $this;
     }
+
+    public function removeNbGroupeTypeCoursHasCour(NbGroupeTypeCoursHasCours $nbGroupeTypeCoursHasCour): self
+    {
+        if ($this->nbGroupeTypeCoursHasCours->removeElement($nbGroupeTypeCoursHasCour)) {
+            // set the owning side to null (unless already changed)
+            if ($nbGroupeTypeCoursHasCour->getHoraireTypeCours() === $this) {
+                $nbGroupeTypeCoursHasCour->setHoraireTypeCours(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

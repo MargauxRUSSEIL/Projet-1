@@ -2,7 +2,6 @@
     <div class="header">
         <div class="container-logo montserrat text-white">
             <img src="@/assets/img/CYLogo.png" alt="Logo de l'université de Cergy">
-          
         </div>
         <div class="nav inter uppercase flex ml-auto items-center justify-between expandCollapse">
             <div class="outils">
@@ -78,7 +77,7 @@
     }
 
     .container-logo {
-        @apply flex pt-4 mx-6;
+        @apply flex my-auto mx-6;
     }
 
     .text-logo {

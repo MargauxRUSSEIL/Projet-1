@@ -49,7 +49,7 @@ class Parcours
     /**
      * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="parcours", cascade={"persist", "remove"})
      */
-    private $semestre;
+    private $semestres;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -74,7 +74,7 @@ class Parcours
     /**
      * @ORM\OneToOne(targetEntity=MCC::class, mappedBy="parcours", cascade={"persist", "remove"})
      */
-    private $mCC;
+    private $mcc;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -88,7 +88,7 @@ class Parcours
 
     public function __construct()
     {
-        $this->semestre = new ArrayCollection();
+        $this->semestres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,15 +159,15 @@ class Parcours
     /**
      * @return Collection|Semestre[]
      */
-    public function getSemestre(): Collection
+    public function getSemestres(): Collection
     {
-        return $this->semestre;
+        return $this->semestres;
     }
 
     public function addSemestre(Semestre $semestre): self
     {
-        if (!$this->semestre->contains($semestre)) {
-            $this->semestre[] = $semestre;
+        if (!$this->semestres->contains($semestre)) {
+            $this->semestres[] = $semestre;
             $semestre->setParcours($this);
         }
 
@@ -176,7 +176,7 @@ class Parcours
 
     public function removeSemestre(Semestre $semestre): self
     {
-        if ($this->semestre->removeElement($semestre)) {
+        if ($this->semestres->removeElement($semestre)) {
             // set the owning side to null (unless already changed)
             if ($semestre->getParcours() === $this) {
                 $semestre->setParcours(null);
@@ -236,22 +236,22 @@ class Parcours
 
     public function getMCC(): ?MCC
     {
-        return $this->mCC;
+        return $this->mcc;
     }
 
-    public function setMCC(?MCC $mCC): self
+    public function setMCC(?MCC $mcc): self
     {
         // unset the owning side of the relation if necessary
-        if ($mCC === null && $this->mCC !== null) {
-            $this->mCC->setParcours(null);
+        if ($mcc === null && $this->mcc !== null) {
+            $this->mcc->setParcours(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($mCC !== null && $mCC->getParcours() !== $this) {
-            $mCC->setParcours($this);
+        if ($mcc !== null && $mcc->getParcours() !== $this) {
+            $mcc->setParcours($this);
         }
 
-        $this->mCC = $mCC;
+        $this->mcc = $mcc;
 
         return $this;
     }

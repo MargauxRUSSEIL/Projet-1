@@ -38,6 +38,11 @@ class User
     private $mail;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $telephone;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adjoint;
@@ -75,7 +80,7 @@ class User
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="user")
      */
-    private $formation;
+    private $formations;
 
     /**
      * @ORM\OneToMany(targetEntity=Parcours::class, mappedBy="user")
@@ -128,6 +133,18 @@ class User
     public function setMail(?string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?int $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -261,15 +278,15 @@ class User
     /**
      * @return Collection|Formation[]
      */
-    public function getFormation(): Collection
+    public function getFormations(): Collection
     {
-        return $this->formation;
+        return $this->formations;
     }
 
     public function addFormation(Formation $formation): self
     {
-        if (!$this->formation->contains($formation)) {
-            $this->formation[] = $formation;
+        if (!$this->formations->contains($formation)) {
+            $this->formations[] = $formation;
             $formation->setUser($this);
         }
 
@@ -278,7 +295,7 @@ class User
 
     public function removeFormation(Formation $formation): self
     {
-        if ($this->formation->removeElement($formation)) {
+        if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
             if ($formation->getUser() === $this) {
                 $formation->setUser(null);

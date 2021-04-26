@@ -63,7 +63,6 @@ class Workflow
 
     public function __construct()
     {
-        //$this->formation = new ArrayCollection();
         $this->etapes = new ArrayCollection();
         $this->users = new ArrayCollection();
     }

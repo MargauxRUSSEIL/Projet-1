@@ -38,7 +38,7 @@ class MCC
     private $parcours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mcc")
+     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mccs")
      */
     private $mention;
 
@@ -48,7 +48,7 @@ class MCC
     private $ue;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="mcc")
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="mccs")
      */
     private $formation;
 

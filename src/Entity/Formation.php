@@ -69,12 +69,7 @@ class Formation
     private $parcours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Composante::class, inversedBy="formation")
-     */
-    private $composante;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Localisation::class, inversedBy="formation")
+     * @ORM\ManyToOne(targetEntity=Localisation::class, inversedBy="formations")
      */
     private $localisation;
 
@@ -111,15 +106,15 @@ class Formation
     /**
      * @ORM\OneToMany(targetEntity=MCC::class, mappedBy="formation")
      */
-    private $mcc;
+    private $mccs;
 
     /**
      * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="formation")
      */
-    private $semestre;
+    private $semestres;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="formation")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="formations")
      */
     private $user;
 
@@ -128,10 +123,14 @@ class Formation
      */
     private $statut;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Composante::class, inversedBy="formations")
+     */
+    private $composante;
+
     public function __construct()
     {
         $this->parcours = new ArrayCollection();
-        //$this->typeDiplome = new ArrayCollection();
         $this->mcc = new ArrayCollection();
         $this->semestre = new ArrayCollection();
     }
@@ -245,36 +244,24 @@ class Formation
         return $this->parcours;
     }
 
-    public function addParcour(Parcours $parcour): self
+    public function addParcours(Parcours $parcours): self
     {
-        if (!$this->parcours->contains($parcour)) {
-            $this->parcours[] = $parcour;
-            $parcour->setFormation($this);
+        if (!$this->parcours->contains($parcours)) {
+            $this->parcours[] = $parcours;
+            $parcours->setFormation($this);
         }
 
         return $this;
     }
 
-    public function removeParcour(Parcours $parcour): self
+    public function removeParcours(Parcours $parcours): self
     {
-        if ($this->parcours->removeElement($parcour)) {
+        if ($this->parcours->removeElement($parcours)) {
             // set the owning side to null (unless already changed)
-            if ($parcour->getFormation() === $this) {
-                $parcour->setFormation(null);
+            if ($parcours->getFormation() === $this) {
+                $parcours->setFormation(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getComposante(): ?Composante
-    {
-        return $this->composante;
-    }
-
-    public function setComposante(?Composante $composante): self
-    {
-        $this->composante = $composante;
 
         return $this;
     }
@@ -376,15 +363,15 @@ class Formation
     /**
      * @return Collection|MCC[]
      */
-    public function getMcc(): Collection
+    public function getMccs(): Collection
     {
-        return $this->mcc;
+        return $this->mccs;
     }
 
     public function addMcc(MCC $mcc): self
     {
-        if (!$this->mcc->contains($mcc)) {
-            $this->mcc[] = $mcc;
+        if (!$this->mccs->contains($mcc)) {
+            $this->mccs[] = $mcc;
             $mcc->setFormation($this);
         }
 
@@ -393,7 +380,7 @@ class Formation
 
     public function removeMcc(MCC $mcc): self
     {
-        if ($this->mcc->removeElement($mcc)) {
+        if ($this->mccs->removeElement($mcc)) {
             // set the owning side to null (unless already changed)
             if ($mcc->getFormation() === $this) {
                 $mcc->setFormation(null);
@@ -406,15 +393,15 @@ class Formation
     /**
      * @return Collection|Semestre[]
      */
-    public function getSemestre(): Collection
+    public function getSemestres(): Collection
     {
-        return $this->semestre;
+        return $this->semestres;
     }
 
     public function addSemestre(Semestre $semestre): self
     {
-        if (!$this->semestre->contains($semestre)) {
-            $this->semestre[] = $semestre;
+        if (!$this->semestres->contains($semestre)) {
+            $this->semestres[] = $semestre;
             $semestre->setFormation($this);
         }
 
@@ -423,7 +410,7 @@ class Formation
 
     public function removeSemestre(Semestre $semestre): self
     {
-        if ($this->semestre->removeElement($semestre)) {
+        if ($this->semestres->removeElement($semestre)) {
             // set the owning side to null (unless already changed)
             if ($semestre->getFormation() === $this) {
                 $semestre->setFormation(null);
@@ -453,6 +440,18 @@ class Formation
     public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getComposante(): ?Composante
+    {
+        return $this->composante;
+    }
+
+    public function setComposante(?Composante $composante): self
+    {
+        $this->composante = $composante;
 
         return $this;
     }

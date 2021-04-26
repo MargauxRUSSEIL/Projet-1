@@ -34,12 +34,12 @@ class Domaine
     /**
      * @ORM\OneToMany(targetEntity=Mention::class, mappedBy="domaine", cascade={"persist", "remove"})
      */
-    private $mention;
+    private $mentions;
 
     public function __construct()
     {
         $this->formations = new ArrayCollection();
-        $this->mention = new ArrayCollection();
+        $this->mentions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,15 +92,15 @@ class Domaine
     /**
      * @return Collection|Mention[]
      */
-    public function getMention(): Collection
+    public function getMentions(): Collection
     {
-        return $this->mention;
+        return $this->mentions;
     }
 
     public function addMention(Mention $mention): self
     {
-        if (!$this->mention->contains($mention)) {
-            $this->mention[] = $mention;
+        if (!$this->mentions->contains($mention)) {
+            $this->mentions[] = $mention;
             $mention->setDomaine($this);
         }
 
@@ -109,7 +109,7 @@ class Domaine
 
     public function removeMention(Mention $mention): self
     {
-        if ($this->mention->removeElement($mention)) {
+        if ($this->mentions->removeElement($mention)) {
             // set the owning side to null (unless already changed)
             if ($mention->getDomaine() === $this) {
                 $mention->setDomaine(null);

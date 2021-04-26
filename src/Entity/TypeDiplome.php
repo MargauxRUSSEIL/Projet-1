@@ -34,7 +34,7 @@ class TypeDiplome
     /**
      * @ORM\ManyToMany(targetEntity=Mention::class, inversedBy="typeDiplomes")
      */
-    private $mention;
+    private $mentions;
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="typeDiplome", cascade={"persist", "remove"})
@@ -43,7 +43,7 @@ class TypeDiplome
 
     public function __construct()
     {
-        $this->mention = new ArrayCollection();
+        $this->mentions = new ArrayCollection();
         $this->formations = new ArrayCollection();
     }
 
@@ -89,15 +89,15 @@ class TypeDiplome
     /**
      * @return Collection|Mention[]
      */
-    public function getMention(): Collection
+    public function getMentions(): Collection
     {
-        return $this->mention;
+        return $this->mentions;
     }
 
     public function addMention(Mention $mention): self
     {
-        if (!$this->mention->contains($mention)) {
-            $this->mention[] = $mention;
+        if (!$this->mentions->contains($mention)) {
+            $this->mentions[] = $mention;
         }
 
         return $this;
@@ -105,7 +105,7 @@ class TypeDiplome
 
     public function removeMention(Mention $mention): self
     {
-        $this->mention->removeElement($mention);
+        $this->mentions->removeElement($mention);
 
         return $this;
     }

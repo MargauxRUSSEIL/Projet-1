@@ -27,7 +27,7 @@ class Partenaire
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Creationformation::class, mappedBy="partenaire")
+     * @ORM\ManyToMany(targetEntity=Creationformation::class, mappedBy="partenaires")
      */
     private $creationformations;
 

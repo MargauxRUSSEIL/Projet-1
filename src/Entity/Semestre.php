@@ -30,7 +30,7 @@ class Semestre
     private $codeSemestre;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Parcours::class, inversedBy="semestre")
+     * @ORM\ManyToOne(targetEntity=Parcours::class, inversedBy="semestres")
      */
     private $parcours;
 
@@ -40,7 +40,7 @@ class Semestre
     private $mention;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="semestre")
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="semestres")
      */
     private $formation;
 

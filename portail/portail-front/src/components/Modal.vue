@@ -63,13 +63,13 @@
             <div class="flex flex-col">
               <label for="composanteUpdate">Composante </label>
               <select  name="role" id="composanteUpdate" >
-                <option v-for="composante in composantes" :key="composante.id" :value="composante.id"> {{composante.libelleInstitut}}</option>
+                <option v-for="composante in composantes" :key="composante.id" :value="composante.id"> {{composante.libelle}}</option>
               </select>
             </div>
             <div class="flex flex-col">
               <label for="roleUpdate">Role </label>
               <select  name="role" id="roleUpdate">
-                <option v-for="role in roles" :key="role.id" :value="role.id"> {{role.libelleRole}}</option>
+                <option v-for="role in roles" :key="role.id" :value="role.id"> {{role.libelle}}</option>
               </select>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default {
     addRole() {
       if (this.libelleRole == "") return
       var data = JSON.stringify({
-        libelleRole: this.libelleRole,
+        libelle: this.libelleRole,
       });
       var config = {
         method: "post",
@@ -140,7 +140,7 @@ export default {
     addComposante() {
       if (this.libelleComposante == "") return
       var data = JSON.stringify({
-        libelleInstitut: this.libelleComposante,
+        libelle: this.libelleComposante,
       });
       var config = {
         method: "post",

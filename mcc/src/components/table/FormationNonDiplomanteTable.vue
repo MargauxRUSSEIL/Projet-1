@@ -48,7 +48,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleCertificat }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.nbAnneeFormation }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">

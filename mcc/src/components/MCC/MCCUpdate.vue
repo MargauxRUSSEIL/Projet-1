@@ -70,18 +70,6 @@
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Type de dîplome
-                    </label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.typeDiplome"
-                    >
-                        <option value="licence">Licence</option>
-                        <option value="master">Master</option>
-                        <option value="licencepro">Licence Pro</option>
-                    </select>
-                </div>
-                <div class="w-full px-3 mb-6 mt-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Parcours
                     </label>
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
@@ -116,7 +104,6 @@
                     annee: '',
                     contact: '',
                     UE: '',
-                    typeDiplome: '',
                     parcours: '',
                     niveau: '',
                     mention: '',

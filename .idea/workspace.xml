@@ -28,8 +28,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/ComposanteTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/ComposanteTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/MCC/MCCForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/MCC/MCCForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/FormationNonDiplomanteTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/FormationNonDiplomanteTable.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +42,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ComposerSettings">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
@@ -155,28 +158,32 @@
       <updated>1617784341071</updated>
       <workItem from="1617784345939" duration="10000" />
       <workItem from="1618146500749" duration="12000" />
+      <workItem from="1619512609708" duration="1398000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1619441666865">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1619457187840">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619441666865" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1619441666865">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619457187840" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1619457187840">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619441666865" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1619441666864">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619457187840" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1619457187839">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619441666864" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1619441666865">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619457187839" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1619457187840">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619441666865" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824/0.1080.1920.550@0.0.1536.824" timestamp="1619457187840" />
   </component>
 </project>

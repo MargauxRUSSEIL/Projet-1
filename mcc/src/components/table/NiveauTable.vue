@@ -1,7 +1,22 @@
 <template>
     <div class="container w-auto">
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
-            <h1>Liste des niveaux</h1>
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+            <div class="flex flex-wrap ">
+                <div class="grid grid-cols-6 w-full gap-2">
+                    <div class="col-start-1 col-end-3 ...">
+                        <div class="w-full px-3 mb-6">
+                            <router-link :to="{ name: 'newNiveau' }">
+                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="my-32 mx-auto text-center">
+                <p class="text-lg mt-6">Aucun enregistrement</p>
+            </section>
+        </div>
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56" v-else>
             <div class="flex flex-wrap ">
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
@@ -32,7 +47,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
-                        <th scope="row" class="px-6 py-4 whitespace-nowrap">{{ item.libelleNiveau }}</th>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateNiveau', params: { id: item.id }}">
@@ -52,13 +67,15 @@
 </template>
 
 <script>
-  import http from "../../http-common"
+    import http from "../../http-common"
 
     export default {
         name: "NiveauTable",
         data () {
             return {
                 searchNiveau: '',
+                stat: '',
+                errored: false,
                 niveau: []
             }
         },
@@ -69,12 +86,34 @@
             getNiveau: function () {
                 http
                     .get('niveaux')
-                    .then(res => (this.niveau = res.data['hydra:member']))
+                    .then(res => {
+                        this.niveau = res.data['hydra:member']
+                        const total = res.data['hydra:totalItems']
+                        if (total === 0) {
+                            this.errored = true
+                        }
+                    })
             },
             deleteNiveau: function (id) {
                 http
                     .delete('niveaux/' + id)
-                    .then(() => { this.getNiveau() })
+                    .then(function( response ){
+                        this.stat = response.status
+                        if (this.stat === 204) {
+                            this.getNiveau()
+                            this.$toast.success(`Niveau supprimée avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                        }
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         },
         computed: {
@@ -86,7 +125,7 @@
                     return search;
                 }
                 search = search.filter(function (item) {
-                    if (item.libelleNiveau.toLowerCase().indexOf(searchNiveau) !== -1 || item.libelleNiveau.toUpperCase().indexOf(searchNiveau) !== -1) {
+                    if (item.libelle.toLowerCase().indexOf(searchNiveau) !== -1 || item.libelle.toUpperCase().indexOf(searchNiveau) !== -1) {
                         return item;
                     }
                 })

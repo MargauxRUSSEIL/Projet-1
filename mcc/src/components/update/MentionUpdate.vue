@@ -9,7 +9,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleMention" required
+                           v-model="form.libelle"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -19,7 +19,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.domaine"
                     >
-                        <option v-for="item in libelleDomaine" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelleDomaine }}</option>
+                        <option v-for="item in libelleDomaine" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -38,14 +38,16 @@
         data() {
             return {
                 libelleDomaine: '',
+                stat: '',
                 form: {
                     domaine: '',
-                    libelleMention: ''
+                    libelle: ''
                 }
             }
         },
         mounted() {
             this.getLibelleDomaine()
+            this.getMention()
         },
         methods: {
             submit: function (id) {
@@ -53,12 +55,44 @@
 
                 http
                     .put( 'mentions/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`Mention mis à jour avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Mention' })
+                        }
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 404) {
+                            this.$toast.error(`Ressource introuvable`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
+            },
+            getMention: function (id) {
+                const self = this;
+                id = this.$route.params.id;
 
-                this.$router.push({ name: 'Mention' })
+                http
+                    .get('mentions/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             },
             getLibelleDomaine: function () {
                 http

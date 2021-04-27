@@ -30,15 +30,14 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "SemestreForm",
         data() {
             return {
                 libelleDomaine: '',
+                stat: '',
                 form: {
                     libelle: '',
                     codeSemestre: '',
@@ -47,13 +46,31 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl + 'semestres', this.form)
-                    // eslint-disable-next-line no-unused-vars
+                http
+                    .post( 'semestres', this.form)
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
-
-                this.$router.push({ name: 'Semestre' })
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Semestre créée avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Semestre' })
+                        }
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         }
     }

@@ -46,7 +46,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.niveau"
                     >
-                        <option v-for="item in niveaux" v-bind:key="item">{{ item.libelleNiveau }}</option>
+                        <option v-for="item in niveaux" v-bind:key="item">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -65,19 +65,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.UE"
                     >
-                        <option v-for="item in ues" v-bind:key="item">{{ item.libelleUE }}</option>
-                    </select>
-                </div>
-                <div class="w-full px-3 mb-6 mt-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Type de dîplome
-                    </label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.typeDiplome"
-                    >
-                        <option value="licence">Licence</option>
-                        <option value="master">Master</option>
-                        <option value="licencepro">Licence Pro</option>
+                        <option v-for="item in ues" v-bind:key="item">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -87,7 +75,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.parcours"
                     >
-                        <option v-for="item in parcoursform" v-bind:key="item">{{ item }}</option>
+                        <option v-for="item in parcoursform" v-bind:key="item">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -109,13 +97,13 @@
                 parcoursform: '',
                 niveaux: '',
                 ues: '',
+                stat: '',
                 form: {
                     departement: '',
                     site: '',
                     annee: '',
                     contact: '',
                     UE: '',
-                    typeDiplome: '',
                     parcours: '',
                     niveau: '',
                     mention: '',
@@ -127,6 +115,7 @@
             this.getParcours()
             this.getNiveaux()
             this.getUE()
+            this.getMCC()
         },
         methods: {
             submit: function (id) {
@@ -134,12 +123,44 @@
 
                 http
                     .put( 'm_c_cs/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`MCC mis à jour avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'MCC' })
+                        }
                     }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 404) {
+                            this.$toast.error(`Ressource introuvable`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
+            },
+            getMCC: function (id) {
+                const self = this;
+                id = this.$route.params.id;
 
-                this.$router.push({ name: 'MCC'})
+                http
+                    .get('m_c_cs/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             },
             getMentions: function () {
                 http

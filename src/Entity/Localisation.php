@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LocalisationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,9 +37,14 @@ class Localisation
     private $codePostal;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="localisation")
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="localisation", cascade={"persist", "remove"})
      */
     private $formation;
+
+    public function __construct()
+    {
+        $this->formation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -80,14 +87,32 @@ class Localisation
         return $this;
     }
 
-    public function getFormation(): ?Formation
+    /**
+     * @return Collection|Formation[]
+     */
+    public function getFormation(): Collection
     {
         return $this->formation;
     }
 
-    public function setFormation(?Formation $formation): self
+    public function addFormation(Formation $formation): self
     {
-        $this->formation = $formation;
+        if (!$this->formation->contains($formation)) {
+            $this->formation[] = $formation;
+            $formation->setLocalisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formation->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getLocalisation() === $this) {
+                $formation->setLocalisation(null);
+            }
+        }
 
         return $this;
     }

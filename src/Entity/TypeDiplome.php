@@ -22,40 +22,120 @@ class TypeDiplome
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="typeDiplome")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $formation;
+    private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TypeDiplomeHasDiplomeEtablissement::class, inversedBy="typeDiplome")
+     * @ORM\OneToOne(targetEntity=Caracteristiques::class, mappedBy="typeDiplome", cascade={"persist", "remove"})
      */
-    private $typeDiplomeHasDiplomeEtablissement;
+    private $caracteristiques;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Mention::class, inversedBy="typeDiplomes")
+     */
+    private $mention;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="typeDiplome", cascade={"persist", "remove"})
+     */
+    private $formations;
+
+    public function __construct()
+    {
+        $this->mention = new ArrayCollection();
+        $this->formations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFormation(): ?Formation
+    public function getLibelle(): ?string
     {
-        return $this->formation;
+        return $this->libelle;
     }
 
-    public function setFormation(?Formation $formation): self
+    public function setLibelle(?string $libelle): self
     {
-        $this->formation = $formation;
+        $this->libelle = $libelle;
 
         return $this;
     }
 
-    public function getTypeDiplomeHasDiplomeEtablissement(): ?TypeDiplomeHasDiplomeEtablissement
+    public function getCaracteristiques(): ?Caracteristiques
     {
-        return $this->typeDiplomeHasDiplomeEtablissement;
+        return $this->caracteristiques;
     }
 
-    public function setTypeDiplomeHasDiplomeEtablissement(?TypeDiplomeHasDiplomeEtablissement $typeDiplomeHasDiplomeEtablissement): self
+    public function setCaracteristiques(?Caracteristiques $caracteristiques): self
     {
-        $this->typeDiplomeHasDiplomeEtablissement = $typeDiplomeHasDiplomeEtablissement;
+        // unset the owning side of the relation if necessary
+        if ($caracteristiques === null && $this->caracteristiques !== null) {
+            $this->caracteristiques->setTypeDiplome(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($caracteristiques !== null && $caracteristiques->getTypeDiplome() !== $this) {
+            $caracteristiques->setTypeDiplome($this);
+        }
+
+        $this->caracteristiques = $caracteristiques;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mention[]
+     */
+    public function getMention(): Collection
+    {
+        return $this->mention;
+    }
+
+    public function addMention(Mention $mention): self
+    {
+        if (!$this->mention->contains($mention)) {
+            $this->mention[] = $mention;
+        }
+
+        return $this;
+    }
+
+    public function removeMention(Mention $mention): self
+    {
+        $this->mention->removeElement($mention);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Formation[]
+     */
+    public function getFormations(): Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations[] = $formation;
+            $formation->setTypeDiplome($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formations->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getTypeDiplome() === $this) {
+                $formation->setTypeDiplome(null);
+            }
+        }
 
         return $this;
     }

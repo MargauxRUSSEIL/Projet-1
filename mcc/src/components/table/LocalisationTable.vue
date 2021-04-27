@@ -1,12 +1,27 @@
 <template>
     <div class="container w-auto">
-        <h1>Liste des localisations</h1>
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+            <div class="flex flex-wrap ">
+                <div class="grid grid-cols-6 w-full gap-2">
+                    <div class="col-start-1 col-end-3 ...">
+                        <div class="w-full px-3 mb-6">
+                            <router-link :to="{ name: 'newLocalisation' }">
+                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="my-32 mx-auto text-center">
+                <p class="text-lg mt-6">Aucun enregistrement</p>
+            </section>
+        </div>
+        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56" v-else>
             <div class="flex flex-wrap ">
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link to="/newLocalisation">
+                            <router-link :to="{name: 'newLocalisation'}">
                                 <span class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Ajouter</span>
                             </router-link>
                         </div>
@@ -16,6 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchLocalisation"
                             >
                         </div>
                     </div>
@@ -32,13 +48,15 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr v-for="item in localisation" :key="item">
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.adresse }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.codePostal }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.ville }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="modifLocalisation(item.id)">Modifier</button>
+                                <router-link :to="{ name: 'updateLocalisation', params: { id: item.id }}">
+                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
+                                </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
                                 <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteLocalisation(item.id)">Supprimer</button>
@@ -53,15 +71,15 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "LocalisationTable",
         data () {
             return {
+                errored: false,
                 localisation: [],
+                searchLocalisation: [],
             }
         },
         mounted() {
@@ -69,19 +87,52 @@
         },
         methods: {
             getLocalisation: function () {
-                axios
-                    .get(BaseUrl + 'localisations')
-                    .then(res => (this.localisation = res.data['hydra:member']))
+                http
+                    .get('localisations')
+                    .then(res => {
+                        this.localisation = res.data['hydra:member']
+                        const total = res.data['hydra:totalItems']
+                        if (total === 0) {
+                            this.errored = true
+                        }
+                    })
             },
             deleteLocalisation: function (id) {
-                axios
-                    .delete(BaseUrl + 'localisations/' + id)
-                    .then(() => { this.getLocalisation() })
-            },
-            modifLocalisation: function (id) {
-                axios
-                    .put(BaseUrl + 'localisations/' + id)
-                    .then(this.$router.push({ name: 'updateLocalisation', params: { id: id } }))
+                http
+                    .delete('localisations/' + id)
+                    .then(function( response ){
+                        this.stat = response.status
+                        if (this.stat === 204) {
+                            this.getLocalisation()
+                            this.$toast.success(`Localisation supprimée avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                        }
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.localisation;
+                const searchLocalisation = this.searchLocalisation;
+
+                if (!searchLocalisation) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.ville.toLowerCase().indexOf(searchLocalisation) !== -1 || item.ville.toUpperCase().indexOf(searchLocalisation) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

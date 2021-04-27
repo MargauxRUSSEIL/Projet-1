@@ -30,32 +30,66 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "SemestreUpdate",
         data() {
             return {
-                libelleDomaine: '',
+                stat: '',
                 form: {
                     libelle: '',
                     codeSemestre: '',
                 }
             }
         },
+        mounted() {
+            this.getSemestre()
+        },
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
 
-                axios.put( BaseUrl + 'semestres/' + id, this.form)
-                    // eslint-disable-next-line no-unused-vars
+                http
+                    .put( 'semestres/' + id, this.form)
                     .then(function( response ){
-                        // Handle success
+                        this.stat = response.status
+                        if (this.stat === 200) {
+                            this.$toast.success(`Semestre mis à jour avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Semestre' })
+                        }
                     }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 404) {
+                            this.$toast.error(`Ressource introuvable`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
+            },
+            getSemestre: function (id) {
+                const self = this;
+                id = this.$route.params.id;
 
-                this.$router.push({ name: 'Semestre' })
+                http
+                    .get('semestres/' + id)
+                    .then(function (response) {
+                        self.form = response.data
+                    })
             }
         }
     }

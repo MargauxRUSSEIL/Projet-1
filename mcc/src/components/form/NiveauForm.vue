@@ -9,7 +9,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleNiveau" required
+                           v-model="form.libelle"
                     >
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -27,8 +27,9 @@
         name: "NiveauForm",
         data() {
             return {
+                stat: '',
                 form: {
-                    libelleNiveau: ''
+                    libelle: ''
                 }
             }
         },
@@ -36,12 +37,29 @@
             submit: function () {
                 http
                     .post( 'niveaux', this.form)
-                    // eslint-disable-next-line no-unused-vars
                     .then(function( response ){
-                        // Handle success
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Niveau créée avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Niveau' })
+                        }
                     }.bind(this))
-
-                this.$router.push({ name: 'Niveau' })
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         }
     }

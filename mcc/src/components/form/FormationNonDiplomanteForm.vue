@@ -30,15 +30,13 @@
 </template>
 
 <script>
-    import axios from "axios";
-
-    const BaseUrl = 'http://localhost:8000/api/';
+    import http from "../../http-common"
 
     export default {
         name: "FormationNonDiplomanteForm",
         data() {
             return {
-                libelleDomaine: '',
+                stat: '',
                 form: {
                     libelleCertificat: '',
                     nbAnneeFormation: '',
@@ -47,13 +45,28 @@
         },
         methods: {
             submit: function () {
-                axios.post( BaseUrl + 'formation_non_diplomantes', this.form)
-                    // eslint-disable-next-line no-unused-vars
+                http
+                    .post( 'formation_non_diplomantes', this.form)
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
-
-                this.$router.push({ name: 'Formation' })
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Formation resource created`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Formation' })
+                        }
+                        else if (this.stat === 400) {
+                            this.$toast.error(`Invalid input`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.stat === 422) {
+                            this.$toast.error(`Unprocessable entity`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         }
     }

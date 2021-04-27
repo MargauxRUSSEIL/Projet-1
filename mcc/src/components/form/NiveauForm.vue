@@ -26,7 +26,6 @@
         name: "NiveauForm",
         data() {
             return {
-                stat: '',
                 form: {
                     libelle: ''
                 }

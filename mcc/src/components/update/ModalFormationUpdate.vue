@@ -4,7 +4,7 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé Niveau
+                        Libellé de modalité formation
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "NiveauUpdate",
+        name: "ModalFormationUpdate",
         data() {
             return {
                 form: {
@@ -32,22 +32,22 @@
             }
         },
         mounted() {
-            this.getNiveau()
+            this.getModaliteFormation()
         },
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
 
                 http
-                    .put( 'niveaux/' + id, this.form)
+                    .put('​modalite_formations/' + id, this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 200) {
-                            this.$toast.success(`Niveau mis à jour avec succès`, {
+                            this.$toast.success(`Modalite formation mis à jour avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Niveau' })
+                            this.$router.push({ name: '​ModaliteFormation' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -69,12 +69,12 @@
                         }
                     }.bind(this))
             },
-            getNiveau: function (id) {
+            getModaliteFormation: function (id) {
                 let self = this;
                 id = this.$route.params.id;
 
                 http
-                    .get('niveaux/' + id)
+                    .get('​modalite_formations/' + id)
                     .then(function (response) {
                         self.form = response.data
                     })

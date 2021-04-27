@@ -4,7 +4,7 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé Niveau
+                        Libellé de modalité recrutement
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "NiveauUpdate",
+        name: "ModalRecrutementForm",
         data() {
             return {
                 form: {
@@ -31,23 +31,18 @@
                 }
             }
         },
-        mounted() {
-            this.getNiveau()
-        },
         methods: {
-            submit: function (id) {
-                id = this.$route.params.id;
-
+            submit: function () {
                 http
-                    .put( 'niveaux/' + id, this.form)
+                    .post('modalite_recrutements', this.form)
                     .then(function( response ){
                         this.stat = response.status
-                        if (this.stat === 200) {
-                            this.$toast.success(`Niveau mis à jour avec succès`, {
+                        if (this.stat === 201) {
+                            this.$toast.success(`​Modalite recrutement créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Niveau' })
+                            this.$router.push({ name: 'ModaliteRecrutement' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -57,27 +52,12 @@
                                 position: "top-right"
                             })
                         }
-                        else if (this.err === 404) {
-                            this.$toast.error(`Ressource introuvable`, {
-                                position: "top-right"
-                            })
-                        }
                         else if (this.err === 422) {
                             this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }
                     }.bind(this))
-            },
-            getNiveau: function (id) {
-                let self = this;
-                id = this.$route.params.id;
-
-                http
-                    .get('niveaux/' + id)
-                    .then(function (response) {
-                        self.form = response.data
-                    })
             }
         }
     }

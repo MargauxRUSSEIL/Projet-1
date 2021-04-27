@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3 mb-6">
-                            <router-link :to="{ name: 'newMention' }">
+                            <router-link :to="{ name: 'newModalitePedagogique' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -21,7 +21,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link :to="{ name: 'newMention' }">
+                            <router-link :to="{ name: 'newModalitePedagogique' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -31,7 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
-                                   v-model="searchMention"
+                                   v-model="searchModaliteLibelle"
                             >
                         </div>
                     </div>
@@ -41,23 +41,21 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé mention</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Liste des domaines associés</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé de laModalite Pedagogique</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.domaine }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'updateMention', params: { id: item.id }}">
+                                <router-link :to="{ name: 'updateModalitePedagogique', params: { id: item.id }}">
                                     <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                                 </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteMention(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteModalitePedagogique(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -69,41 +67,40 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "MentionTable",
+        name: "ModalPedagogiqueTable",
         data () {
             return {
-                searchMention: '',
-                stat: '',
+                searchModaliteLibelle: '',
                 errored: false,
-                mention: []
+                modaliteP: []
             }
         },
         mounted() {
-            this.getMention()
+            this.getModalitePedagogique()
         },
         methods: {
-            getMention: function () {
+            getModalitePedagogique: function () {
                 http
-                    .get('mentions')
+                    .get('modalite_pedagogiques')
                     .then(res => {
-                        this.mention = res.data['hydra:member']
+                        this.modaliteP = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
                     })
             },
-            deleteMention: function (id) {
+            deleteModalitePedagogique: function (id) {
                 http
-                    .delete( 'mentions/' + id)
+                    .delete('modalite_pedagogiques/' + id)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getMention()
-                            this.$toast.success(`Mention supprimée avec succès`, {
+                            this.getModalitePedagogique()
+                            this.$toast.success(`Modalite Pedagogique supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
@@ -120,14 +117,14 @@
         },
         computed: {
             filtered: function () {
-                let search = this.mention;
-                const searchMention = this.searchMention;
+                let search = this.modaliteP;
+                const searchModaliteLibelle = this.searchModaliteLibelle;
 
-                if (!searchMention) {
+                if (!searchModaliteLibelle) {
                     return search;
                 }
                 search = search.filter(function (item) {
-                    if (item.libelle.toLowerCase().indexOf(searchMention) !== -1 || item.libelle.toUpperCase().indexOf(searchMention) !== -1) {
+                    if (item.libelle.toLowerCase().indexOf(searchModaliteLibelle) !== -1 || item.libelle.toUpperCase().indexOf(searchModaliteLibelle) !== -1) {
                         return item;
                     }
                 })

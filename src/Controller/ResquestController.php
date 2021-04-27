@@ -32,9 +32,9 @@ class ResquestController extends AbstractController
     }
 
     /**
-     * @Route("/api/getUsersByRolesAndComposantes", name="usersByRolesAndComposantes",methods={"GET"})
+     * @Route("/api/getUsers", name="users",methods={"GET"})
      */
-    /*public function getUserByRolesAndComposantes()
+    public function getUsers()
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
@@ -59,15 +59,5 @@ class ResquestController extends AbstractController
         }
 
         return $this->json($result, 200, []);
-    }*/
-
-    /**
-     * @Route("/api/getUsersComposantes", name="usersComposantes",methods={"GET"})
-     */
-    public function getUserByRolesAndComposantes()
-    {
-        //$usersComposantes = $this->getDoctrine()->getRepository(User::class)->getUsersComposantes();
-
-        return $this->json($usersComposantes, 200, []);
     }
 }

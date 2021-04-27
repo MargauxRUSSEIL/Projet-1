@@ -22,6 +22,11 @@ class Parcours
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $libelle;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $structureProlongee;
@@ -37,7 +42,7 @@ class Parcours
     private $commentaire;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -50,11 +55,6 @@ class Parcours
      * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="parcours", cascade={"persist", "remove"})
      */
     private $semestres;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

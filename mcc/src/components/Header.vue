@@ -25,6 +25,7 @@
                         <router-link to="/modalformation">Modalite Pedagogique</router-link> 
                         <router-link to="/partenaire">Partenaire</router-link>
                         <router-link to="/ue">UE</router-link>
+                        <router-link to="/cours">Cours</router-link>
                     </div>
                 </transition>
 

@@ -96,7 +96,7 @@
             },
             deleteDomaine: function (id) {
                 http
-                    .delete( 'domaines/' + id)
+                    .delete('domaines/' + id)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
@@ -125,7 +125,7 @@
                     return search;
                 }
                 search = search.filter(function (item) {
-                    if (item.libelleDomaine.toLowerCase().indexOf(searchDomaine) !== -1 || item.libelleDomaine.toUpperCase().indexOf(searchDomaine) !== -1) {
+                    if (item.libelle.toLowerCase().indexOf(searchDomaine) !== -1 || item.libelle.toUpperCase().indexOf(searchDomaine) !== -1) {
                         return item;
                     }
                 })

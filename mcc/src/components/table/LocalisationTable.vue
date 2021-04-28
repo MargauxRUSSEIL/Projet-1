@@ -78,6 +78,7 @@
         data () {
             return {
                 errored: false,
+                stat: '',
                 localisation: [],
                 searchLocalisation: [],
             }

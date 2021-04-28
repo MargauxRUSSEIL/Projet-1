@@ -31,6 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
+                                   v-model="searchTypeDiplome"
                             >
                         </div>
                     </div>
@@ -40,15 +41,13 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé du diplôme</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre année</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé Type de diplome</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-100" v-for="item in diplome" :key="item">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleDiplome }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.nbAnneeDiplome }}</td>
+                    <tr class="hover:bg-gray-100" v-for="item in filtered" :key="item">
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateDiplome', params: { id: item.id }}">
@@ -56,7 +55,7 @@
                                 </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteDiplome(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteTypeDiplome(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -68,24 +67,24 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "DiplomeEtablissementTable",
+        name: "TypeDiplomeTable",
         data () {
             return {
-                stat: '',
+                searchTypeDiplome: '',
                 errored: false,
                 diplome: []
             }
         },
         mounted() {
-            this.getDiplome()
+            this.getTypeDiplome()
         },
         methods: {
-            getDiplome: function () {
+            getTypeDiplome: function () {
                 http
-                    .get('diplome_etablissements')
+                    .get('type_diplomes')
                     .then(res => {
                         this.diplome = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
@@ -94,24 +93,42 @@
                         }
                     })
             },
-            deleteDiplome: function (id) {
+            deleteTypeDiplome: function (id) {
                 http
-                    .delete('diplome_etablissements/' + id)
+                    .delete('type_diplomes/' + id)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getDiplome()
-                            this.$toast.success(`Diplome resource deleted`, {
+                            this.getTypeDiplome()
+                            this.$toast.success(`Diplome supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
                         }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }
                     }.bind(this))
+            }
+        },
+        computed: {
+            filtered: function () {
+                let search = this.diplome;
+                const searchTypeDiplome = this.searchTypeDiplome;
+
+                if (!searchTypeDiplome) {
+                    return search;
+                }
+                search = search.filter(function (item) {
+                    if (item.libelle.toLowerCase().indexOf(searchTypeDiplome) !== -1 || item.libelle.toUpperCase().indexOf(searchTypeDiplome) !== -1) {
+                        return item;
+                    }
+                })
+                return search;
             }
         }
     }

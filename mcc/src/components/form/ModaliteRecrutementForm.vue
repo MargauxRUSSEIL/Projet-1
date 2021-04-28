@@ -4,20 +4,11 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé certificat
+                        Libellé Modalité du recrutement
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleCertificat"
-                    >
-                </div>
-                <div class="w-full px-3 mb-6 md:mb-4">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Nombre année de la formation
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="number"
-                           v-model="form.nbAnneeFormation"
+                           v-model="form.libelle"
                     >
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -29,39 +20,41 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "FormationNonDiplomanteForm",
+        name: "ModaliteRecrutementForm",
         data() {
             return {
                 stat: '',
                 form: {
-                    libelleCertificat: '',
-                    nbAnneeFormation: '',
+                    libelle: ''
                 }
             }
         },
         methods: {
             submit: function () {
                 http
-                    .post( 'formation_non_diplomantes', this.form)
+                    .post('modalite_recrutements', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
-                            this.$toast.success(`Formation resource created`, {
+                            this.$toast.success(`Modalite de recrutement créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Formation' })
+                            this.$router.push({ name: 'Recrutement' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
                         }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }

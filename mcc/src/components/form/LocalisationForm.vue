@@ -19,7 +19,7 @@
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="number"
                            required
-                           v-model="form.codePostal"
+                           v-model.number="form.codePostal"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -47,17 +47,18 @@
         name: "LocalisationForm",
         data() {
             return {
+                stat: '',
                 form: {
                     adresse: '',
-                    codePostal: '',
                     ville: '',
+                    codePostal: 0
                 }
             }
         },
         methods: {
             submit: function () {
                 http
-                    .post( 'localisations', this.form)
+                    .post('localisations', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {

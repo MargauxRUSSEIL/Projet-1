@@ -26,6 +26,7 @@
         name: "ModalFormationUpdate",
         data() {
             return {
+                stat: '',
                 form: {
                     libelle: ''
                 }
@@ -39,7 +40,7 @@
                 id = this.$route.params.id;
 
                 http
-                    .put('​modalite_formations/' + id, this.form)
+                    .put('modalite_formations/' + id, this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 200) {
@@ -47,7 +48,7 @@
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: '​ModaliteFormation' })
+                            this.$router.push({ name: 'FormationModal' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -74,7 +75,7 @@
                 id = this.$route.params.id;
 
                 http
-                    .get('​modalite_formations/' + id)
+                    .get('modalite_formations/' + id)
                     .then(function (response) {
                         self.form = response.data
                     })

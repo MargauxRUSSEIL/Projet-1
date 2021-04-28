@@ -1,20 +1,20 @@
 <template>
   <div id="nav">
     <router-link to="/">MCC</router-link> |
+    <router-link to="/formation">Formation </router-link> |
     <router-link to="/parcours">Parcours</router-link> |
     <router-link to="/competence">Competence</router-link> |
-    <router-link to="/diplome">Diplome</router-link> |
+    <router-link :to="{name: 'Diplome'}">Type Diplome</router-link> |
     <router-link to="/domaine">Domaine</router-link> |
-    <router-link to="/formation">Formation non diplomante</router-link> |
     <router-link to="/mention">Mention</router-link> |
     <router-link to="/niveau">Niveau</router-link> |
     <router-link to="/semestre">Semestre</router-link> |
     <router-link :to="{name: 'Composante'}">Composante</router-link> |
     <router-link :to="{name: 'Localisation'}">Localisation</router-link> |
-    <router-link :to="{name: 'ModaliteRecrutement'}">Modalite Recrutement</router-link> |
-    <router-link to="/modalformation">Modalite Formation</router-link> |
-    <router-link :to="{name: 'ModalitePedagogique'}">Modalite Pedagogique</router-link> |
+    <router-link :to="{name: 'Recrutement'}">Modalite Recrutement</router-link> |
+    <router-link :to="{name: 'Pedagogique'}">Modalite Pedagogique</router-link> |
     <router-link :to="{name: 'Partenaire'}">Partenaire</router-link> |
+    <router-link :to="{name: 'FormationModal'}">Modalite Formation</router-link> |
     <router-link to="/ue">UE</router-link>
   </div>
   <router-view/>

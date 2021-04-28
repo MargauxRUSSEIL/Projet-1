@@ -28,13 +28,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/form/PartenaireForm.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/table/PartenaireTable.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/update/PartenaireUpdate.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/ParcoursForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/ParcoursForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/PartenaireTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/PartenaireTable.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +164,7 @@
       <workItem from="1617784345939" duration="10000" />
       <workItem from="1618146500749" duration="12000" />
       <workItem from="1619512609708" duration="23836000" />
-      <workItem from="1619602553826" duration="121000" />
+      <workItem from="1619602553826" duration="1031000" />
     </task>
     <servers />
   </component>

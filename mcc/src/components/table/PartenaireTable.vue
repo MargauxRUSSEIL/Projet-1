@@ -84,7 +84,7 @@
         methods: {
             getPartenaire: function () {
                 http
-                    .get('modalite_recrutements')
+                    .get('partenaires')
                     .then(res => {
                         this.partenaires = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
@@ -100,7 +100,7 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getModaliteRecrutement()
-                            this.$toast.success(`Modalite Recrutement supprimée avec succès`, {
+                            this.$toast.success(`Partenaire supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)

@@ -36,7 +36,7 @@
         methods: {
             submit: function () {
                 http
-                    .post( 'domaines', this.form)
+                    .post('domaines', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {

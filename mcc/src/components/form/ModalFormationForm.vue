@@ -26,6 +26,7 @@
         name: "ModalFormationForm",
         data() {
             return {
+                stat: '',
                 form: {
                     libelle: ''
                 }
@@ -42,7 +43,7 @@
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'ModaliteFormation' })
+                            this.$router.push({ name: 'FormationModal' })
                         }
                     }.bind(this))
                     .catch(function (error) {

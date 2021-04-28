@@ -113,7 +113,7 @@
             deleteDomaine: function(id) {
                 http
                     .delete('domaines/' + id)
-                    .then(function(response) {
+                    .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getDomaine()
@@ -139,8 +139,8 @@
                 if (!searchDomaine) {
                     return search;
                 }
-                search = search.filter(function(item) {
-                    if (item.libelleDomaine.toLowerCase().indexOf(searchDomaine) !== -1 || item.libelleDomaine.toUpperCase().indexOf(searchDomaine) !== -1) {
+                search = search.filter(function (item) {
+                    if (item.libelle.toLowerCase().indexOf(searchDomaine) !== -1 || item.libelle.toUpperCase().indexOf(searchDomaine) !== -1) {
                         return item;
                     }
                 })

@@ -4,7 +4,7 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé de modalité recrutement
+                        Libellé Modalité du recrutement
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
@@ -23,31 +23,27 @@
     import http from "../../http-common";
 
     export default {
-        name: "ModalRecrutementUpdate",
+        name: "ModaliteRecrutementForm",
         data() {
             return {
+                stat: '',
                 form: {
                     libelle: ''
                 }
             }
         },
-        mounted() {
-            this.getModaliteRecrutement()
-        },
         methods: {
-            submit: function (id) {
-                id = this.$route.params.id;
-
+            submit: function () {
                 http
-                    .put('modalite_recrutements/' + id, this.form)
+                    .post('modalite_recrutements', this.form)
                     .then(function( response ){
                         this.stat = response.status
-                        if (this.stat === 200) {
-                            this.$toast.success(`Modalite recrutement mis à jour avec succès`, {
+                        if (this.stat === 201) {
+                            this.$toast.success(`Modalite de recrutement créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'ModaliteRecrutement' })
+                            this.$router.push({ name: 'Recrutement' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -57,27 +53,12 @@
                                 position: "top-right"
                             })
                         }
-                        else if (this.err === 404) {
-                            this.$toast.error(`Ressource introuvable`, {
-                                position: "top-right"
-                            })
-                        }
                         else if (this.err === 422) {
                             this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }
                     }.bind(this))
-            },
-            getModaliteRecrutement: function (id) {
-                let self = this;
-                id = this.$route.params.id;
-
-                http
-                    .get('modalite_recrutements/' + id)
-                    .then(function (response) {
-                        self.form = response.data
-                    })
             }
         }
     }

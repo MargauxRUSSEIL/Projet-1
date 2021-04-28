@@ -90,6 +90,7 @@
         name: "PartenaireTable",
         data() {
             return {
+                stat: '',
                 searchModaliteLibelle: '',
                 errored: false,
                 partenaires: []
@@ -116,7 +117,7 @@
                     .then(function(response) {
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getModaliteRecrutement()
+                            this.getPartenaire()
                             this.$toast.success(`Partenaire supprimée avec succès`, {
                                 position: "top-right"
                             })

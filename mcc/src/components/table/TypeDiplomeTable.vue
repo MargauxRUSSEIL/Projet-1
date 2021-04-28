@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3 mb-6">
-                            <router-link :to="{ name: 'newModaliteRecrutement' }">
+                            <router-link :to="{ name: 'newDiplome' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -21,7 +21,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link :to="{ name: 'newModaliteRecrutement' }">
+                            <router-link :to="{ name: 'newDiplome' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -31,7 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
-                                   v-model="searchModaliteLibelle"
+                                   v-model="searchTypeDiplome"
                             >
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé Modalité de Recrutement</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé Type de diplome</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
@@ -50,12 +50,12 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'updateModaliteRecrutement', params: { id: item.id }}">
+                                <router-link :to="{ name: 'updateDiplome', params: { id: item.id }}">
                                     <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                                 </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteModaliteRecrutement(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteTypeDiplome(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -70,37 +70,37 @@
     import http from "../../http-common";
 
     export default {
-        name: "ModalRecrutementTable",
+        name: "TypeDiplomeTable",
         data () {
             return {
-                searchModaliteLibelle: '',
+                searchTypeDiplome: '',
                 errored: false,
-                modaliteR: []
+                diplome: []
             }
         },
         mounted() {
-            this.getModaliteRecrutement()
+            this.getTypeDiplome()
         },
         methods: {
-            getModaliteRecrutement: function () {
+            getTypeDiplome: function () {
                 http
-                    .get('modalite_recrutements')
+                    .get('type_diplomes')
                     .then(res => {
-                        this.modaliteR = res.data['hydra:member']
+                        this.diplome = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
                     })
             },
-            deleteModaliteRecrutement: function (id) {
+            deleteTypeDiplome: function (id) {
                 http
-                    .delete( 'modalite_recrutements/' + id)
+                    .delete('type_diplomes/' + id)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getModaliteRecrutement()
-                            this.$toast.success(`Modalite Recrutement supprimée avec succès`, {
+                            this.getTypeDiplome()
+                            this.$toast.success(`Diplome supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
@@ -117,14 +117,14 @@
         },
         computed: {
             filtered: function () {
-                let search = this.modaliteR;
-                const searchModaliteLibelle = this.searchModaliteLibelle;
+                let search = this.diplome;
+                const searchTypeDiplome = this.searchTypeDiplome;
 
-                if (!searchModaliteLibelle) {
+                if (!searchTypeDiplome) {
                     return search;
                 }
                 search = search.filter(function (item) {
-                    if (item.libelle.toLowerCase().indexOf(searchModaliteLibelle) !== -1 || item.libelle.toUpperCase().indexOf(searchModaliteLibelle) !== -1) {
+                    if (item.libelle.toLowerCase().indexOf(searchTypeDiplome) !== -1 || item.libelle.toUpperCase().indexOf(searchTypeDiplome) !== -1) {
                         return item;
                     }
                 })

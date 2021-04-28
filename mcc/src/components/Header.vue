@@ -7,22 +7,25 @@
 
             <div class="outils">
                 <div class="dropbtn">
-                    <p role="button" class=""> Formulaire</p>
+                    <p role="button">Formulaire</p>
                 </div>
                 <transition name="dropdown-fade">
                     <div ref="dropdownContent" class="dropdown-content">
                         <router-link to="/">MCC</router-link> 
+                        <router-link to="/formation">Formation</router-link> 
                         <router-link to="/parcours">Parcours</router-link> 
                         <router-link to="/competence">Competence</router-link> 
                         <router-link to="/composante">Composante</router-link> 
-                        <router-link to="/diplome">Diplome</router-link> 
+                        <router-link to="/diplome">Type Diplome</router-link> 
                         <router-link to="/domaine">Domaine</router-link> 
                         <router-link to="/localisation">Localisation</router-link> 
-                        <router-link to="/mention">Mention</router-link> 
+                        <router-link to="/mention">Mention</router-link>
+                        <router-link to="/caracteristique">Caracteristique</router-link>  
                         <router-link to="/niveau">Niveau</router-link> 
                         <router-link to="/semestre">Semestre</router-link> 
-                        <router-link to="/modalpedagogique">Modalite Pedagogique</router-link> 
-                        <router-link to="/modalformation">Modalite Pedagogique</router-link> 
+                        <router-link to="/recrutement">Modalite Recrutement</router-link> 
+                        <router-link to="/pedagogique">Modalite Pedagogique</router-link> 
+                        <router-link to="/formationmodal">Modalite Formation</router-link> 
                         <router-link to="/partenaire">Partenaire</router-link>
                         <router-link to="/ue">UE</router-link>
                     </div>

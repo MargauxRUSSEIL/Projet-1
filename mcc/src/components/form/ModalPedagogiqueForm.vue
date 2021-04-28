@@ -42,7 +42,7 @@
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'ModalitePedagogique' })
+                            this.$router.push({ name: 'Pedagogique' })
                         }
                     }.bind(this))
                     .catch(function (error) {

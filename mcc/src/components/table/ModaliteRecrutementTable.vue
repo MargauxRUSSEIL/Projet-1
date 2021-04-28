@@ -5,7 +5,9 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3 mb-6">
-                            <button v-on:click="newModaliteFormation()" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            <router-link :to="{ name: 'newRecrutement' }">
+                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -19,7 +21,9 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <button v-on:click="newModaliteFormation()" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            <router-link :to="{ name: 'newRecrutement' }">
+                                <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                            </router-link>
                         </div>
                     </div>
                     <div class="col-end-7 col-span-2 ...">
@@ -27,7 +31,7 @@
                             <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                                    type="search"
                                    placeholder="Rechercher"
-                                   v-model="searchModaliteLibelle"
+                                   v-model="searchRecrutement"
                             >
                         </div>
                     </div>
@@ -37,7 +41,7 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé Modalité Formation</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé domaine</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
@@ -46,10 +50,10 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <button v-on:click="modifModaliteFormation(item.id)" class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
+                                    <button v-on:click="modifRecrutement(item.id)" class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteModaliteFormation(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteRecrutement(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -64,37 +68,38 @@
     import http from "../../http-common";
 
     export default {
-        name: "ModalFormationTable",
+        name: "ModaliteRecrutementTable",
         data () {
             return {
-                searchModaliteLibelle: '',
+                searchRecrutement: '',
+                stat: '',
                 errored: false,
-                formationModal: []
+                recrutement: []
             }
         },
         mounted() {
-            this.getModaliteFormation()
+            this.getRecrutement()
         },
         methods: {
-            getModaliteFormation: function () {
+            getRecrutement: function () {
                 http
-                    .get('modalite_formations')
+                    .get('modalite_recrutements')
                     .then(res => {
-                        this.formationModal = res.data['hydra:member']
+                        this.recrutement = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
                     })
             },
-            deleteModaliteFormation: function (id) {
+            deleteRecrutement: function (id) {
                 http
-                    .delete('modalite_formations/' + id)
+                    .delete('modalite_recrutements/' + id)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getModaliteFormation()
-                            this.$toast.success(`Modalite Formation supprimée avec succès`, {
+                            this.getRecrutement()
+                            this.$toast.success(`Modalité de recrutement supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
@@ -108,23 +113,20 @@
                         }
                     }.bind(this))
             },
-            modifModaliteFormation: function (id) {
-                this.$router.push({ name: 'update​FormationModal', params: { id: id }})
-            },
-            newModaliteFormation: function () {
-                this.$router.push({ name: 'new​FormationModal' })
+            modifRecrutement: function (id) {
+                this.$router.push({ name: 'updateRecrutement', params: { id: id }})
             }
         },
         computed: {
             filtered: function () {
-                let search = this.formationModal;
-                const searchModaliteLibelle = this.searchModaliteLibelle;
+                let search = this.recrutement;
+                const searchRecrutement = this.searchRecrutement;
 
-                if (!searchModaliteLibelle) {
+                if (!searchRecrutement) {
                     return search;
                 }
                 search = search.filter(function (item) {
-                    if (item.libelle.toLowerCase().indexOf(searchModaliteLibelle) !== -1 || item.libelle.toUpperCase().indexOf(searchModaliteLibelle) !== -1) {
+                    if (item.libelle.toLowerCase().indexOf(searchRecrutement) !== -1 || item.libelle.toUpperCase().indexOf(searchRecrutement) !== -1) {
                         return item;
                     }
                 })

@@ -21,6 +21,9 @@
                         <router-link to="/mention">Mention</router-link> 
                         <router-link to="/niveau">Niveau</router-link> 
                         <router-link to="/semestre">Semestre</router-link> 
+                        <router-link to="/modalpedagogique">Modalite Pedagogique</router-link> 
+                        <router-link to="/modalformation">Modalite Pedagogique</router-link> 
+                        <router-link to="/partenaire">Partenaire</router-link>
                         <router-link to="/ue">UE</router-link>
                     </div>
                 </transition>

@@ -38,6 +38,19 @@ import LocalisationUpdate from "../components/update/LocalisationUpdate";
 // import ComposanteTable from "../components/table/ComposanteTable";
 // import ComposanteForm from "../components/form/ComposanteForm";
 import ComposanteUpdate from "../components/update/ComposanteUpdate";
+//import FormationForm from "../components/Formation/FormationForm";
+import ModalFormationTable from "../components/table/ModalFormationTable";
+import ModalFormationForm from "../components/form/ModalFormationForm";
+import ModalFormationUpdate from "../components/update/ModalFormationUpdate";
+import ModalPedagogiqueTable from "../components/table/ModalPedagogiqueTable";
+import ModalPedagogiqueForm from "../components/form/ModalPedagogiqueForm";
+import ModalPedagogiqueUpdate from "../components/update/ModalPedagogiqueUpdate";
+import ModalRecrutementUpdate from "../components/update/ModalRecrutementUpdate";
+import ModalRecrutementForm from "../components/form/ModalRecrutementForm";
+import ModalRecrutementTable from "../components/table/ModalRecrutementTable";
+import PartenaireTable from "../components/table/PartenaireTable";
+import PartenaireForm from "../components/form/PartenaireForm";
+import PartenaireUpdate from "../components/update/PartenaireUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
@@ -84,6 +97,21 @@ const routes = [
   { path: '/newComposante', name: 'newComposante', component: ComposanteForm },
   { path: '/updateComposante/:id', name: 'updateComposante', component: ComposanteUpdate },
 
+  { path: '/modalrecrutement', name: 'ModaliteRecrutement', component: ModalRecrutementTable },
+  { path: '/new​ModaliteRecrutement', name: 'new​ModaliteRecrutement', component: ModalRecrutementForm },
+  { path: '/update​ModaliteRecrutement/:id', name: 'update​ModaliteRecrutement', component: ModalRecrutementUpdate },
+
+  { path: '/modalformation', name: '​ModaliteFormation', component: ModalFormationTable },
+  { path: '/newModaliteFormation', name: 'new​ModaliteFormation', component: ModalFormationForm },
+  { path: '/update​ModaliteFormation/:id', name: 'update​ModaliteFormation', component: ModalFormationUpdate },
+
+  { path: '/modalpedagogique', name: 'ModalitePedagogique', component: ModalPedagogiqueTable },
+  { path: '/newModalitePedagogique', name: 'newModalitePedagogique', component: ModalPedagogiqueForm },
+  { path: '/updateModalitePedagogique/:id', name: 'updateModalitePedagogique', component: ModalPedagogiqueUpdate },
+
+  { path: '/partenaire', name: 'Partenaire', component: PartenaireTable },
+  { path: '/newPartenaire', name: 'newPartenaire', component: PartenaireForm },
+  { path: '/updatePartenaire/:id', name: 'updatePartenaire', component: PartenaireUpdate },
 ]
 
 const router = createRouter({

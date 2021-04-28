@@ -50,21 +50,6 @@
                             setTimeout(this.$toast.clear, 3500)
                             this.$router.push({ name: 'Niveau' })
                         }
-                        else if (this.stat === 400) {
-                            this.$toast.error(`Invalid input`, {
-                                position: "top-right"
-                            })
-                        }
-                        else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
-                                position: "top-right"
-                            })
-                        }
-                        else if (this.stat === 422) {
-                            this.$toast.error(`Unprocessable entity`, {
-                                position: "top-right"
-                            })
-                        }
                     }.bind(this))
                     .catch(function (error) {
                         this.err = error.response.status

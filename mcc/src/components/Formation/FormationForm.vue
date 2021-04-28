@@ -1,6 +1,6 @@
 <template>
     <form class="container w-auto">
-        <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+        <div class="mb-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
             <div class="flex flex-wrap">
 
                 <!--Création d'une formation-->
@@ -10,15 +10,15 @@
                         Création d’une mention de diplôme national en
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="licence" v-model="form.typeFormation">
+                        <input type="radio" class="form-radio" name="radio" value="licence">
                         <span class="ml-2 mr-3">Licence Générale</span>
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="licencePro" v-model="form.typeFormation">
+                        <input type="radio" class="form-radio" name="radio" value="licencePro">
                         <span class="ml-2 mr-3">Licence Professionelle</span>
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="master" v-model="form.typeFormation">
+                        <input type="radio" class="form-radio" name="radio" value="master">
                         <span class="ml-2 mr-3">Master</span>
                     </label>
                 </div>
@@ -28,7 +28,6 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.typeDiplome"
                     >
                 </div>
                 <div class="w-full md:w-1/2 px-3 mb-6">
@@ -68,36 +67,11 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Modalité de la formation (cocher les mentions inutiles - si plusieurs années préciser les modalités pour chaque année de formation)
                     </label>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" value="licence">
-                            <span class="ml-2 mr-3">Formation initiale</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" value="licence">
-                            <span class="ml-2 mr-3">Formation continue</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" value="licence">
-                            <span class="ml-2 mr-3">Formation en alternance</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" value="licence">
-                            <span class="ml-2 mr-3">Contrat d’apprentissage</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" value="licence">
-                            <span class="ml-2 mr-3">Contrat de professionnalisation</span>
-                        </label>
-                    </div>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.modaliteFormation"
+                    >
+                        <option v-for="item in modalformation" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
+                    </select>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -165,6 +139,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
+                           v-model="form.niveauRequis"
                     >
                 </div>
                 <div class="w-full md:w-1/2 px-3">
@@ -181,6 +156,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="date"
+                           v-model="form.dateOuverture"
                     >
                 </div>
                 <div class="w-full md:w-1/2 px-3">
@@ -189,6 +165,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="number"
+                           v-model="form.nbEtudiants"
                     >
                 </div>
                 <div class="w-full md:w-2/2 px-3">
@@ -208,11 +185,13 @@
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Modalités de recrutement des étudiants : (préciser s’il s’agit d’une étude de dossier, d’un entretien de sélection, d’un examen d’entrée)
+                        Modalités de recrutement des étudiants
                     </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.modaliteRecrutement"
                     >
+                        <option v-for="item in modalrecrutement" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
+                    </select>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -220,16 +199,17 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
+                           v-model="form.organisation"
                     >
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Quelles compétences la formation permet-elle d’acquérir
                     </label>
-                    <div v-for="item in competences" v-bind:key="item">
+                    <div  v-for="item in competences" v-bind:key="item">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" :value="item">
-                            <span class="ml-2 mr-3">{{ item }}</span>
+                            <input type="checkbox" :id="item.blocs" :value="item.blocs">
+                            <span class="ml-2 mr-3">{{ item.blocs }}</span>
                         </label>
                     </div>
                 </div>
@@ -243,6 +223,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.motivation"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
@@ -251,6 +232,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.pointsSpe"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
@@ -259,6 +241,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.public"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
@@ -267,6 +250,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.insertionPro"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
@@ -287,10 +271,11 @@
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Bref historique des liens avec le ou les partenaires
+                        Historique des liens avec le ou les partenaires
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.partenairesHistorique"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
@@ -299,6 +284,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.concurrence"
                     ></textarea>
                 </div>
 
@@ -311,6 +297,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.diversificationPeda"
                     ></textarea>
                 </div>
                 <div class="w-full px-3 mb-6">
@@ -318,11 +305,11 @@
                         Souhaitez-vous être accompagné par le service diversification pédagogique ?
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="licence">
+                        <input type="radio" class="form-radio" name="radio" value="true" v-model="form.serviceDiversificatio">
                         <span class="ml-2 mr-3">Oui</span>
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="licencePro">
+                        <input type="radio" class="form-radio" name="radio" value="false" v-model="form.serviceDiversificatio">
                         <span class="ml-2 mr-3">Non</span>
                     </label>
                 </div>
@@ -330,30 +317,11 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Quelles sont les modalités choisies ?
                     </label>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="radio" value="licence">
-                            <span class="ml-2 mr-3">Presentiel</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="radio" value="licencePro">
-                            <span class="ml-2 mr-3">Distanciel</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="radio" value="licencePro">
-                            <span class="ml-2 mr-3">Hybride (alternance de cours en présentiel et distanciel) en %</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center">
-                            <input type="radio" class="form-radio" name="radio" value="licencePro">
-                            <span class="ml-2 mr-3">Comodal (cours suivi simultanément par des étudiants en distanciel et en présentiel avec un enseignant en présentiel)</span>
-                        </label>
-                    </div>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.modalitePedagogique"
+                    >
+                        <option v-for="item in modalpedagogique" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
+                    </select>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -362,6 +330,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
+                           v-model="form.mutualisation"
                     >
                 </div>
 
@@ -374,6 +343,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.recherche"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-10">
@@ -390,6 +360,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.equipements"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-10">
@@ -407,6 +378,7 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.strategie"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-10">
@@ -415,7 +387,60 @@
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
+                              v-model="form.actions"
                     ></textarea>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4 mb-12">
+                    <div class="w-full px-3 mt-6">
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalrecrutement =! modalrecrutement" v-if="modalrecrutement === false">Ajouter une modalité de recrutement</button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalrecrutement = false" v-else>Annuler la modalité de recrutement</button>
+                    </div>
+                    <div class="w-full px-3 mt-6">
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalpedagogique =! modalpedagogique" v-if="modalpedagogique === false">Ajouter une modalité pédagogique</button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalpedagogique = false" v-else>Annuler la modalité pédagogique</button>
+                    </div>
+                    <div class="w-full px-3 mt-6">
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalformation =! modalformation" v-if="modalformation === false">Ajouter une modalité de formation</button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalformation = false" v-else>Annuler la modalité de formation</button>
+                    </div>
+                    <div class="w-full px-3 mt-6">
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalpartenaire =! modalpartenaire" v-if="modalpartenaire === false">Ajouter une modalité de partenaire</button>
+                        <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="modalpartenaire = false" v-else>Annuler la modalité de partenaire</button>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-2/2 px-3 mb-10" v-if="modalrecrutement">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Libellé de modalité recrutement
+                    </label>
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                    >
+                </div>
+                <div class="w-full md:w-2/2 px-3 mb-10" v-if="modalpedagogique">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Libellé de modalité Pedagogique
+                    </label>
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                    >
+                </div>
+                <div class="w-full md:w-2/2 px-3 mb-10" v-if="modalformation">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Libellé de modalité formation
+                    </label>
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                    >
+                </div>
+                <div class="w-full md:w-2/2 px-3 mb-10" v-if="modalpartenaire">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Libellé du partenaire
+                    </label>
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                    >
                 </div>
                 <div class="w-full px-3 mt-6">
                     <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
@@ -432,43 +457,92 @@
         name: 'FormationForm',
         data() {
             return {
+                modalrecrutement: '',
+                modalpedagogique: '',
+                modalformation: '',
+                modalpartenaire: false,
                 competences: '',
                 form: {
-                    structureHaute: 0,
-                    codeDiplome: '',
-                    ecoleDoctorale: '',
-                    contact: '',
-                    commentaire: '',
-                    typeFormation: '',
-                    VDI: '',
-                    localisation: '',
-                    composante: '',
-                    typeDiplome: '',
-                    workflow: '',
-                    statuts: '',
-                    parcours: '',
-                    mention: '',
-                    vDI: ''
+                    organisation: '',
+                    competences: '',
+                    motivation: '',
+                    public: '',
+                    concurrence: '',
+                    mutualisation: '',
+                    recherche: '',
+                    equipements: '',
+                    strategie: '',
+                    actions: '',
+                    partenaire: [],
+                    formation: '',
+                    modaliteFormation: '',
+                    modalitePedagogique: '',
+                    modaliteRecrutement: '',
+                    niveauRequis: '',
+                    nbEtudiants: '',
+                    dateOuverture: '',
+                    pointsSpe: '',
+                    insertionPro: '',
+                    partenairesHistorique: '',
+                    diversificationPeda: '',
+                    serviceDiversificatio: true
                 }
             }
         },
         mounted() {
             this.getCompetence()
+            this.getModaliteFormation()
+            this.getModaliteRecrutement()
+            this.getModalitePedagogique()
         },
         methods: {
             submit: function () {
                 http
-                    .post( 'formations', this.form)
-                    // eslint-disable-next-line no-unused-vars
+                    .post('creationformations', this.form)
                     .then(function( response ){
-                        // Handle success
-                    }.bind(this));
+                        this.stat = response.status
+                        if (this.stat === 201) {
+                            this.$toast.success(`Formation créée avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                            this.$router.push({ name: 'Formations' })
+                        }
+                    }.bind(this))
+                    .catch(function (error) {
+                        this.err = error.response.status
+                        if (this.err === 400) {
+                            this.$toast.error(`Champ invalide`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 422) {
+                            this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             },
             getCompetence: function () {
                 http
                     .get('competences')
                     .then(res => (this.competences = res.data['hydra:member']))
             },
+            getModaliteFormation: function () {
+                http
+                    .get('modalite_formations')
+                    .then(res => (this.modalformation = res.data['hydra:member']))
+            },
+            getModaliteRecrutement: function () {
+                http
+                    .get('modalite_recrutements')
+                    .then(res => (this.modalrecrutement = res.data['hydra:member']))
+            },
+            getModalitePedagogique: function () {
+                http
+                    .get('modalite_pedagogiques')
+                    .then(res => (this.modalpedagogique = res.data['hydra:member']))
+            }
         }
     }
 </script>

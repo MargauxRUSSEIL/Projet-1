@@ -38,7 +38,7 @@
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
-                            this.$toast.success(`​Modalite recrutement créée avec succès`, {
+                            this.$toast.success(`Modalite recrutement créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)

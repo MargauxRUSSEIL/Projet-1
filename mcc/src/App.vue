@@ -12,7 +12,7 @@
     <router-link :to="{name: 'Composante'}">Composante</router-link> |
     <router-link :to="{name: 'Localisation'}">Localisation</router-link> |
     <router-link :to="{name: 'ModaliteRecrutement'}">Modalite Recrutement</router-link> |
-    <router-link :to="{name: '​ModaliteFormation'}">Modalite Formation</router-link> |
+    <router-link :to="{name: 'ModaliteFormation'}">Modalite Formation</router-link> |
     <router-link :to="{name: 'ModalitePedagogique'}">Modalite Pedagogique</router-link> |
     <router-link :to="{name: 'Partenaire'}">Partenaire</router-link> |
     <router-link to="/ue">UE</router-link>

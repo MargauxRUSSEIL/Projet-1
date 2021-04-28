@@ -5,7 +5,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3 mb-6">
-                            <router-link :to="{ name: 'new​ModaliteFormation' }">
+                            <router-link :to="{ name: 'newModaliteFormation' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -21,7 +21,7 @@
                 <div class="grid grid-cols-6 w-full gap-2">
                     <div class="col-start-1 col-end-3 ...">
                         <div class="w-full px-3">
-                            <router-link :to="{ name: 'new​ModaliteFormation' }">
+                            <router-link :to="{ name: 'newModaliteFormation' }">
                                 <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                             </router-link>
                         </div>
@@ -41,7 +41,7 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé de la Modalité Formation</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">libellé Modalité Formation</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
@@ -50,7 +50,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'update​ModaliteFormation', params: { id: item.id }}">
+                                <router-link :to="{ name: 'updateModaliteFormation', params: { id: item.id }}">
                                     <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                                 </router-link>
                             </div>

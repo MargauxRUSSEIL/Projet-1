@@ -40,17 +40,19 @@
       </div>
     </div>
     <div class="tris mt-10 mb-5 space-x-6">
-      <input
+      <!-- <input
         aria-label="Recherche"
         type="text"
         placeholder="recherche"
         class="input-recherche shadow-box"
-      />
+      /> -->
       <select
         aria-label="trier par composante"
         name="composante"
         id=""
         class="shadow-box select-composante-role"
+        ref="filtreComposante"
+        @change="filtreComposante"
       >
         <option value="">Filtrer par composante</option>
         <option
@@ -66,6 +68,8 @@
         name="role"
         id=""
         class="shadow-box select-composante-role"
+        ref="filtreRole"
+        @change="filtreRole"
       >
         <option value="">Filtrer par rôle</option>
         <option v-for="role in roles" :key="role.id" :value="role.id">
@@ -91,7 +95,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="user in domUsers" :key="user.id">
             <td>{{ user.nom }}</td>
             <td>{{ user.prenom }}</td>
             <td>{{ user.mail }}</td>
@@ -174,6 +178,7 @@ export default {
       composantes: [],
       users: [],
       user:[],
+      domUsers:[],
       rolesUsers: [],
     }
   },
@@ -189,7 +194,7 @@ export default {
         .get(`${baseURL}${api}roles`)
         .then((res) => {
           this.roles = res.data["hydra:member"]
-          console.log("ROLES: ", this.roles)
+          // console.log("ROLES: ", this.roles)
         })
         .catch(function (error) {
           console.log(error)
@@ -204,6 +209,7 @@ export default {
     getUsers: function () {
       axios.get(`${baseURL}${api}getUsers`).then((res) => {
         this.users = res.data
+        this.domUsers = this.users
         console.log("USERS: ", this.users)
       })
     },
@@ -226,6 +232,34 @@ export default {
       // this.$refs.buttonUpdate.blur()
       // console.log(id)
       this.isModalUpdate = !this.isModalUpdate
+    },
+    filtreComposante() {
+      // console.log(this.$refs.filtreComposante.value)
+      this.domUsers = []
+      this.users.forEach((user) => {
+        // console.log(user)
+        if(user.composantes[0].id == this.$refs.filtreComposante.value) {
+          // console.log(user.nom)
+          this.domUsers.push(user)
+        }
+      });
+      if (this.$refs.filtreComposante.value == "") {
+        this.domUsers = this.users
+      }
+    },
+    filtreRole() {
+      // console.log(this.$refs.filtreRole.value)
+      this.domUsers = []
+      this.users.forEach((user) => {
+        // console.log(user)
+        if(user.roles[0].id == this.$refs.filtreRole.value) {
+          // console.log(user.nom)
+          this.domUsers.push(user)
+        }
+      });
+      if (this.$refs.filtreRole.value == "") {
+        this.domUsers = this.users
+      }
     }
   }
 };
@@ -270,7 +304,7 @@ thead tr th {
 }
 
 tbody tr td {
-  @apply py-2 font-medium text-center;
+  @apply py-2 px-1 font-medium text-center;
 }
 caption {
   @apply opacity-0;

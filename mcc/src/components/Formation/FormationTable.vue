@@ -76,6 +76,11 @@
 <script>
     export default {
         name: "FormationTable",
+        data() {
+            return {
+                errored: true
+            }
+        },
         methods: {
             newFormation: function () {
                 this.$router.push({ name: 'newFormation' })

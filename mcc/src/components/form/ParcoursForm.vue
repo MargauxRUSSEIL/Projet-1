@@ -53,7 +53,7 @@
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleParcours"
+                           v-model="form.libelle"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
@@ -118,14 +118,15 @@
                 form: {
                     structureProlongee: '',
                     structureBasse: '',
-                    contact: '',
                     commentaire: '',
-                    libelleParcours: '',
+                    semestre: [],
+                    libelle: '',
                     libelleParcoursApogee: '',
                     secondVET: '',
-                    annuOuSemest: '',
-                    //formation: '',
-                    semestre: []
+                    formation: '',
+                    mCC: '',
+                    annuel: true,
+                    user: ''
                 }
             }
         },
@@ -136,7 +137,7 @@
         methods: {
             submit: function () {
                 http
-                    .post( 'parcours', this.form)
+                    .post('parcours', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {

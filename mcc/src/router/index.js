@@ -44,6 +44,9 @@ import ModalPedagogiqueUpdate from "../components/update/ModalPedagogiqueUpdate"
 import ModalRecrutementUpdate from "../components/update/ModalRecrutementUpdate";
 import ModalRecrutementForm from "../components/form/ModalRecrutementForm";
 import ModalRecrutementTable from "../components/table/ModalRecrutementTable";
+import PartenaireTable from "../components/table/PartenaireTable";
+import PartenaireForm from "../components/form/PartenaireForm";
+import PartenaireUpdate from "../components/update/PartenaireUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
@@ -105,6 +108,10 @@ const routes = [
   { path: '/modalpedagogique', name: 'ModalitePedagogique', component: ModalPedagogiqueTable },
   { path: '/newModalitePedagogique', name: 'newModalitePedagogique', component: ModalPedagogiqueForm },
   { path: '/updateModalitePedagogique/:id', name: 'updateModalitePedagogique', component: ModalPedagogiqueUpdate },
+
+  { path: '/partenaire', name: 'Partenaire', component: PartenaireTable },
+  { path: '/newPartenaire', name: 'newPartenaire', component: PartenaireForm },
+  { path: '/updatePartenaire/:id', name: 'updatePartenaire', component: PartenaireUpdate },
 ]
 
 const router = createRouter({

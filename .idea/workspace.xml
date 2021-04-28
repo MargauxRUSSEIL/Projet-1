@@ -28,23 +28,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="685fd2de-8fd7-48ec-959e-e5fc87b21d7b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/form/ModalFormationForm.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/form/ModalPedagogiqueForm.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/form/ModalRecrutementForm.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/table/ModalFormationTable.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/table/ModalPedagogiqueTable.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/table/ModalRecrutementTable.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/update/ModalFormationUpdate.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/update/ModalPedagogiqueUpdate.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mcc/src/components/update/ModalRecrutementUpdate.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mcc/src/components/form/PartenaireForm.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mcc/src/components/table/PartenaireTable.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mcc/src/components/update/PartenaireUpdate.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcc/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/Formation/FormationForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/Formation/FormationForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/NiveauForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/NiveauForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/table/MentionTable.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/src/components/update/NiveauUpdate.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/update/NiveauUpdate.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mcc/src/components/form/ParcoursForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/components/form/ParcoursForm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mcc/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcc/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/mcc/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +44,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -178,7 +168,8 @@
       <updated>1617784341071</updated>
       <workItem from="1617784345939" duration="10000" />
       <workItem from="1618146500749" duration="12000" />
-      <workItem from="1619512609708" duration="22138000" />
+      <workItem from="1619512609708" duration="23836000" />
+      <workItem from="1619602553826" duration="121000" />
     </task>
     <servers />
   </component>

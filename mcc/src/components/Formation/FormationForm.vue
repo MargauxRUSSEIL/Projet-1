@@ -208,7 +208,7 @@
                     </label>
                     <div  v-for="item in competences" v-bind:key="item">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" :id="item.blocs" :value="item.blocs">
+                            <input type="checkbox" :id="item.blocs" :value="item.blocs" v-model="form.competences">
                             <span class="ml-2 mr-3">{{ item.blocs }}</span>
                         </label>
                     </div>
@@ -267,7 +267,7 @@
                     </label>
                     <div  v-for="item in partenaire" v-bind:key="item">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" :id="item.libelle" :value="item.libelle">
+                            <input type="checkbox" :id="item.libelle" :value="item.libelle" v-model="form.partenaire">
                             <span class="ml-2 mr-3">{{ item.libelle }}</span>
                         </label>
                     </div>
@@ -416,7 +416,7 @@
                 partenaire: '',
                 form: {
                     organisation: '',
-                    competences: '',
+                    competences: [],
                     motivation: '',
                     public: '',
                     concurrence: '',

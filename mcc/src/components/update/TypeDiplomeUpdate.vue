@@ -11,6 +11,27 @@
                            v-model="form.libelle"
                     >
                 </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Caracteristiques
+                    </label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model.number="form.caracteristiques"
+                    >
+                        <option v-for="item in caracteristiques" v-bind:key="item" v-bind:value="item['@id']">{{ item.statut }}</option>
+                    </select>
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Mention
+                    </label>
+                    <div  v-for="(item, index) in mentions" v-bind:key="index">
+                        <label :id="item.id" class="inline-flex items-center">
+                            <input type="checkbox" :for="item.id" :value="item['@id']" v-model.number="form.mention">
+                            <span class="ml-2 mr-3">{{ item.libelle }}</span>
+                        </label>
+                    </div>
+                </div>
                 <div class="w-full px-3 mt-12">
                     <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
                 </div>
@@ -26,14 +47,20 @@
         name: "TypeDiplomeUpdate",
         data() {
             return {
+                mentions: [],
+                caracteristiques: '',
                 stat: '',
                 form: {
                     libelle: '',
+                    caracteristiques: '',
+                    mention: []
                 }
             }
         },
         mounted() {
             this.getTypeDiplome()
+            this.getLibelleMention()
+            this.getLibelleCaracteristiques()
         },
         methods: {
             submit: function (id) {
@@ -77,6 +104,16 @@
                     .then(function (response) {
                         self.form = response.data
                     })
+            },
+            getLibelleMention: function () {
+                http
+                    .get('mentions')
+                    .then(res => (this.mentions = res.data['hydra:member']))
+            },
+            getLibelleCaracteristiques: function () {
+                http
+                    .get('caracteristiques')
+                    .then(res => (this.caracteristiques = res.data['hydra:member']))
             }
         }
     }

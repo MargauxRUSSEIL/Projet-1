@@ -57,12 +57,10 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.contact }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'updateMCC', params: { id: item.id }}">
-                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
-                                </router-link>
+                                <button v-on:click="modifFormation(item.id)" class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                             </div>
                             <div class="text-sm text-gray-900">
-                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteMCC(item.id)">Supprimer</button>
+                                <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteFormation(item.id)">Supprimer</button>
                             </div>
                         </td>
                     </tr>
@@ -74,16 +72,43 @@
 </template>
 
 <script>
+    import http from "../../http-common";
+
     export default {
         name: "FormationTable",
         data() {
             return {
+                stat: '',
                 errored: true
             }
         },
         methods: {
             newFormation: function () {
                 this.$router.push({ name: 'newFormation' })
+            },
+            modifFormation: function (id) {
+                this.$router.push({ name: 'updateFormation', params: {id: id} })
+            },
+            deleteFormation: function (id) {
+                http
+                    .delete('creationformations/' + id)
+                    .then(function( response ){
+                        this.stat = response.status
+                        if (this.stat === 204) {
+                            this.getMCC()
+                            this.$toast.success(`Formation supprimée avec succès`, {
+                                position: "top-right"
+                            })
+                            setTimeout(this.$toast.clear, 3500)
+                        }
+                    }.bind(this))
+                    .catch(function (error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
+                                position: "top-right"
+                            })
+                        }
+                    }.bind(this))
             }
         }
     }

@@ -36,16 +36,16 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                     <tr class="hover:bg-gray-100" v-for="item in info" :key="item">
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.caracteristiques }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.mention }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <!-- <div class="text-sm text-gray-900">
+                            <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'update', params: { id: item.id }}">
                                     <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                                 </router-link>
                             </div>
                             <div class="text-sm text-gray-900">
                                 <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteParcours(item.id)">Supprimer</button>
-                            </div> -->
+                            </div>
                         </td>
                     </tr>
                     </tbody>

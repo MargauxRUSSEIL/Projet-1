@@ -47,6 +47,9 @@ import ModaliteRecrutementForm from "../components/form/ModaliteRecrutementForm"
 import ModaliteRecrutementUpdate from "../components/update/ModaliteRecrutementUpdate";
 import FormationTable from "../components/Formation/FormationTable";
 import FormationUpdate from "../components/Formation/FormationUpdate";
+import CaracteristiquesTable from "../components/table/CaracteristiquesTable";
+import CaracteristiquesForm from "../components/form/CaracteristiquesForm";
+import CaracteristiquesUpdate from "../components/update/CaracteristiquesUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
@@ -112,6 +115,10 @@ const routes = [
   { path: '/partenaire', name: 'Partenaire', component: PartenaireTable },
   { path: '/newpartenaire', name: 'newPartenaire', component: PartenaireForm },
   { path: '/updatepartenaire/:id', name: 'updatePartenaire', component: PartenaireUpdate },
+
+  { path: '/caracteristique', name: 'Caracteristique', component: CaracteristiquesTable },
+  { path: '/newCaracteristique', name: 'newCaracteristique', component: CaracteristiquesForm },
+  { path: '/updateCaracteristique/:id', name: 'updateCaracteristique', component: CaracteristiquesUpdate },
 ]
 
 const router = createRouter({

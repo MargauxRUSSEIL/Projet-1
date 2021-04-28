@@ -4,30 +4,29 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé du diplôme
+                        complement
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelle"
+                           v-model="form.complement"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Caracteristiques
+                        statut
                     </label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.caracteristiques"
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                           v-model="form.statut"
                     >
-                        <option v-for="item in caracteristique" v-bind:key="item" v-bind:value="item['@id']">{{ item.statut }}</option>
-                    </select>
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Mention
+                        Niveaux
                     </label>
-                    <div  v-for="(item, index) in mentions" v-bind:key="index">
+                    <div  v-for="(item, index) in niveaux" v-bind:key="index">
                         <label :id="item.id" class="inline-flex items-center">
-                            <input type="checkbox" :for="item.id" :value="item['@id']" v-model="form.mention">
+                            <input type="checkbox" :for="item.id" :value="item['@id']" v-model="form.niveau">
                             <span class="ml-2 mr-3">{{ item.libelle }}</span>
                         </label>
                     </div>
@@ -44,38 +43,33 @@
     import http from "../../http-common";
 
     export default {
-        name: "TypeDiplomeUpdate",
+        name: "CaracteristiquesForm",
         data() {
             return {
-                mentions: [],
-                caracteristique: '',
+                niveaux: [],
                 stat: '',
                 form: {
-                    libelle: '',
-                    caracteristiques: '',
-                    mention: []
+                    complement: '',
+                    statut: '',
+                    niveau: []
                 }
             }
         },
         mounted() {
-            this.getTypeDiplome()
-            this.getLibelleMention()
-            this.getLibelleCaracteristiques()
+            this.getLibelleNiveau()
         },
         methods: {
-            submit: function (id) {
-                id = this.$route.params.id;
-
+            submit: function () {
                 http
-                    .put('type_diplomes/' + id, this.form)
-                    .then(function (response) {
+                    .post('caracteristiques', this.form)
+                    .then(function( response ){
                         this.stat = response.status
-                        if (this.stat === 200) {
-                            this.$toast.success(`Diplome mis à jour avec succès`, {
+                        if (this.stat === 201) {
+                            this.$toast.success(`Caracteristique créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({name: 'Diplome'})
+                            this.$router.push({ name: 'Caracteristique' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -84,36 +78,18 @@
                             this.$toast.error(`Champ invalide`, {
                                 position: "top-right"
                             })
-                        } else if (this.err === 404) {
-                            this.$toast.error(`Ressource introuvable`, {
-                                position: "top-right"
-                            })
-                        } else if (this.err === 422) {
+                        }
+                        else if (this.err === 422) {
                             this.$toast.error(`Entité impossible à traiter`, {
                                 position: "top-right"
                             })
                         }
                     }.bind(this))
             },
-            getTypeDiplome: function (id) {
-                const self = this;
-                id = this.$route.params.id;
-
+            getLibelleNiveau: function () {
                 http
-                    .get('type_diplomes/' + id)
-                    .then(function (response) {
-                        self.form = response.data
-                    })
-            },
-            getLibelleMention: function () {
-                http
-                    .get('mentions')
-                    .then(res => (this.mentions = res.data['hydra:member']))
-            },
-            getLibelleCaracteristiques: function () {
-                http
-                    .get('caracteristiques')
-                    .then(res => (this.caracteristique = res.data['hydra:member']))
+                    .get('niveaux')
+                    .then(res => (this.niveaux = res.data['hydra:member']))
             }
         }
     }

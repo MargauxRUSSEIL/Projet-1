@@ -7,6 +7,7 @@
     <router-link :to="{name: 'Diplome'}">Type Diplome</router-link> |
     <router-link to="/domaine">Domaine</router-link> |
     <router-link to="/mention">Mention</router-link> |
+    <router-link :to="{name: 'Caracteristique'}">Caracteristique</router-link> |
     <router-link to="/niveau">Niveau</router-link> |
     <router-link to="/semestre">Semestre</router-link> |
     <router-link :to="{name: 'Composante'}">Composante</router-link> |

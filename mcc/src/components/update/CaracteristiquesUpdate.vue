@@ -4,16 +4,35 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé Institut
+                        complement
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelle"
-                           required
+                           v-model="form.complement"
                     >
                 </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        statut
+                    </label>
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                           v-model="form.statut"
+                    >
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Niveaux
+                    </label>
+                    <div  v-for="(item, index) in niveaux" v-bind:key="index">
+                        <label :id="item.id" class="inline-flex items-center">
+                            <input type="checkbox" :for="item.id" :value="item['@id']" v-model="form.niveau">
+                            <span class="ml-2 mr-3">{{ item.libelle }}</span>
+                        </label>
+                    </div>
+                </div>
                 <div class="w-full px-3 mt-12">
-                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">MODIFIER</button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
                 </div>
             </div>
         </div>
@@ -21,28 +40,32 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "ComposanteUpdate",
+        name: "CaracteristiquesUpdate",
         data() {
             return {
+                niveaux: [],
                 stat: '',
                 form: {
-                    libelle: ''
+                    complement: '',
+                    statut: '',
+                    niveau: []
                 }
             }
         },
         mounted() {
-            this.getComposante()
+            this.getCaracteristiques()
+            this.getLibelleNiveau()
         },
         methods: {
-            getComposante: function (id) {
+            getCaracteristiques: function (id) {
                 id = this.$route.params.id
                 const self = this;
 
                 http
-                    .get('composantes/' + id)
+                    .get('caracteristiques/' + id)
                     .then(res => {
                         self.form = res.data
                     })
@@ -51,15 +74,15 @@
                 id = this.$route.params.id
 
                 http
-                    .put('composantes/' + id, this.form)
+                    .put('caracteristiques/' + id, this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 200) {
-                            this.$toast.success(`Composante mis à jour avec succès`, {
+                            this.$toast.success(`Caracteristiques mis à jour avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Composante' })
+                            this.$router.push({ name: 'Caracteristique' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -80,10 +103,16 @@
                             })
                         }
                     }.bind(this))
+            },
+            getLibelleNiveau: function () {
+                http
+                    .get('niveaux')
+                    .then(res => (this.niveaux = res.data['hydra:member']))
             }
         }
     }
 </script>
 
 <style scoped>
+
 </style>

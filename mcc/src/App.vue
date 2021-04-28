@@ -4,6 +4,7 @@
   <router-view/>
 </template>
 
+
 <script>
     import VHeader from '@/components/Header.vue'
     

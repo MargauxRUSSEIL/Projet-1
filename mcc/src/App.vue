@@ -16,6 +16,7 @@
     <router-link :to="{name: 'Pedagogique'}">Modalite Pedagogique</router-link> |
     <router-link :to="{name: 'Partenaire'}">Partenaire</router-link> |
     <router-link :to="{name: 'FormationModal'}">Modalite Formation</router-link> |
+    <router-link :to="{name: 'User'}">Utilisateur</router-link> |
     <router-link to="/ue">UE</router-link>
   </div>
   <router-view/>

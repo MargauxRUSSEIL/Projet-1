@@ -28,14 +28,14 @@
             return {
                 stat: '',
                 form: {
-                    libelle: '',
+                    libelle: ''
                 }
             }
         },
         methods: {
             submit: function () {
                 http
-                    .post( 'u_es', this.form)
+                    .post('u_es', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {

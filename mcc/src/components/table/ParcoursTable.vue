@@ -41,14 +41,16 @@
                 <table class="w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé formation</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Formation</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Structure prolonge</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Structure basse</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Commentaire</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Intitulé parcours</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Intitulé</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé parcours</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Second vet</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Annuel</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Semestre</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Utilisateur</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
@@ -57,12 +59,13 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.formation }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.structureProlongee }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.structureBasse }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.contact }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.commentaire }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleParcours }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.libelle }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.libelleParcoursApogee }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.secondVET }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.annuOuSemest }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.annuel }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.semestre }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.user }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
                                 <router-link :to="{ name: 'updateParcours', params: { id: item.id }}">

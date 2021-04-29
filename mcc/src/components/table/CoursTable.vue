@@ -1,6 +1,10 @@
 <template>
+<<<<<<< HEAD
    <div class="px-10">
        <h1>Coucou</h1>
+=======
+  <div class="px-10">
+>>>>>>> 9c26734e7ec097c63e80c74422d8d8fca95e6f39
         <div class="ajout justify-between mt-12">
             <div class="items-center">
                 <div>
@@ -82,7 +86,11 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
         </div> -->
+=======
+        </div>
+>>>>>>> 9c26734e7ec097c63e80c74422d8d8fca95e6f39
     </div>
 </template>
 

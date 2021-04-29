@@ -53,7 +53,8 @@ import PartenaireForm from "../components/form/PartenaireForm";
 import PartenaireUpdate from "../components/update/PartenaireUpdate";
 
 import CoursTable from "../components/table/CoursTable";
-
+import CoursForm from "../components/form/CoursForm";
+import CoursUpdate from "../components/update/CoursUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
@@ -115,8 +116,10 @@ const routes = [
   { path: '/partenaire', name: 'Partenaire', component: PartenaireTable },
   { path: '/newPartenaire', name: 'newPartenaire', component: PartenaireForm },
   { path: '/updatePartenaire/:id', name: 'updatePartenaire', component: PartenaireUpdate },
-  
+
   { path: '/cours', name: 'Cours', component: CoursTable },
+  { path: '/newCours', name: 'newCours', component: CoursForm },
+  { path: '/updateCours/:id', name: 'updateCours', component: CoursUpdate },
 
 ]
 

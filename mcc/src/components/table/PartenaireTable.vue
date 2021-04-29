@@ -9,7 +9,7 @@
                     <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
+                                <div class="col-start-1 col-end-3">
                                     <div class="w-full px-3 mb-6">
                                         <router-link :to="{ name: 'newPartenaire' }">
                                             <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
@@ -25,7 +25,7 @@
                     <div v-else>
                         <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
+                                <div class="col-start-1 col-end-3">
                                     <div class="pr-10 inter font-bold text-xl text-white space-x-10">
                                         <router-link :to="{ name: 'newPartenaire' }">
                                             <span class="add-composante-role" type="button">Ajouter</span>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-end-7 col-span-2 ...">
                                     <div class="w-full px-3 mb-6">
-                                        <input class="input-recherche shadow-box" type="search" placeholder="Recherche" v-model="searchModaliteLibelle">
+                                        <input class="input-recherche shadow-box md:p-2 sm:p-2 xl:p-32 lg:p-32 ml-28" type="search" placeholder="Recherche" v-model="searchModaliteLibelle">
                                     </div>
                                 </div>
                             </div>

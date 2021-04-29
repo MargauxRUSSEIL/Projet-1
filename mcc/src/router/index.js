@@ -24,14 +24,10 @@ import MCCTable from "../components/MCC/MCCTable";
 import MCCForm from "../components/MCC/MCCForm";
 import ParcoursForm from "../components/form/ParcoursForm";
 import MCCUpdate from "../components/MCC/MCCUpdate";
-// import ComposanteUpdateForm from "../components/form/ComposanteUpdateForm";
-// import LocalisationUpdateForm from "../components/form/LocalisationUpdateForm";
 import ParcoursUpdate from "../components/update/ParcoursUpdate";
 import LocalisationTable from "../components/table/LocalisationTable";
 import LocalisationForm from "../components/form/LocalisationForm";
 import LocalisationUpdate from "../components/update/LocalisationUpdate";
-// import ComposanteTable from "../components/table/ComposanteTable";
-// import ComposanteForm from "../components/form/ComposanteForm";
 import ComposanteUpdate from "../components/update/ComposanteUpdate";
 import FormationForm from "../components/Formation/FormationForm";
 import ModalFormationForm from "../components/form/ModalFormationForm";
@@ -112,8 +108,8 @@ const routes = [
   { path: '/updateRecrutement/:id', name: 'updateRecrutement', component: ModaliteRecrutementUpdate },
 
   { path: '/formationmodal', name: 'FormationModal', component: ModalFormationTable },
-  { path: '/newFormationModal', name: 'new​FormationModal', component: ModalFormationForm },
-  { path: '/updateFormationModal/:id', name: 'update​FormationModal', component: ModalFormationUpdate },
+  { path: '/newFormationModal', name: 'newFormationModal', component: ModalFormationForm },
+  { path: '/updateFormationModal/:id', name: 'updateFormationModal', component: ModalFormationUpdate },
 
   { path: '/pedagogique', name: 'Pedagogique', component: ModalPedagogiqueTable },
   { path: '/newpedagogique', name: 'newPedagogique', component: ModalPedagogiqueForm },

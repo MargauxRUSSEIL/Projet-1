@@ -91,48 +91,6 @@
                            v-model="form.localisation"
                     >
                 </div>
-                <div class="w-full md:w-2/2 px-3 mb-2">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Porteur du Projet :
-                    </label>
-                </div>
-                <div class="w-full md:w-1/4 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Nom
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
-                </div>
-                <div class="w-full md:w-1/4 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Prénom
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
-                </div>
-                <div class="w-full md:w-1/4 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Téléphone
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
-                </div>
-                <div class="w-full md:w-1/4 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Adresse Mail
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
-                </div>
-                <div class="w-full md:w-2/2 px-3 mb-2">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Description :
-                    </label>
-                </div>
                 <div class="w-full md:w-1/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Niveau requis pour intégrer la formation
@@ -166,21 +124,6 @@
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="number"
                            v-model="form.nbEtudiants"
-                    >
-                </div>
-                <div class="w-full md:w-2/2 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Calendrier prévisionnel de la formation (donner une brève description et joindre le
-                        calendrier)
-                    </label>
-                </div>
-                <div class="w-full md:w-1/2 px-3 mb-6">
-              <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-              ></textarea>
-                </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="file"
                     >
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
@@ -408,6 +351,7 @@
         name: 'FormationForm',
         data() {
             return {
+                formations: '',
                 modalrecrutement: '',
                 modalpedagogique: '',
                 modalformation: '',
@@ -447,6 +391,7 @@
             this.getModaliteFormation()
             this.getModaliteRecrutement()
             this.getModalitePedagogique()
+            this.getFormation()
         },
         methods: {
             submit: function () {
@@ -500,6 +445,11 @@
                 http
                     .get('modalite_pedagogiques')
                     .then(res => (this.modalpedagogique = res.data['hydra:member']))
+            },
+            getFormation: function () {
+                http
+                    .get('formations')
+                    .then(res => (this.formations = res.data['hydra:member']))
             }
         }
     }

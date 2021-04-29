@@ -25,16 +25,16 @@
                     <div v-else>
                    <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
-                                    <div class="pr-10 inter font-bold text-xl text-white space-x-10">
+                                <div class="col-start-1 col-end-3">
+                                    <div class="pr-10 inter font-bold text-m text-white space-x-10">
                                              <router-link :to="{ name: 'newFormationModal' }">
                                             <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
                                     </div>
                                 </div>
-                                <div class="col-end-7 col-span-2 ...">
+                                <div class="col-end-7 col-span-2">
                                     <div class="w-full px-3 mb-6">
-                                        <input class="input-recherche shadow-box" type="search" placeholder="Recherche" v-model="searchModaliteLibelle">
+                                        <input class="input-recherche shadow-box md:p-2 sm:p-2 xl:p-32 lg:p-32 ml-28" type="search" placeholder="Recherche" v-model="searchModaliteLibelle">
                                     </div>
                                 </div>
                             </div>

@@ -26,7 +26,7 @@
                         <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3 ...">
-                                    <div class="pr-10 inter font-bold text-xl text-white space-x-10">
+                                    <div class="pr-10 inter font-bold text-m text-white space-x-10">
                                         <router-link :to="{ name: 'newRecrutement' }">
                                             <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-end-7 col-span-2 ...">
                                     <div class="w-full px-3 mb-6">
-                                        <input class="input-recherche shadow-box" type="search" placeholder="Recherche" v-model="searchRecrutement">
+                                        <input class="input-recherche shadow-box md:p-2 sm:p-2 xl:p-32 lg:p-32 ml-28" type="search" placeholder="Recherche" v-model="searchRecrutement">
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                     <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                        <th scope="col">Libellé Domaine</th>
+                                        <th scope="col">Libellé modalié de recrutement</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -52,7 +52,7 @@
                                         <td>{{ item.libelle }}</td>
                                         <td>
                                             <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
-                                                <router-link :to="{ name: 'modifRecrutement', params: { id: item.id }}">
+                                                <router-link :to="{ name: 'updateRecrutement', params: { id: item.id }}">
                                                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <ellipse cx="12.9405" cy="12.7347" rx="12.379" ry="12.3522"  fill="#362A66" />
                                                                      <g clip-path="url(#clip0)">
@@ -130,14 +130,6 @@
                             })
                         }
                     }.bind(this))
-            },
-            modifRecrutement: function(id) {
-                this.$router.push({
-                    name: 'updateRecrutement',
-                    params: {
-                        id: id
-                    }
-                })
             }
         },
         computed: {

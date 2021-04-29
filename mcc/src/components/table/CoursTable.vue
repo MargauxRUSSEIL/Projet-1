@@ -43,6 +43,7 @@
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                     <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
+                                        <th scope="col">id</th>
                                         <th scope="col">libelle Cours</th>
                                         <th scope="col">Code APOGEE</th>
                                         <th scope="col"></th>
@@ -50,8 +51,9 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="item in filtered" :key="item">
+                                        <td>{{ item.id }}</td>
                                         <td>{{ item.libelle }}</td>
-                                        <td>{{ item.codeApogee }}</td>
+                                        <td>{{ item.codeAPOGEE }}</td>
                                         <td>
                                             <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                                 <router-link :to="{ name: 'updateCours', params: { id: item.id }}">

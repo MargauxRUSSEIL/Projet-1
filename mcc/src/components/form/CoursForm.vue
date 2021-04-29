@@ -194,7 +194,6 @@ export default {
           }.bind(this)
         );
     },
-
     submitFromHTC: function () {
       http
         .post("horaire_type_cours", this.formHorTypeCours)
@@ -225,7 +224,6 @@ export default {
           }.bind(this)
         );
     },
-
     submitFromHETD: function () {
       http
         .post("cout_h_e_t_ds", this.formHETD)
@@ -256,7 +254,6 @@ export default {
           }.bind(this)
         );
     },
-
     submitFirstFromSessionUnique: function () {
       http
         .post(
@@ -293,7 +290,6 @@ export default {
           }.bind(this)
         );
     },
-
      submitSecondFromSessionUnique: function () {
       http
         .post(

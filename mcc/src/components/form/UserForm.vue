@@ -4,89 +4,66 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Structure prolongée
+                        Nom
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.structureProlongee"
+                           v-model="form.nom"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Structure basse
+                        Prénom
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.structureBasse"
+                           v-model="form.prenom"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Commentaire
-                    </label>
-                    <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                              v-model="form.commentaire"
-                    ></textarea>
-                </div>
-                <div class="w-full px-3 mb-6 md:mb-4">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Intitulé du parcours
+                        Email
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                           v-model="form.libelle"
+                           type="email"
+                           v-model="form.mail"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Libellé du parcours
+                        Adjoint
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.libelleParcoursApogee"
+                           v-model="form.adjoint"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Second vet
+                        Actif
+                    </label>
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="number"
+                           v-model.number="form.actif"
+                    >
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Adjoint 2
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.secondVET"
+                           v-model="form.adjoint2"
                     >
                 </div>
-                <div class="w-full px-3 mb-6">
+                <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Semestre ou Annuelle ?
+                        Adjoint 3
                     </label>
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" :value="true" v-model="form.annuel">
-                        <span class="ml-2 mr-3">Annuelle</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" :value="false" v-model="form.annuel">
-                        <span class="ml-2 mr-3">Semestre</span>
-                    </label>
-                </div>
-                <div class="w-full px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Semestre
-                    </label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.semestre[0]"
+                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                           type="text"
+                           v-model="form.adjoint3"
                     >
-                        <option v-for="item in semestreForm" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
-                    </select>
-                </div>
-                <div class="w-full px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Utilisateur
-                    </label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.user"
-                    >
-                        <option v-for="item in utilisateurs" v-bind:key="item" v-bind:value="item['@id']">{{ item.nom }} {{ item.prenom }} - {{ item.mail }}</option>
-                    </select>
                 </div>
                 <div class="w-full px-3 mt-12">
                     <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
@@ -97,46 +74,36 @@
 </template>
 
 <script>
-    import http from "../../http-common"
+    import http from "../../http-common";
 
     export default {
-        name: "ParcoursForm",
+        name: "UserForm",
         data() {
             return {
-                formations: '',
-                semestreForm: '',
-                utilisateurs: '',
                 stat: '',
                 form: {
-                    structureProlongee: '',
-                    structureBasse: '',
-                    commentaire: '',
-                    semestre: [],
-                    libelle: '',
-                    libelleParcoursApogee: '',
-                    secondVET: '',
-                    annuel: true,
-                    user: ''
+                    nom: '',
+                    prenom: '',
+                    mail: '',
+                    adjoint: '',
+                    actif: 0,
+                    adjoint2: '',
+                    adjoint3: '',
                 }
             }
-        },
-        mounted() {
-            this.getFormations()
-            this.getSemestre()
-            this.getUser()
         },
         methods: {
             submit: function () {
                 http
-                    .post('parcours', this.form)
+                    .post('users', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
-                            this.$toast.success(`Parcours créée avec succès`, {
+                            this.$toast.success(`Utilisateur créée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Parcours' })
+                            this.$router.push({ name: 'User' })
                         }
                     }.bind(this))
                     .catch(function (error) {
@@ -152,22 +119,6 @@
                             })
                         }
                     }.bind(this))
-            },
-            getFormations: function () {
-                http
-                    .get('formations')
-                    .then(res => (this.formations = res.data['hydra:member']))
-
-            },
-            getSemestre: function () {
-                http
-                    .get('semestres')
-                    .then(res => (this.semestreForm = res.data['hydra:member']))
-            },
-            getUser: function () {
-                http
-                    .get('users')
-                    .then(res => (this.utilisateurs = res.data['hydra:member']))
             }
         }
     }

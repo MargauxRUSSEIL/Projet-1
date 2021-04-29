@@ -13,15 +13,6 @@
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Site
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                           v-model="form.site"
-                    >
-                </div>
-                <div class="w-full px-3 mb-6 mt-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Mention
                     </label>
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
@@ -51,11 +42,11 @@
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Contact
+                        Statut
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
-                           v-model="form.contact"
+                           v-model="form.statut"
                     >
                 </div>
                 <div class="w-full px-3 mb-6 mt-6 md:mb-0">
@@ -78,6 +69,16 @@
                         <option v-for="item in parcoursform" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
+                <div class="w-full px-3 mb-6 mt-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Formation
+                    </label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.formation"
+                    >
+                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item['@id'] }}</option>
+                    </select>
+                </div>
                 <div class="w-full px-3 mt-12">
                     <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
                 </div>
@@ -93,6 +94,7 @@
         name: 'MCCForm',
         data() {
             return {
+                formations: '',
                 mentions: '',
                 parcoursform: '',
                 niveaux: '',
@@ -100,9 +102,9 @@
                 stat: '',
                 form: {
                     departement: '',
-                    site: '',
+                    statut: '',
                     annee: '',
-                    contact: '',
+                    formation: '',
                     UE: [],
                     parcours: '',
                     niveau: '',
@@ -115,11 +117,12 @@
             this.getParcours()
             this.getNiveaux()
             this.getUE()
+            this.getFormation()
         },
         methods: {
             submit: function () {
                 http
-                    .post( 'm_c_cs', this.form)
+                    .post('m_c_cs', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {
@@ -163,6 +166,11 @@
                 http
                     .get('u_es')
                     .then(res => (this.ues = res.data['hydra:member']))
+            },
+            getFormation: function () {
+                http
+                    .get('creationformations')
+                    .then(res => (this.formations = res.data['hydra:member']))
             }
         }
     }

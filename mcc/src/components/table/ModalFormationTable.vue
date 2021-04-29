@@ -27,7 +27,7 @@
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3 ...">
                                     <div class="pr-10 inter font-bold text-xl text-white space-x-10">
-                                             <router-link :to="{ name: 'newFormationModal' }">
+                                             <router-link :to="{ name: '' }">
                                             <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
                                     </div>

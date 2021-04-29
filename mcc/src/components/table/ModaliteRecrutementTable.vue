@@ -4,7 +4,7 @@
             <div class="items-center">
                 <div>
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
-                        MODALITE RECRUTEMNT
+                        MODALITE RECRUTEMENT
                     </h1>
                     <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
                         <div class="flex flex-wrap ">

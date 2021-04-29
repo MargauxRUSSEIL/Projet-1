@@ -45,8 +45,8 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé parcours</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé niveau</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Libellé mention</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type diplome</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Année</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Année</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                     </tr>
                     </thead>
@@ -56,14 +56,11 @@
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.parcours }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.niveau }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ item.mention }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.typeDiplome }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ item.statut }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ formatDate(item.annee) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ item.contact }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="text-sm text-gray-900">
-                                <router-link :to="{ name: 'updateMCC', params: { id: item.id }}">
-                                    <button class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
-                                </router-link>
+                                <button v-on:click="modifMCC(item.id)" class="text-indigo-600 hover:text-indigo-900 font-semibold">Modifier</button>
                             </div>
                             <div class="text-sm text-gray-900">
                                 <button class="text-indigo-600 hover:text-indigo-900 font-semibold" v-on:click="deleteMCC(item.id)">Supprimer</button>
@@ -131,6 +128,9 @@
             formatDate(value) {
                 return moment(value).format("LL")
             },
+            modifMCC: function (id) {
+                this.$router.push({ name: 'updateMCC', params: {id: id} })
+            }
         },
         computed: {
             filtered: function () {

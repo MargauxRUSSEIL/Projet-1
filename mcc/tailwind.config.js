@@ -26,6 +26,9 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+      'theme-red': '#DD0E27',
+      'theme-blue': '#00296B',
+      'theme-bleu-marine': '#362A66',
     },
     spacing: {
       px: '1px',

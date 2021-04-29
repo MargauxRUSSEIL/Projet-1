@@ -1,6 +1,7 @@
 <template>
     <form class="container w-auto">
         <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
+            <h1>Ajouter une mention</h1>
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -22,7 +23,7 @@
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
-                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">ENVOYER</button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">AJOUTER</button>
                 </div>
             </div>
         </div>
@@ -31,6 +32,9 @@
 
 <script>
     import http from "../../http-common"
+
+    
+
 
     export default {
         name: "MentionForm",
@@ -47,6 +51,18 @@
         mounted() {
             this.getLibelleDomaine()
         },
+        // methods: {
+        //     submit: function () {
+        //         http
+        //             .post( 'mentions', this.form)
+        //             // eslint-disable-next-line no-unused-vars
+        //             .then(function( response ){
+        //                 // Handle success
+        //             }.bind(this));
+
+        //         this.$router.push({ name: 'Mention' })
+        //     },
+
         methods: {
             submit: function () {
                 http

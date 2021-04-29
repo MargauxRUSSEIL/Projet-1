@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="container-logo montserrat text-white">
-            <img src="../assets/logo.svg" alt="Logo de l'université de Cergy">
+            <img src="../assets/img/CYLogo.png" alt="Logo de l'université de Cergy">
         </div>
         <div class="nav inter uppercase flex ml-auto items-center justify-between expandCollapse">
 

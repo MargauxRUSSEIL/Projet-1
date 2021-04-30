@@ -42,7 +42,7 @@ class Cours
     private $controleConnaissance;
 
     /**
-     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="cours")
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="cours", cascade={"persist", "remove"})
      */
     private $nbGroupeTypeCoursHasCours;
 

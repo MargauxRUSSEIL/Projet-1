@@ -3,6 +3,7 @@
     "@vue/cli-plugin-router": "~4.5.0"
   },
   "dependencies": {
+    "@vue/cli": "^4.5.12",
     "chokidar": "^3.5.1"
   }
 }

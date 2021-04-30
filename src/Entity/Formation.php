@@ -39,11 +39,6 @@ class Formation
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $contact;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $commentaire;
 
     /**
@@ -173,18 +168,6 @@ class Formation
     public function setEcoleDoctorale(?string $ecoleDoctorale): self
     {
         $this->ecoleDoctorale = $ecoleDoctorale;
-
-        return $this;
-    }
-
-    public function getContact(): ?string
-    {
-        return $this->contact;
-    }
-
-    public function setContact(?string $contact): self
-    {
-        $this->contact = $contact;
 
         return $this;
     }

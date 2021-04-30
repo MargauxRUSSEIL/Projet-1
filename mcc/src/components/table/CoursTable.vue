@@ -50,8 +50,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{filtered.id}}
+                                    {{cours.id}}
                                     <tr v-for="item in filtered" :key="item">
-                                        <td>{{ item.id }}</td>
+                                        <td> {{item.id }}</td>
                                         <td>{{ item.libelle }}</td>
                                         <td>{{ item.codeAPOGEE }}</td>
                                         <td>
@@ -96,11 +98,12 @@
                 searchCours: '',
                 stat: '',
                 errored: false,
+                has: [],
                 cours: []
             }
         },
         mounted() {
-            this.getCours()
+            this.getCours();
         },
         methods: {
             getCours: function() {
@@ -112,6 +115,13 @@
                         if (total === 0) {
                             this.errored = true
                         }
+                    })
+            },
+            getData: function(route){
+                http
+                    .get(route)
+                    .then(res => {
+                        this.cours = res.data
                     })
             },
             deleteCours: function(id) {

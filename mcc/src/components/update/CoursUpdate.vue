@@ -161,17 +161,27 @@ export default {
     this.getCours();
   },
   methods: {
-      getCours: function(id){
-           id = this.$route.params.id
-                const self = this;
+      getHasCours: function(id){
+        id = this.$route.params.id
+            const self = this;
 
-                http
-                    .get('cours/' + id)
-                    .then(res => {
-                        self.formCours = res.data
-                    })
+        http
+            .get('nb_groupe_type_cours_has_cours/' + id)
+            .then(res => {
+                self.formCours = res.data
+            })
       },
-      
+      getCours: function(id){
+        id = this.$route.params.id
+            const self = this;
+
+        http
+            .get('cours/' + id)
+            .then(res => {
+                self.formCours = res.data
+            })
+      },
+
        submit: function (id) {
                 id = this.$route.params.id
 

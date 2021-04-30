@@ -27,9 +27,19 @@ class ControleConnaissance
     private $cours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasControleConnaissance::class, inversedBy="controleConnaissance")
+     * @ORM\ManyToOne(targetEntity=Competences::class, inversedBy="controleConnaissances")
      */
-    private $sessionUniqueHasControleConnaissance;
+    private $competences;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=SessionUnique::class, inversedBy="controleConnaissances")
+     */
+    private $sessionUniques;
+
+    public function __construct()
+    {
+        $this->sessionUniques = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -48,14 +58,38 @@ class ControleConnaissance
         return $this;
     }
 
-    public function getSessionUniqueHasControleConnaissance(): ?SessionUniqueHasControleConnaissance
+    public function getCompetences(): ?Competences
     {
-        return $this->sessionUniqueHasControleConnaissance;
+        return $this->competences;
     }
 
-    public function setSessionUniqueHasControleConnaissance(?SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
+    public function setCompetences(?Competences $competences): self
     {
-        $this->sessionUniqueHasControleConnaissance = $sessionUniqueHasControleConnaissance;
+        $this->competences = $competences;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SessionUnique[]
+     */
+    public function getSessionUniques(): Collection
+    {
+        return $this->sessionUniques;
+    }
+
+    public function addSessionUnique(SessionUnique $sessionUnique): self
+    {
+        if (!$this->sessionUniques->contains($sessionUnique)) {
+            $this->sessionUniques[] = $sessionUnique;
+        }
+
+        return $this;
+    }
+
+    public function removeSessionUnique(SessionUnique $sessionUnique): self
+    {
+        $this->sessionUniques->removeElement($sessionUnique);
 
         return $this;
     }

@@ -93,6 +93,9 @@
               </select>
             </div>
           </div>
+          <div class="error" v-if="isError">
+            <p> {{errorMsg}} </p>
+          </div>
           <button v-if="isRole" class="valider" @click="addRole">
             Valider
           </button>
@@ -125,6 +128,8 @@ export default {
       libelleComposante: "",
       roles: [],
       composantes: [],
+      isError: false,
+      errorMsg: "",
     };
   },
   async mounted() {
@@ -159,6 +164,8 @@ export default {
           this.$parent.getRoles();
         })
         .catch((error) => {
+          this.isError = true
+          this.errorMsg = "Une erreur c'est produite lors de l'ajout du rôle"
           console.log(error);
         });
     },
@@ -183,6 +190,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.isError = true
+          this.errorMsg = "Une erreur c'est produite lors de l'ajout de la composante"
         });
     },
     updateUser() {
@@ -212,9 +221,13 @@ export default {
           .then(function () {
             // console.log(JSON.stringify(response.data));
             self.$parent.getUsers();
+            self.$parent.isModalUpdate = false;
+
           })
           .catch(function (error) {
             console.log(error);
+            self.isError = true
+            self.errorMsg = "Une erreur c'est produite lors de l'édition de l'utilisateur"
           });
       } else if (selectComposante.value != this.user.composantes[0].id) {
         console.log("update de la table composanteUser");
@@ -235,9 +248,13 @@ export default {
           .then(function () {
             // console.log(JSON.stringify(response.data));
             self.$parent.getUsers();
+            self.$parent.isModalUpdate = false;
+
           })
           .catch(function (error) {
             console.log(error);
+            self.isError = true
+            self.errorMsg = "Une erreur c'est produite lors de l'édition de l'utilisateur"
           });
         // this.$parent.getUsers()
       } else if (selectRole.value != this.user.roles[0].id) {
@@ -259,13 +276,16 @@ export default {
           .then(function () {
             // console.log(JSON.stringify(response.data));
             self.$parent.getUsers();
+            self.$parent.isModalUpdate = false;
+
           })
           .catch(function (error) {
             console.log(error);
+            self.isError = true
+            self.errorMsg = "Une erreur c'est produite lors de l'édition de l'utilisateur"
           });
         // this.$parent.getUsers()
       }
-      this.$parent.isModalUpdate = false;
     },
   },
 };
@@ -309,5 +329,9 @@ input {
     2px -2px 2px rgba(255, 255, 255, 0.4), 2px 2px 2px rgba(0, 41, 107, 0.4),
     -2px -2px 2px rgba(255, 255, 255, 0.4),
     inset 1px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.error{
+  @apply bg-red-400 rounded-lg py-2 px-2 text-center my-4 ;
 }
 </style>

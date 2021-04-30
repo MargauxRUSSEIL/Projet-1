@@ -4,14 +4,14 @@
             <div class="items-center">
                 <div>
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
-                        CARACTERISTIQUES
+                        FORMATION
                     </h1>
                     <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3 ...">
                                     <div class="w-full px-3 mb-6">
-                                        <router-link :to="{ name: 'newCaracteristique' }">
+                                        <router-link :to="{ name: 'newFormation' }">
                                             <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                                         </router-link>
                                     </div>
@@ -23,40 +23,64 @@
                         </section>
                     </div>
                     <div v-else>
-                   <div class="flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3">
                                     <div class="pr-10 inter font-bold text-m text-white space-x-10">
-                                        <router-link :to="{ name: 'newCaracteristique' }">
+                                        <router-link :to="{name: 'newFormation'}">
                                             <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
                                     </div>
                                 </div>
-                                <div class="col-end-7 col-span-2">
+                                <div class="col-end-7 col-span-2 ">
                                     <div class="w-full px-3 mb-6">
-                                        <input class="input-recherche shadow-box md:p-2 sm:p-2 xl:p-32 lg:p-32 ml-28" type="search" placeholder="Recherche" v-model="searchCaracteristiques">
+                                        <input class="input-recherche shadow-box md:p-2 sm:p-2 xl:p-32 lg:p-32 ml-28" type="search" placeholder="Recherche" v-model="searchFormation">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                        <table class="shadow-box w-full rounded-lg">
-                            <thead>
+                            <table class="shadow-box w-full rounded-lg">
+                                <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th scope="col">Complement</th>
+                                    <th scope="col">Libelle</th>
                                     <th scope="col">Statut</th>
+                                    <th scope="col">Composante</th>
+                                    <th scope="col">Localisation</th>
                                     <th scope="col">Type de diplome</th>
-                                    <th scope="col">Actions</th>
+                                    <th scope="col">Domaine</th>
+                                    <th scope="col">Mention</th>
+                                    <th scope="col">Niveau</th>
+                                    <th scope="col">Utilisateur</th>
+                                    <th scope="col">Structure Haute</th>
+                                    <th scope="col">Code Diplome</th>
+                                    <th scope="col">Ecole doctorale</th>
+                                    <th scope="col">Contact</th>
+                                    <th scope="col">Commentaire</th>
+                                    <th scope="col">VDI</th>
+                                    <th scope="col">Action</th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in filtered" :key="item">
-                                    <td>{{ item.complement }}</td>
+                                </thead>
+                                <tbody>
+                                <tr v-for="item in formations" :key="item">
+                                    <td>{{ item.libelle }}</td>
                                     <td>{{ item.statut }}</td>
+                                    <td>{{ item.composante }}</td>
+                                    <td>{{ item.localisation }}</td>
                                     <td>{{ item.typeDiplome }}</td>
+                                    <td>{{ item.domaine }}</td>
+                                    <td>{{ item.mention }}</td>
+                                    <td>{{ item.niveau }}</td>
+                                    <td>{{ item.user }}</td>
+                                    <td>{{ item.structureHaute }}</td>
+                                    <td>{{ item.codeDiplome }}</td>
+                                    <td>{{ item.ecoleDoctorale }}</td>
+                                    <td>{{ item.contact }}</td>
+                                    <td>{{ item.commentaire }}</td>
+                                    <td>{{ item.VDI }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
-                                            <router-link :to="{ name: 'updateCaracteristique', params: { id: item.id }}">
+                                            <router-link :to="{ name: 'updateFormation', params: { id: item.id }}">
                                                 <svg role="img" aria-label="Modifier" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <ellipse cx="12.9405" cy="12.7347" rx="12.379" ry="12.3522"  fill="#362A66" />
                                                     <g clip-path="url(#clip0)">
@@ -66,7 +90,7 @@
                                                     <defs><clipPath id="clip0"><rect width="20.2565" height="20.2127"  fill="white" transform="translate(2.92432 0.328369)" /></clipPath> </defs>
                                                 </svg>
                                             </router-link>
-                                            <span role="button" v-on:click="deleteCaracteristiques(item.id)">
+                                            <span role="button" v-on:click="deleteFormations(item.id)">
                                             <svg role="img" aria-label="Supprimer" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M19.2609 17.5335L19.6145 17.1799L19.2609 16.8264L15.6068 13.1722L19.2609 9.51807L19.6145 9.16451L19.2609 8.81096L17.0791 6.62916L16.7256 6.27561L16.372 6.62916L12.7179 10.2833L9.06372 6.62916L8.71017 6.27561L8.35661 6.62916L6.17481 8.81096L5.82126 9.16451L6.17481 9.51807L9.82896 13.1722L6.17481 16.8264L5.82126 17.1799L6.17481 17.5335L8.35661 19.7153L8.71017 20.0688L9.06372 19.7153L12.7179 16.0611L16.372 19.7153L16.7256 20.0688L17.0791 19.7153L19.2609 17.5335ZM0.838867 13.1722C0.838867 6.62443 6.17009 1.29321 12.7179 1.29321C19.2656 1.29321 24.5969 6.62443 24.5969 13.1722C24.5969 19.72 19.2656 25.0512 12.7179 25.0512C6.17009 25.0512 0.838867 19.72 0.838867 13.1722Z" fill="#DD0E27"/>
                                                 <path d="M19.2609 17.5335L19.6145 17.1799L19.2609 16.8264L15.6068 13.1722L19.2609 9.51807L19.6145 9.16451L19.2609 8.81096L17.0791 6.62916L16.7256 6.27561L16.372 6.62916L12.7179 10.2833L9.06372 6.62916L8.71017 6.27561L8.35661 6.62916L6.17481 8.81096L5.82126 9.16451L6.17481 9.51807L9.82896 13.1722L6.17481 16.8264L5.82126 17.1799L6.17481 17.5335L8.35661 19.7153L8.71017 20.0688L9.06372 19.7153L12.7179 16.0611L16.372 19.7153L16.7256 20.0688L17.0791 19.7153L19.2609 17.5335ZM0.838867 13.1722C0.838867 6.62443 6.17009 1.29321 12.7179 1.29321C19.2656 1.29321 24.5969 6.62443 24.5969 13.1722C24.5969 19.72 19.2656 25.0512 12.7179 25.0512C6.17009 25.0512 0.838867 19.72 0.838867 13.1722Z" stroke="black"/>
@@ -76,10 +100,7 @@
                                         </span>
                                         </div>
                                     </td>
-                                    <td>
-      
-                                        </td>
-                                    </tr>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -91,40 +112,41 @@
 </template>
 
 <script>
-    import http from "../../http-common";
+    import http from '../../http-common'
+
     export default {
-        name: "CaracteristiquesTable",
+        name: "FormationTable",
         data() {
             return {
-                searchCaracteristiques: '',
-                stat: '',
                 errored: false,
-                caracteristique: []
+                stat: '',
+                formations: [],
+                searchFormation: [],
             }
         },
         mounted() {
-            this.getCaracteristiques()
+            this.getFormations()
         },
         methods: {
-            getCaracteristiques: function() {
+            getFormations: function() {
                 http
-                    .get('caracteristiques')
+                    .get('formations')
                     .then(res => {
-                        this.caracteristique = res.data['hydra:member']
+                        this.formations = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
                     })
             },
-            deleteCaracteristiques: function(id) {
+            deleteFormations: function(id) {
                 http
-                    .delete('caracteristique/' + id)
+                    .delete('formations/' + id)
                     .then(function(response) {
                         this.stat = response.status
                         if (this.stat === 204) {
-                            this.getCaracteristiques()
-                            this.$toast.success(`Caracteristiques supprimée avec succès`, {
+                            this.getFormations()
+                            this.$toast.success(`Formation supprimée avec succès`, {
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
@@ -137,34 +159,21 @@
                             })
                         }
                     }.bind(this))
-            },
-            newCaracteristiques: function() {
-                this.$router.push({
-                    name: 'newCaracteristique'
-                })
-            },
-            modifCaracteristiques: function(id) {
-                this.$router.push({
-                    name: 'updateCaracteristique',
-                    params: {
-                        id: id
-                    }
-                })
             }
         },
         computed: {
             filtered: function() {
-                let search = this.caracteristique;
-                const searchCaracteristiques = this.searchCaracteristiques;
-                if (!searchCaracteristiques) {
-                    return search;
+                let search = this.formations
+                const searchFormation = this.searchFormation
+                if (!searchFormation) {
+                    return search
                 }
                 search = search.filter(function(item) {
-                    if (item.statut.toLowerCase().indexOf(searchCaracteristiques) !== -1 || item.statut.toUpperCase().indexOf(searchCaracteristiques) !== -1) {
-                        return item;
+                    if (item.libelle.toLowerCase().indexOf(searchFormation) !== -1 || item.libelle.toUpperCase().indexOf(searchFormation) !== -1) {
+                        return item
                     }
                 })
-                return search;
+                return search
             }
         }
     }

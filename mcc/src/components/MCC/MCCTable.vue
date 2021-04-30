@@ -43,13 +43,13 @@
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th>Site</th>
-                                    <th>Libellé parcours</th>
-                                    <th>Libellé niveau</th>
-                                    <th>Libellé mention</th>
-                                    <th>Statut</th>
-                                    <th>Année</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Site</th>
+                                    <th scope="col">Libellé parcours</th>
+                                    <th scope="col">Libellé niveau</th>
+                                    <th scope="col">Libellé mention</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Année</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +97,7 @@
     import http from "../../http-common"
     import moment from 'moment'
     import 'moment/locale/fr'
+
     export default {
         name: "MCCTable",
         data() {

@@ -76,7 +76,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.formation"
                     >
-                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item['@id'] }}</option>
+                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -117,8 +117,8 @@
             this.getMentions()
             this.getParcours()
             this.getNiveaux()
-            this.getFormation()
             this.getUE()
+            this.getFormation()
         },
         methods: {
             submit: function (id) {
@@ -156,8 +156,8 @@
                     }.bind(this))
             },
             getMCC: function (id) {
-                const self = this;
-                id = this.$route.params.id;
+                let self = this
+                id = this.$route.params.id
 
                 http
                     .get('m_c_cs/' + id)
@@ -187,7 +187,7 @@
             },
             getFormation: function () {
                 http
-                    .get('creationformations')
+                    .get('formations')
                     .then(res => (this.formations = res.data['hydra:member']))
             }
         }

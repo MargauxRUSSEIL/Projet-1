@@ -12,7 +12,8 @@
                 <transition name="dropdown-fade">
                     <div ref="dropdownContent" class="dropdown-content">
                         <router-link to="/">MCC</router-link>
-                        <router-link to="/formation">Formation </router-link>
+                        <router-link :to="{name: 'CreationFormation'}">Création Formation</router-link>
+                        <router-link :to="{name: 'Formation'}">Formation</router-link>
                         <router-link to="/parcours">Parcours</router-link>
                         <router-link to="/competence">Competence</router-link>
                         <router-link :to="{name: 'Diplome'}">Type Diplome</router-link>

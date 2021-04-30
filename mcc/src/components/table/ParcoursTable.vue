@@ -53,7 +53,7 @@
                                     <th scope="col">Annuel</th>
                                     <th scope="col">Semestre</th>
                                     <th scope="col">Utilisateur</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>

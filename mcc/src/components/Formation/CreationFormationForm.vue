@@ -404,7 +404,7 @@
                                 position: "top-right"
                             })
                             setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Formations' })
+                            this.$router.push({ name: 'CreationFormation' })
                         }
                     }.bind(this))
                     .catch(function (error) {

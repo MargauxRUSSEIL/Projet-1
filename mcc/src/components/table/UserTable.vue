@@ -50,7 +50,7 @@
                                     <th scope="col">Actif</th>
                                     <th scope="col">Adjoint 2</th>
                                     <th scope="col">Adjoint 3</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>

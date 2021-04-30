@@ -44,7 +44,7 @@
                                 <thead>
                                     <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
                                         <th scope="col">Libellé Modalité Formation</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

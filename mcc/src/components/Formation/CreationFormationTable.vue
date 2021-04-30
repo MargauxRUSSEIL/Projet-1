@@ -4,12 +4,12 @@
             <div class="items-center">
                 <div>
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
-                        FORMATION
+                        CREATION FORMATION
                     </h1>
                     <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
+                                <div class="col-start-1 col-end-3">
                                     <div class="w-full px-3 mb-6">
                                         <button v-on:click="newFormation()" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                                     </div>
@@ -23,9 +23,9 @@
                     <div v-else>
                         <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
+                                <div class="col-start-1 col-end-3">
                                     <div class="pr-10 inter font-bold text-xl text-white space-x-10">
-                                        <router-link :to="{ name: 'newFormation' }">
+                                        <router-link :to="{ name: 'newCreationFormation' }">
                                             <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
                                     </div>
@@ -61,7 +61,7 @@
                                         <td>{{ item.contact }}</td>
                                         <td>
                                             <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
-                                                <router-link :to="{ name: 'updateFormation', params: { id: item.id }}">
+                                                <router-link :to="{ name: 'updateCreationFormation', params: { id: item.id }}">
                                                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <ellipse cx="12.9405" cy="12.7347" rx="12.379" ry="12.3522"  fill="#362A66" />
                                                                          <g clip-path="url(#clip0)">
@@ -106,7 +106,7 @@
         methods: {
             newFormation: function() {
                 this.$router.push({
-                    name: 'newFormation'
+                    name: 'newCreationFormation'
                 })
             },
             modifFormation: function(id) {

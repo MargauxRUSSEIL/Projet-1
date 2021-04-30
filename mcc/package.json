@@ -11,6 +11,7 @@
     "@meforma/vue-toaster": "^1.2.2",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@vue/cli": "^4.5.12",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
@@ -20,7 +21,8 @@
     "stylus-loader": "3",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue-session": "^1.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

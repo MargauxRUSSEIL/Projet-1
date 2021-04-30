@@ -19,6 +19,9 @@
     <br />
     <label for="">Coût estimé en HETD</label>
     <input type="text" v-model="formHETD.coutCM" />
+    <br />
+    <label for="">Nombre de groupe d'étudiants :</label>
+    <input type="text" v-model="formNbGroupe.CM" />
 
     <br />
     <label for="">Cours TD :</label>
@@ -32,6 +35,9 @@
     <br />
     <label for="">Coût estimé en HETD</label>
     <input type="text" v-model="formHETD.coutTD" />
+    <br />
+    <label for="">Nombre de groupe d'étudiants :</label>
+    <input type="text" v-model="formNbGroupe.TD" />
 
     <br />
     <label for="">Cours TP :</label>
@@ -45,6 +51,9 @@
     <br />
     <label for="">Coût estimé en HETD</label>
     <input type="text" v-model="formHETD.coutTP" />
+    <br />
+    <label for="">Nombre de groupe d'étudiants :</label>
+    <input type="text" v-model="formNbGroupe.TP" />
 
     <br />
     <label for="">Autres : </label>
@@ -56,6 +65,8 @@
     <label for="">Nombre d'heure :</label>
     <input type="text" v-model="formHorTypeCours.horaireAutre" />
     <br />
+    <label for="">Nombre de groupe d'étudiants :</label>
+    <input type="text" v-model="formNbGroupe.Autre" />
     <!-- Pas trouvé dans la db -->
     <!-- <label for="">Coût estimé en HETD</label>
     <input type="text" /> -->
@@ -116,11 +127,7 @@
       class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm"
       type="button"
       v-on:click="
-        submitFromCours(),
-          submitFromHTC(),
-          submitFromHETD(),
-          submitFirstFromSessionUnique(),
-          submitSecondFromSessionUnique()
+        submit()
       "
     >
       AJOUTER
@@ -130,6 +137,7 @@
 
 <script>
 import http from "../../http-common";
+
 export default {
   name: "CoursForm",
   data() {
@@ -144,6 +152,12 @@ export default {
         horaireTP: "",
         horaireTD: "",
         horaireAutre: "",
+      },
+      formNbGroupe: {
+        CM: "",
+        TP: "",
+        TD: "",
+        Autre: "",
       },
       formHETD: {
         coutCM: "",
@@ -164,18 +178,73 @@ export default {
     };
   },
   methods: {
-    submitFromCours: function () {
+    submit: function () {
+      this.submitFormCours();
+      this.submitFromHTC();
+      this.submitFromNbGroupe();
+      this.submitFromHETD();
+      this.submitFirstFromSessionUnique();
+      this.submitSecondFromSessionUnique();
+
+      setTimeout(() => this.submitHas(), 1000);
+    },
+    submitHas: function () {
+      const result = {
+        cours: sessionStorage.cours,
+        horaireTypeCours: sessionStorage.horaire,
+        nbGroupeTypeCours: sessionStorage.nb,
+        coutHETD: sessionStorage.hetd
+      };
+
+      http
+        .post(
+          "nb_groupe_type_cours_has_cours",
+          result
+        )
+        .then(
+          function (response) {
+            this.stat = response.status;
+            if (this.stat === 201) {
+              this.$toast.success(
+                `La relation a été créée avec succès`,
+                {
+                  position: "top-right",
+                }
+              );
+              setTimeout(this.$toast.clear, 3500);
+              this.$router.push({ name: "Cours" });
+            }
+          }.bind(this)
+        )
+        .catch(
+          function (error) {
+            this.err = error.response.status;
+            if (this.err === 400) {
+              this.$toast.error(`Champ invalide`, {
+                position: "top-right",
+              });
+            } else if (this.err === 422) {
+              this.$toast.error(`Entité impossible à traiter`, {
+                position: "top-right",
+              });
+            }
+          }.bind(this)
+        );
+    },
+    submitFormCours: function () {
       http
         .post("cours", this.formCours)
         .then(
           function (response) {
             this.stat = response.status;
+            sessionStorage.setItem('cours', response.data['@id']);
+
             if (this.stat === 201) {
               this.$toast.success(`Cours créé avec succès`, {
                 position: "top-right",
               });
               setTimeout(this.$toast.clear, 3500);
-              this.$router.push({ name: "Cours" });
+              //this.$router.push({ name: "Cours" });
             }
           }.bind(this)
         )
@@ -200,12 +269,46 @@ export default {
         .then(
           function (response) {
             this.stat = response.status;
+            sessionStorage.setItem('horaire', response.data['@id']);
+
             if (this.stat === 201) {
               this.$toast.success(`HTC créés avec succès`, {
                 position: "top-right",
               });
               setTimeout(this.$toast.clear, 3500);
-              this.$router.push({ name: "Cours" });
+              //this.$router.push({ name: "Cours" });
+            }
+          }.bind(this)
+        )
+        .catch(
+          function (error) {
+            this.err = error.response.status;
+            if (this.err === 400) {
+              this.$toast.error(`Champ invalide`, {
+                position: "top-right",
+              });
+            } else if (this.err === 422) {
+              this.$toast.error(`Entité impossible à traiter`, {
+                position: "top-right",
+              });
+            }
+          }.bind(this)
+        );
+    },
+    submitFromNbGroupe: function () {
+      http
+        .post("nb_groupe_type_cours", this.formNbGroupe)
+        .then(
+          function (response) {
+            this.stat = response.status;
+            sessionStorage.setItem('nb', response.data['@id']);
+
+            if (this.stat === 201) {
+              this.$toast.success(`NbGroupe créés avec succès`, {
+                position: "top-right",
+              });
+              setTimeout(this.$toast.clear, 3500);
+              //this.$router.push({ name: "Cours" });
             }
           }.bind(this)
         )
@@ -230,12 +333,14 @@ export default {
         .then(
           function (response) {
             this.stat = response.status;
+            sessionStorage.setItem('hetd', response.data['@id']);
+
             if (this.stat === 201) {
               this.$toast.success(`HETD créés avec succès`, {
                 position: "top-right",
               });
               setTimeout(this.$toast.clear, 3500);
-              this.$router.push({ name: "Cours" });
+              //this.$router.push({ name: "Cours" });
             }
           }.bind(this)
         )
@@ -271,7 +376,7 @@ export default {
                 }
               );
               setTimeout(this.$toast.clear, 3500);
-              this.$router.push({ name: "Cours" });
+              //this.$router.push({ name: "Cours" });
             }
           }.bind(this)
         )
@@ -290,7 +395,7 @@ export default {
           }.bind(this)
         );
     },
-     submitSecondFromSessionUnique: function () {
+    submitSecondFromSessionUnique: function () {
       http
         .post(
           "session_uniques",
@@ -307,7 +412,7 @@ export default {
                 }
               );
               setTimeout(this.$toast.clear, 3500);
-              this.$router.push({ name: "Cours" });
+              //this.$router.push({ name: "Cours" });
             }
           }.bind(this)
         )
@@ -325,7 +430,7 @@ export default {
             }
           }.bind(this)
         );
-    },
+    }
   },
 };
 </script>

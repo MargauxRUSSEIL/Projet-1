@@ -11,7 +11,7 @@
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3 ...">
                                     <div class="w-full px-3 mb-6">
-                                        <router-link :to="{ name: 'newNiveau' }">
+                                        <router-link :to="{ name: 'newRecrutement' }">
                                             <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
                                         </router-link>
                                     </div>
@@ -37,7 +37,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <div>
                         <table class="shadow-box w-full rounded-lg">
                             <thead>
@@ -77,6 +76,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </template>

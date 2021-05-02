@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/tailwind.css'
-import router from './router'
+import router from '../../../Projet-1/vue-js/mcc/src/router'
 import Toaster from '@meforma/vue-toaster'
 
 createApp(App)

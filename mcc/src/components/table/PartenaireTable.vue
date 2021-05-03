@@ -30,6 +30,7 @@
                                         <router-link :to="{ name: 'newPartenaire' }">
                                             <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
+                                        <button class="add-composante-role exporter" type="button" v-on:click="download">Exporter</button>
                                     </div>
                                 </div>
                                 <div class="col-end-7 col-span-2 ...">
@@ -86,6 +87,7 @@
 
 <script>
     import http from "../../http-common";
+    import XLSX from "xlsx";
     export default {
         name: "PartenaireTable",
         data() {
@@ -110,6 +112,12 @@
                             this.errored = true
                         }
                     })
+            },
+            download: function () {
+                const data = XLSX.utils.json_to_sheet(this.partenaires);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, data, "data");
+                XLSX.writeFile(wb, "partenaires.xlsx");
             },
             deletePartenaire: function(id) {
                 http
@@ -156,6 +164,9 @@
     .add-composante-role {
         @apply bg-theme-bleu-marine py-3 px-6 rounded-md;
         box-shadow: -2px 2px 2px rgba(0, 41, 107, 0.25), 2px -2px 2px rgba(255, 255, 255, 0.4), 2px 2px 2px rgba(0, 41, 107, 0.4), -2px -2px 2px rgba(255, 255, 255, 0.4), inset 1px 1px 2px rgba(0, 0, 0, 0.25);
+    }
+    .exporter{
+        background-color: maroon
     }
     .input-recherche {
         @apply rounded-full pl-6 py-1;

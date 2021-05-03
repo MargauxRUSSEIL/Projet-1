@@ -6,13 +6,13 @@
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
                         FORMATION
                     </h1>
-                    <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+                    <div v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
-                                    <div class="w-full px-3 mb-6">
-                                        <router-link :to="{ name: 'newFormation' }">
-                                            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                                <div class="col-start-1 col-end-3">
+                                    <div class="pr-10 inter font-bold text-m text-white space-x-10">
+                                        <router-link :to="{name: 'newFormation'}">
+                                            <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
                                     </div>
                                 </div>
@@ -65,12 +65,12 @@
                                 <tr v-for="item in formations" :key="item">
                                     <td>{{ item.libelle }}</td>
                                     <td>{{ item.statut }}</td>
-                                    <td>{{ item.composante }}</td>
-                                    <td>{{ item.localisation }}</td>
+                                    <td>{{ textComposante(item.composante) }}</td>
+                                    <td>{{ textLocalisation(item.localisation) }}</td>
                                     <td>{{ item.typeDiplome }}</td>
                                     <td>{{ item.domaine }}</td>
-                                    <td>{{ item.mention }}</td>
-                                    <td>{{ item.niveau }}</td>
+                                    <td>{{ textMentions(item.mention) }}</td>
+                                    <td>{{ textNiveau(item.niveau) }}</td>
                                     <td>{{ item.user }}</td>
                                     <td>{{ item.structureHaute }}</td>
                                     <td>{{ item.codeDiplome }}</td>
@@ -120,12 +120,20 @@
             return {
                 errored: false,
                 stat: '',
+                composantes: '',
+                localisations: '',
+                niveaux: '',
+                mentions: '',
                 formations: [],
                 searchFormation: [],
             }
         },
         mounted() {
             this.getFormations()
+            this.getComposante()
+            this.getLocalisation()
+            this.getNiveau()
+            this.getMentions()
         },
         methods: {
             getFormations: function() {
@@ -159,6 +167,46 @@
                             })
                         }
                     }.bind(this))
+            },
+            getComposante: function () {
+                http
+                    .get('composantes')
+                    .then(response => { this.composantes = response.data["hydra:member"] })
+            },
+            getLocalisation: function () {
+                http
+                    .get('localisations')
+                    .then(response => { this.localisations = response.data["hydra:member"] })
+            },
+            getNiveau: function () {
+                http
+                    .get('niveaux')
+                    .then(response => { this.niveaux = response.data["hydra:member"] })
+            },
+            getMentions: function () {
+                http
+                    .get('mentions')
+                    .then(response => { this.mentions = response.data["hydra:member"] })
+            },
+            textNiveau: function (value) {
+                for (let i = 0; i < this.niveaux.length; i++) {
+                    if (value === this.niveaux[i]['@id'])  return this.niveaux[i].libelle
+                }
+            },
+            textMentions: function (value) {
+                for (let i = 0; i < this.mentions.length; i++) {
+                    if (value === this.mentions[i]['@id'])  return this.mentions[i].libelle
+                }
+            },
+            textComposante: function (value) {
+                for (let i = 0; i < this.composantes.length; i++) {
+                    if (value === this.composantes[i]['@id'])  return this.composantes[i].libelle
+                }
+            },
+            textLocalisation: function (value) {
+                for (let i = 0; i < this.localisations.length; i++) {
+                    if (value === this.localisations[i]['@id'])  return this.localisations[i].adresse + ' - ' + this.localisations[i].ville + this.localisations[i].codePostal
+                }
             }
         },
         computed: {

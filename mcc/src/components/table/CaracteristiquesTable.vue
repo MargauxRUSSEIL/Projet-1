@@ -6,15 +6,11 @@
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
                         CARACTERISTIQUES
                     </h1>
-                    <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+                    <div v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
-                                    <div class="w-full px-3 mb-6">
-                                        <router-link :to="{ name: 'newCaracteristique' }">
-                                            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
-                                        </router-link>
-                                    </div>
+                                <div class="col-start-1 col-end-3">
+                                    <button v-on:click="newCaracteristiques()" class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Ajouter</button>
                                 </div>
                             </div>
                         </div>
@@ -23,14 +19,10 @@
                         </section>
                     </div>
                     <div v-else>
-                   <div class="flex flex-wrap">
+                        <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3">
-                                    <div class="pr-10 inter font-bold text-m text-white space-x-10">
-                                        <router-link :to="{ name: 'newCaracteristique' }">
-                                            <span class="add-composante-role" type="button">Ajouter</span>
-                                        </router-link>
-                                    </div>
+                                    <button v-on:click="newCaracteristiques()" class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Ajouter</button>
                                 </div>
                                 <div class="col-end-7 col-span-2">
                                     <div class="w-full px-3 mb-6">
@@ -40,20 +32,20 @@
                             </div>
                         </div>
                         <div>
-                        <table class="shadow-box w-full rounded-lg">
-                            <thead>
+                            <table class="shadow-box w-full rounded-lg">
+                                <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
                                     <th scope="col">Complement</th>
                                     <th scope="col">Statut</th>
                                     <th scope="col">Type de diplome</th>
                                     <th scope="col">Actions</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 <tr v-for="item in filtered" :key="item">
                                     <td>{{ item.complement }}</td>
                                     <td>{{ item.statut }}</td>
-                                    <td>{{ item.typeDiplome }}</td>
+                                    <td>{{ textTypeDiplome(item.typeDiplome) }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateCaracteristique', params: { id: item.id }}">
@@ -77,9 +69,9 @@
                                         </div>
                                     </td>
                                     <td>
-      
-                                        </td>
-                                    </tr>
+
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -97,6 +89,7 @@
         data() {
             return {
                 searchCaracteristiques: '',
+                type_diplome: '',
                 stat: '',
                 errored: false,
                 caracteristique: []
@@ -104,6 +97,7 @@
         },
         mounted() {
             this.getCaracteristiques()
+            this.getTypeDiplome()
         },
         methods: {
             getCaracteristiques: function() {
@@ -143,13 +137,15 @@
                     name: 'newCaracteristique'
                 })
             },
-            modifCaracteristiques: function(id) {
-                this.$router.push({
-                    name: 'updateCaracteristique',
-                    params: {
-                        id: id
-                    }
-                })
+            getTypeDiplome: function () {
+                http
+                    .get('type_diplomes')
+                    .then(response => { this.type_diplome = response.data["hydra:member"] })
+            },
+            textTypeDiplome: function (value) {
+                for (let i = 0; i < this.type_diplome.length; i++) {
+                    if (value === this.type_diplome[i]['@id'])  return this.type_diplome[i].libelle
+                }
             }
         },
         computed: {

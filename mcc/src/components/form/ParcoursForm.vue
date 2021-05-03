@@ -4,6 +4,16 @@
             <div class="flex flex-wrap">
                 <div class="w-full px-3 mb-6 md:mb-4">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Formation
+                    </label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.formation"
+                    >
+                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
+                    </select>
+                </div>
+                <div class="w-full px-3 mb-6 md:mb-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Structure prolongée
                     </label>
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
@@ -108,6 +118,7 @@
                 utilisateurs: '',
                 stat: '',
                 form: {
+                    formation: '',
                     structureProlongee: '',
                     structureBasse: '',
                     commentaire: '',

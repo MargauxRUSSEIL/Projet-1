@@ -22,7 +22,7 @@
                         <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3">
-                                    <button v-on:click="newFormation()" class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Nouveau</button>
+                                    <button v-on:click="newFormation()" class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Ajouter</button>
                                 </div>
                                 <div class="col-end-7 col-span-2">
                                     <div class="w-full px-3 mb-6">

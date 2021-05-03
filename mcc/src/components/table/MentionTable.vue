@@ -6,13 +6,13 @@
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
                         MENTION
                     </h1>
-                    <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+                    <div v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
-                                    <div class="w-full px-3 mb-6">
+                                <div class="col-start-1 col-end-3">
+                                    <div class="pr-10 inter font-bold text-m text-white space-x-10">
                                         <router-link :to="{ name: 'newMention' }">
-                                            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
+                                            <span class="add-composante-role" type="button">Ajouter</span>
                                         </router-link>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                                 <tbody>
                                     <tr v-for="item in filtered" :key="item">
                                         <td> {{ item.libelle }}</td>
-                                        <td>{{ item.domaine }}</td>
+                                        <td>{{ textDomaines(item.domaine) }}</td>
                                         <td>
                                             <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                                 <router-link :to="{ name: 'updateMention', params: { id: item.id }}">
@@ -92,6 +92,7 @@
         data() {
             return {
                 searchMention: '',
+                domaines: '',
                 stat: '',
                 errored: false,
                 mention: []
@@ -99,6 +100,7 @@
         },
         mounted() {
             this.getMention()
+            this.getDomaines()
         },
         methods: {
             getMention: function() {
@@ -132,6 +134,16 @@
                             })
                         }
                     }.bind(this))
+            },
+            getDomaines: function () {
+                http
+                    .get('domaines')
+                    .then(response => { this.domaines = response.data["hydra:member"] })
+            },
+            textDomaines: function (value) {
+                for (let i = 0; i < this.domaines.length; i++) {
+                    if (value === this.domaines[i]['@id'])  return this.domaines[i].libelle
+                }
             }
         },
         computed: {

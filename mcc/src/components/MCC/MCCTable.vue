@@ -6,15 +6,11 @@
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
                         MCC
                     </h1>
-                    <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+                    <div v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3 ...">
-                                    <div class="w-full px-3 mb-6">
-                                        <router-link :to="{ name: 'newMCC' }">
-                                            <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
-                                        </router-link>
-                                    </div>
+                                    <button v-on:click="newMCC()" class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Ajouter</button>
                                 </div>
                             </div>
                         </div>
@@ -26,11 +22,7 @@
                         <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3">
-                                    <div class="pr-10 inter font-bold text-m text-white space-x-10">
-                                        <router-link :to="{ name: 'newMCC' }">
-                                            <span class="add-composante-role" type="button">Ajouter</span>
-                                        </router-link>
-                                    </div>
+                                    <button v-on:click="newMCC()" class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Ajouter</button>
                                 </div>
                                 <div class="col-end-7 col-span-2">
                                     <div class="w-full px-3 mb-6">
@@ -55,9 +47,9 @@
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
                                     <td class="px-6 py-4 whitespace-nowrap">{{ item.departement }}</td>
-                                    <td>{{ item.parcours }}</td>
-                                    <td>{{ item.niveau }}</td>
-                                    <td>{{ item.mention }}</td>
+                                    <td>{{ textParcours(item.parcours) }}</td>
+                                    <td>{{ textNiveau(item.niveau) }}</td>
+                                    <td>{{ textMentions(item.mention) }}</td>
                                     <td>{{ item.statut }}</td>
                                     <td>{{ formatDate(item.annee) }}</td>
                                     <td>
@@ -103,6 +95,9 @@
         data() {
             return {
                 searchMCC: '',
+                niveaux: '',
+                mentions: '',
+                parcours: '',
                 errored: false,
                 stat: '',
                 mcc: []
@@ -110,6 +105,9 @@
         },
         mounted() {
             this.getMCC()
+            this.getNiveau()
+            this.getParcours()
+            this.getMentions()
         },
         methods: {
             getMCC: function() {
@@ -144,12 +142,42 @@
                         }
                     }.bind(this))
             },
-            formatDate(value) {
+            formatDate: function (value) {
                 return moment(value).format("LL")
             },
-            modifMCC: function (id) {
-                this.$router.push({ name: 'updateMCC', params: {id: id} })
-            }
+            newMCC: function () {
+                this.$router.push({ name: 'newMCC' })
+            },
+            getNiveau: function () {
+                http
+                    .get('niveaux')
+                    .then(response => { this.niveaux = response.data["hydra:member"] })
+            },
+            getParcours: function () {
+                http
+                    .get('parcours')
+                    .then(response => { this.parcours = response.data["hydra:member"] })
+            },
+            getMentions: function () {
+                http
+                    .get('mentions')
+                    .then(response => { this.mentions = response.data["hydra:member"] })
+            },
+            textNiveau: function (value) {
+                for (let i = 0; i < this.niveaux.length; i++) {
+                    if (value === this.niveaux[i]['@id'])  return this.niveaux[i].libelle
+                }
+            },
+            textMentions: function (value) {
+                for (let i = 0; i < this.mentions.length; i++) {
+                    if (value === this.mentions[i]['@id'])  return this.mentions[i].libelle
+                }
+            },
+            textParcours: function (value) {
+                for (let i = 0; i < this.parcours.length; i++) {
+                    if (value === this.parcours[i]['@id'])  return this.parcours[i].libelle
+                }
+            },
         },
         computed: {
             filtered: function() {

@@ -42,7 +42,7 @@ class CoutHETD
     private $coutHETDcol;
 
     /**
-     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="coutHETD")
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="coutHETD", cascade={"persist", "remove"})
      */
     private $nbGroupeTypeCoursHasCours;
 

@@ -73,9 +73,9 @@
                         </template>
                         <template #content class="bg-white">
                             <div class="div1">
-                                <p> Panel B Content</p>
-                                <p> cdfnkv</p>
-                                <p>cfnjnfk</p>
+                                <p> Formation</p>
+                                <p> </p>
+                                <p></p>
                             </div>
                         </template>
                     </vue-collapsible-panel>

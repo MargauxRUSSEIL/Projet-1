@@ -47,13 +47,13 @@ class Competences
     private $seuil;
 
     /**
-     * @ORM\OneToMany(targetEntity=ControleConnaissance::class, mappedBy="competences", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=ControleConnaissances::class, mappedBy="competences")
      */
-    private $controleConnaissances;
+    private $controleConnaissance;
 
     public function __construct()
     {
-        $this->controleConnaissances = new ArrayCollection();
+        $this->controleConnaissance = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,26 +122,26 @@ class Competences
     }
 
     /**
-     * @return Collection|ControleConnaissance[]
+     * @return Collection|ControleConnaissances[]
      */
-    public function getControleConnaissances(): Collection
+    public function getControleConnaissance(): Collection
     {
-        return $this->controleConnaissances;
+        return $this->controleConnaissance;
     }
 
-    public function addControleConnaissance(ControleConnaissance $controleConnaissance): self
+    public function addControleConnaissance(ControleConnaissances $controleConnaissance): self
     {
-        if (!$this->controleConnaissances->contains($controleConnaissance)) {
-            $this->controleConnaissances[] = $controleConnaissance;
+        if (!$this->controleConnaissance->contains($controleConnaissance)) {
+            $this->controleConnaissance[] = $controleConnaissance;
             $controleConnaissance->setCompetences($this);
         }
 
         return $this;
     }
 
-    public function removeControleConnaissance(ControleConnaissance $controleConnaissance): self
+    public function removeControleConnaissance(ControleConnaissances $controleConnaissance): self
     {
-        if ($this->controleConnaissances->removeElement($controleConnaissance)) {
+        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
             // set the owning side to null (unless already changed)
             if ($controleConnaissance->getCompetences() === $this) {
                 $controleConnaissance->setCompetences(null);

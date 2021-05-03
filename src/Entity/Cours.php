@@ -37,20 +37,20 @@ class Cours
     private $uEs;
 
     /**
-     * @ORM\OneToMany(targetEntity=ControleConnaissance::class, mappedBy="cours", cascade={"persist", "remove"})
-     */
-    private $controleConnaissance;
-
-    /**
      * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="cours", cascade={"persist", "remove"})
      */
     private $nbGroupeTypeCoursHasCours;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ControleConnaissances::class, mappedBy="cours")
+     */
+    private $controleConnaissance;
+
     public function __construct()
     {
         $this->uEs = new ArrayCollection();
-        $this->controleConnaissance = new ArrayCollection();
         $this->nbGroupeTypeCoursHasCours = new ArrayCollection();
+        $this->controleConnaissance = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,36 +109,6 @@ class Cours
         return $this;
     }
 
-     /**
-     * @return Collection|ControleConnaissance[]
-     */
-    public function getControleConnaissance(): Collection
-    {
-        return $this->controleConnaissance;
-    }
-
-    public function addControleConnaissance(ControleConnaissance $controleConnaissance): self
-    {
-        if (!$this->controleConnaissance->contains($controleConnaissance)) {
-            $this->controleConnaissance[] = $controleConnaissance;
-            $controleConnaissance->setCours($this);
-        }
-
-        return $this;
-    }
-
-    public function removeControleConnaissance(ControleConnaissance $controleConnaissance): self
-    {
-        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
-            // set the owning side to null (unless already changed)
-            if ($controleConnaissance->getCours() === $this) {
-                $controleConnaissance->setCours(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|NbGroupeTypeCoursHasCours[]
      */
@@ -163,6 +133,36 @@ class Cours
             // set the owning side to null (unless already changed)
             if ($nbGroupeTypeCoursHasCour->getCours() === $this) {
                 $nbGroupeTypeCoursHasCour->setCours(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ControleConnaissances[]
+     */
+    public function getControleConnaissance(): Collection
+    {
+        return $this->controleConnaissance;
+    }
+
+    public function addControleConnaissance(ControleConnaissances $controleConnaissance): self
+    {
+        if (!$this->controleConnaissance->contains($controleConnaissance)) {
+            $this->controleConnaissance[] = $controleConnaissance;
+            $controleConnaissance->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeControleConnaissance(ControleConnaissances $controleConnaissance): self
+    {
+        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
+            // set the owning side to null (unless already changed)
+            if ($controleConnaissance->getCours() === $this) {
+                $controleConnaissance->setCours(null);
             }
         }
 

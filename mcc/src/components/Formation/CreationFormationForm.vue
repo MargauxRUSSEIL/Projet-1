@@ -5,63 +5,15 @@
 
                 <!--Création d'une formation-->
                 <p class="text-lg mt-16 mb-10 ml-1">A – Création d'une formation</p>
-                <div class="w-full px-3 mb-12">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Création d’une mention de diplôme national en
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="licence">
-                        <span class="ml-2 mr-3">Licence Générale</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="licencePro">
-                        <span class="ml-2 mr-3">Licence Professionelle</span>
-                    </label>
-                    <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="master">
-                        <span class="ml-2 mr-3">Master</span>
-                    </label>
-                </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Type de Diplome
+                        Formation
                     </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
+                            v-model="form.formation"
                     >
-                </div>
-                <div class="w-full md:w-1/2 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Intitulé
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
-                </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Domaine
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
-                </div>
-                <div class="w-full md:w-1/2 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Parcours
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                           v-model="form.parcours"
-                    >
-                </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        S'il ne s’agit pas d’un diplôme national (DU…) – Indiquer l’intitulé complet
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                    >
+                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
+                    </select>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -73,24 +25,6 @@
                         <option v-for="item in modalformation" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
-                <div class="w-full md:w-2/2 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Composante de rattachement (préciser département pour l’IUT et l’institut ST)
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                           v-model="form.composante"
-                    >
-                </div>
-                <div class="w-full md:w-2/2 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Site de Formation
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
-                           v-model="form.localisation"
-                    >
-                </div>
                 <div class="w-full md:w-1/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Niveau requis pour intégrer la formation
@@ -98,14 +32,6 @@
                     <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                            type="text"
                            v-model="form.niveauRequis"
-                    >
-                </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Niveau de sortie de la formation
-                    </label>
-                    <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                           type="text"
                     >
                 </div>
                 <div class="w-full md:w-1/2 px-3 mb-6">
@@ -117,7 +43,7 @@
                            v-model="form.dateOuverture"
                     >
                 </div>
-                <div class="w-full md:w-1/2 px-3">
+                <div class="w-full md:w-1/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Nombre d’étudiants attendus à l’ouverture de la formation
                     </label>
@@ -149,12 +75,10 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Quelles compétences la formation permet-elle d’acquérir
                     </label>
-                    <div  v-for="item in competences" v-bind:key="item">
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" :id="item.blocs" :value="item.blocs" v-model="form.competences">
-                            <span class="ml-2 mr-3">{{ item.blocs }}</span>
-                        </label>
-                    </div>
+                    <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                              type="text"
+                              v-model="form.competences"
+                    ></textarea>
                 </div>
 
 
@@ -198,19 +122,11 @@
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-6">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Liens avec le monde socio-économique
-                    </label>
-                    <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                              type="text"
-                    ></textarea>
-                </div>
-                <div class="w-full md:w-2/2 px-3 mb-6">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Partenaires éventuels : (administrations, associations, CFA, entreprises, établissements français ou étrangers, fondations)
                     </label>
                     <div  v-for="item in partenaire" v-bind:key="item">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" :id="item.libelle" :value="item.libelle" v-model="form.partenaire">
+                            <input type="checkbox" :id="item.libelle" :value="item['@id']" v-model="form.partenaire">
                             <span class="ml-2 mr-3">{{ item.libelle }}</span>
                         </label>
                     </div>
@@ -251,11 +167,11 @@
                         Souhaitez-vous être accompagné par le service diversification pédagogique ?
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="true" v-model="form.serviceDiversificatio">
+                        <input type="radio" class="form-radio" name="radio" :value="true" v-model="form.serviceDiversification">
                         <span class="ml-2 mr-3">Oui</span>
                     </label>
                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="radio" value="false" v-model="form.serviceDiversificatio">
+                        <input type="radio" class="form-radio" name="radio" :value="false" v-model="form.serviceDiversification">
                         <span class="ml-2 mr-3">Non</span>
                     </label>
                 </div>
@@ -294,27 +210,11 @@
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-10">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        La formation est-elle incluse dans un projet de recherche financé par un tiers ?
-                    </label>
-                    <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                              type="text"
-                    ></textarea>
-                </div>
-                <div class="w-full md:w-2/2 px-3 mb-10">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         La formation utilise-t-elle des équipements d’un laboratoire, d’une plateforme ?
                     </label>
                     <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                               type="text"
                               v-model="form.equipements"
-                    ></textarea>
-                </div>
-                <div class="w-full md:w-2/2 px-3 mb-10">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                        Internationalisation (cours en langue étrangère, étudiants étrangers entrants…)
-                    </label>
-                    <textarea class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                              type="text"
                     ></textarea>
                 </div>
                 <div class="w-full md:w-2/2 px-3 mb-10">
@@ -381,7 +281,7 @@
                     insertionPro: '',
                     partenairesHistorique: '',
                     diversificationPeda: '',
-                    serviceDiversificatio: true
+                    serviceDiversification: true
                 }
             }
         },
@@ -416,6 +316,11 @@
                         }
                         else if (this.err === 422) {
                             this.$toast.error(`Entité impossible à traiter`, {
+                                position: "top-right"
+                            })
+                        }
+                        else if (this.err === 500) {
+                            this.$toast.error(`La Formation existe déjà`, {
                                 position: "top-right"
                             })
                         }

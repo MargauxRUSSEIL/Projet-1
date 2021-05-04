@@ -161,16 +161,6 @@ export default {
     this.getCours();
   },
   methods: {
-      getHasCours: function(id){
-        id = this.$route.params.id
-            const self = this;
-
-        http
-            .get('nb_groupe_type_cours_has_cours/' + id)
-            .then(res => {
-                self.formCours = res.data
-            })
-      },
       getCours: function(id){
         id = this.$route.params.id
             const self = this;
@@ -181,41 +171,40 @@ export default {
                 self.formCours = res.data
             })
       },
+      submit: function (id) {
+        id = this.$route.params.id
 
-       submit: function (id) {
-                id = this.$route.params.id
-
-                http
-                    .put( 'cours/' + id, this.formCours)
-                    .then(function( response ){
-                        this.stat = response.status
-                        if (this.stat === 200) {
-                            this.$toast.success(`Cours mis à jour avec succès`, {
-                                position: "top-right"
-                            })
-                            setTimeout(this.$toast.clear, 3500)
-                            this.$router.push({ name: 'Cours' })
-                        }
-                    }.bind(this))
-                    .catch(function (error) {
-                        this.err = error.response.status
-                        if (this.err === 400) {
-                            this.$toast.error(`Champ invalide`, {
-                                position: "top-right"
-                            })
-                        }
-                        else if (this.err === 404) {
-                            this.$toast.error(`Ressource introuvable`, {
-                                position: "top-right"
-                            })
-                        }
-                        else if (this.err === 422) {
-                            this.$toast.error(`Entité impossible à traiter`, {
-                                position: "top-right"
-                            })
-                        }
-                    }.bind(this))
-            }
+        http
+            .put( 'cours/' + id, this.formCours)
+            .then(function( response ){
+                this.stat = response.status
+                if (this.stat === 200) {
+                    this.$toast.success(`Cours mis à jour avec succès`, {
+                        position: "top-right"
+                    })
+                    setTimeout(this.$toast.clear, 3500)
+                    this.$router.push({ name: 'Cours' })
+                }
+            }.bind(this))
+            .catch(function (error) {
+                this.err = error.response.status
+                if (this.err === 400) {
+                    this.$toast.error(`Champ invalide`, {
+                        position: "top-right"
+                    })
+                }
+                else if (this.err === 404) {
+                    this.$toast.error(`Ressource introuvable`, {
+                        position: "top-right"
+                    })
+                }
+                else if (this.err === 422) {
+                    this.$toast.error(`Entité impossible à traiter`, {
+                        position: "top-right"
+                    })
+                }
+            }.bind(this))
+    }
 
   },
 };

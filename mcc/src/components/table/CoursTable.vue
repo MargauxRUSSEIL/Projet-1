@@ -50,10 +50,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{filtered.id}}
-                                    {{cours.id}}
                                     <tr v-for="item in filtered" :key="item">
-                                        <td> {{item.id }}</td>
+                                        <td> {{ item.id }}</td>
                                         <td>{{ item.libelle }}</td>
                                         <td>{{ item.codeAPOGEE }}</td>
                                         <td>
@@ -98,30 +96,44 @@
                 searchCours: '',
                 stat: '',
                 errored: false,
-                has: [],
-                cours: []
+                cours: [],
             }
         },
         mounted() {
-            this.getCours();
+            this.getHas();
         },
         methods: {
-            getCours: function() {
+            getHas: function() {
                 http
-                    .get('cours')
+                    .get('nb_groupe_type_cours_has_cours')
                     .then(res => {
-                        this.cours = res.data['hydra:member']
+                        let data = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
+
+                        var self = this;
+                        let list = [];
+
+                        data.forEach(function(item){
+                            let result = item.cours;
+                            let resultReplace = result.replace('/api/', '');
+
+                            list.push(self.getCours(resultReplace));
+                        });
+
+                        //console.log(list);
+
+                        //this.cours = list;
+                        
                     })
             },
-            getData: function(route){
-                http
+            getCours: function(route) {
+                return http
                     .get(route)
                     .then(res => {
-                        this.cours = res.data
+                        this.cours = res.data;
                     })
             },
             deleteCours: function(id) {

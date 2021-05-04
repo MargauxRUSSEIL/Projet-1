@@ -67,11 +67,11 @@
                                     <td>{{ item.statut }}</td>
                                     <td>{{ textComposante(item.composante) }}</td>
                                     <td>{{ textLocalisation(item.localisation) }}</td>
-                                    <td>{{ item.typeDiplome }}</td>
-                                    <td>{{ item.domaine }}</td>
+                                    <td>{{ textTypeDiplome(item.typeDiplome) }}</td>
+                                    <td>{{ textDomaine(item.domaine) }}</td>
                                     <td>{{ textMentions(item.mention) }}</td>
                                     <td>{{ textNiveau(item.niveau) }}</td>
-                                    <td>{{ item.user }}</td>
+                                    <td>{{ textUser(item.user) }}</td>
                                     <td>{{ item.structureHaute }}</td>
                                     <td>{{ item.codeDiplome }}</td>
                                     <td>{{ item.ecoleDoctorale }}</td>
@@ -121,7 +121,10 @@
                 errored: false,
                 stat: '',
                 composantes: '',
+                domaines: '',
+                users: '',
                 localisations: '',
+                type_diplome: '',
                 niveaux: '',
                 mentions: '',
                 formations: [],
@@ -133,7 +136,10 @@
             this.getComposante()
             this.getLocalisation()
             this.getNiveau()
+            this.getTypeDiplome()
             this.getMentions()
+            this.getDomaine()
+            this.getUser()
         },
         methods: {
             getFormations: function() {
@@ -188,6 +194,21 @@
                     .get('mentions')
                     .then(response => { this.mentions = response.data["hydra:member"] })
             },
+            getTypeDiplome: function () {
+                http
+                    .get('type_diplomes')
+                    .then(response => { this.type_diplome = response.data["hydra:member"] })
+            },
+            getDomaine: function () {
+                http
+                    .get('domaines')
+                    .then(response => { this.domaines = response.data["hydra:member"] })
+            },
+            getUser: function () {
+                http
+                    .get('users')
+                    .then(response => { this.users = response.data["hydra:member"] })
+            },
             textNiveau: function (value) {
                 for (let i = 0; i < this.niveaux.length; i++) {
                     if (value === this.niveaux[i]['@id'])  return this.niveaux[i].libelle
@@ -206,6 +227,21 @@
             textLocalisation: function (value) {
                 for (let i = 0; i < this.localisations.length; i++) {
                     if (value === this.localisations[i]['@id'])  return this.localisations[i].adresse + ' - ' + this.localisations[i].ville + this.localisations[i].codePostal
+                }
+            },
+            textTypeDiplome: function (value) {
+                for (let i = 0; i < this.type_diplome.length; i++) {
+                    if (value === this.type_diplome[i]['@id'])  return this.type_diplome[i].libelle
+                }
+            },
+            textDomaine: function (value) {
+                for (let i = 0; i < this.domaines.length; i++) {
+                    if (value === this.domaines[i]['@id'])  return this.domaines[i].libelle
+                }
+            },
+            textUser: function (value) {
+                for (let i = 0; i < this.users.length; i++) {
+                    if (value === this.users[i]['@id'])  return this.users[i].nom + ' ' + this.users[i].prenom + ' ' + this.users[i].mail
                 }
             }
         },

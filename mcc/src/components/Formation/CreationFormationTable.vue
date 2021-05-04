@@ -63,8 +63,8 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
-                                    <td>{{ item.formation }}</td>
-                                    <td>{{ item.modaliteFormation }}</td>
+                                    <td>{{ textFormations(item.formation) }}</td>
+                                    <td>{{ textModaliteFormations(item.modaliteFormation) }}</td>
                                     <td>{{ item.niveauRequis }}</td>
                                     <td>{{ formatDate(item.dateOuverture) }}</td>
                                     <td>{{ item.nbEtudiants }}</td>
@@ -128,6 +128,8 @@
         data() {
             return {
                 formation: '',
+                formations: '',
+                modalite_formations: '',
                 searchFormation: '',
                 stat: '',
                 errored: false
@@ -135,6 +137,8 @@
         },
         mounted() {
           this.getFormation()
+          this.getFormations()
+          this.getModaliteFormations()
         },
         methods: {
             getFormation: function() {
@@ -174,9 +178,29 @@
                         }
                     }.bind(this))
             },
+            getFormations: function () {
+                http
+                    .get('formations')
+                    .then(response => { this.formations = response.data["hydra:member"] })
+            },
+            getModaliteFormations: function () {
+                http
+                    .get('modalite_formations')
+                    .then(response => { this.modalite_formations = response.data["hydra:member"] })
+            },
             formatDate(value) {
                 return moment(value).format("LL")
             },
+            textFormations: function (value) {
+                for (let i = 0; i < this.formations.length; i++) {
+                    if (value === this.formations[i]['@id'])  return this.formations[i].libelle
+                }
+            },
+            textModaliteFormations: function (value) {
+                for (let i = 0; i < this.modalite_formations.length; i++) {
+                    if (value === this.modalite_formations[i]['@id'])  return this.modalite_formations[i].libelle
+                }
+            }
         },
         computed: {
             filtered: function() {

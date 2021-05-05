@@ -54,7 +54,7 @@
                         UE
                     </label>
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
-                            v-model="form.UE[0]"
+                            v-model="form.UE"
                     >
                         <option v-for="item in ues" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
@@ -76,7 +76,7 @@
                     <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2"
                             v-model="form.formation"
                     >
-                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item['@id'] }}</option>
+                        <option v-for="item in formations" v-bind:key="item" v-bind:value="item['@id']">{{ item.libelle }}</option>
                     </select>
                 </div>
                 <div class="w-full px-3 mt-12">
@@ -113,17 +113,16 @@
             }
         },
         mounted() {
-            this.getMCC()
             this.getMentions()
             this.getParcours()
             this.getNiveaux()
-            this.getFormation()
             this.getUE()
+            this.getFormation()
+            this.getMCCByID()
         },
         methods: {
             submit: function (id) {
                 id = this.$route.params.id;
-
                 http
                     .put('m_c_cs/' + id, this.form)
                     .then(function( response ){
@@ -155,13 +154,13 @@
                         }
                     }.bind(this))
             },
-            getMCC: function (id) {
-                const self = this;
+            getMCCByID: function (id) {
                 id = this.$route.params.id;
+                const self = this;
 
                 http
                     .get('m_c_cs/' + id)
-                    .then(function (response) {
+                    .then(response => {
                         self.form = response.data
                     })
             },
@@ -187,7 +186,7 @@
             },
             getFormation: function () {
                 http
-                    .get('creationformations')
+                    .get('formations')
                     .then(res => (this.formations = res.data['hydra:member']))
             }
         }

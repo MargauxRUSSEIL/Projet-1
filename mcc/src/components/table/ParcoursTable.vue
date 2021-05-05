@@ -9,7 +9,7 @@
                     <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
-                                <div class="col-start-1 col-end-3 ...">
+                                <div class="col-start-1 col-end-3">
                                     <div class="w-full px-3 mb-6">
                                         <router-link :to="{ name: 'newParcours' }">
                                             <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button">Nouveau</button>
@@ -58,7 +58,7 @@
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
-                                    <td>{{ item.formation }}</td>
+                                    <td>{{ textFormation(item.formation) }}</td>
                                     <td>{{ item.structureProlongee }}</td>
                                     <td>{{ item.structureBasse }}</td>
                                     <td>{{ item.commentaire }}</td>
@@ -67,7 +67,7 @@
                                     <td>{{ item.secondVET }}</td>
                                     <td>{{ item.annuel }}</td>
                                     <td>{{ item.semestre }}</td>
-                                    <td>{{ item.user }}</td>
+                                    <td>{{ textUser(item.user) }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateParcours', params: { id: item.id }}">
@@ -109,12 +109,16 @@
             return {
                 searchParcours: '',
                 stat: '',
+                formations: '',
+                users: '',
                 errored: false,
                 parcours: []
             }
         },
         mounted() {
             this.getParcours()
+            this.getUser()
+            this.getFormation()
         },
         methods: {
             getParcours: function() {
@@ -145,6 +149,26 @@
                             })
                         }
                     }.bind(this))
+            },
+            getUser: function () {
+                http
+                    .get('users')
+                    .then(response => { this.users = response.data["hydra:member"] })
+            },
+            getFormation: function () {
+                http
+                    .get('formations')
+                    .then(response => { this.formations = response.data["hydra:member"] })
+            },
+            textUser: function (value) {
+                for (let i = 0; i < this.users.length; i++) {
+                    if (value === this.users[i]['@id'])  return this.users[i].nom + ' ' + this.users[i].prenom + ' ' + this.users[i].mail
+                }
+            },
+            textFormation: function (value) {
+                for (let i = 0; i < this.formations.length; i++) {
+                    if (value === this.formations[i]['@id'])  return this.formations[i].libelle
+                }
             }
         },
         computed: {

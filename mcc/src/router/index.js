@@ -29,7 +29,6 @@ import LocalisationTable from "../components/table/LocalisationTable";
 import LocalisationForm from "../components/form/LocalisationForm";
 import LocalisationUpdate from "../components/update/LocalisationUpdate";
 import ComposanteUpdate from "../components/update/ComposanteUpdate";
-import FormationForm from "../components/Formation/FormationForm";
 import ModalFormationForm from "../components/form/ModalFormationForm";
 import ModalFormationUpdate from "../components/update/ModalFormationUpdate";
 import ModalPedagogiqueTable from "../components/table/ModalPedagogiqueTable";
@@ -45,23 +44,27 @@ import TypeDiplomeUpdate from "../components/update/TypeDiplomeUpdate";
 import ModaliteRecrutementTable from "../components/table/ModaliteRecrutementTable";
 import ModaliteRecrutementForm from "../components/form/ModaliteRecrutementForm";
 import ModaliteRecrutementUpdate from "../components/update/ModaliteRecrutementUpdate";
-import FormationTable from "../components/Formation/FormationTable";
-import FormationUpdate from "../components/Formation/FormationUpdate";
 import CaracteristiquesTable from "../components/table/CaracteristiquesTable";
 import CaracteristiquesForm from "../components/form/CaracteristiquesForm";
 import CaracteristiquesUpdate from "../components/update/CaracteristiquesUpdate";
 import UserTable from "../components/table/UserTable";
 import UserForm from "../components/form/UserForm";
 import UserUpdate from "../components/update/UserUpdate";
+import CreationFormationTable from "../components/Formation/CreationFormationTable";
+import CreationFormationForm from "../components/Formation/CreationFormationForm";
+import CreationFormationUpdate from "../components/Formation/CreationFormationUpdate";
+import FormationTable from "../components/table/FormationTable";
+import FormationForm from "../components/form/FormationForm";
+import FormationUpdate from "../components/update/FormationUpdate";
 
 const routes = [
   { path: '/', name: 'MCC', component: MCCTable },
   { path: '/newMCC', name: 'newMCC', component: MCCForm },
-  { path: '/updateMCC', name: 'updateMCC', component: MCCUpdate },
+  { path: '/updateMCC/:id', name: 'updateMCC', component: MCCUpdate },
 
   { path: '/parcours', name: 'Parcours', component: ParcoursTable },
   { path: '/newParcours', name: 'newParcours', component: ParcoursForm },
-  { path: '/updateParcours', name: 'updateParcours', component: ParcoursUpdate },
+  { path: '/updateParcours/:id', name: 'updateParcours', component: ParcoursUpdate },
 
   { path: '/competence', name: 'Competence', component: CompetenceTable },
   { path: '/newCompetence', name: 'newCompetence', component: CompetenceForm },
@@ -75,9 +78,9 @@ const routes = [
   { path: '/newDiplome', name: 'newDiplome', component: TypeDiplomeForm },
   { path: '/updateDiplome/:id', name: 'updateDiplome', component: TypeDiplomeUpdate },
 
-  { path: '/formation', name: 'Formation', component: FormationTable },
-  { path: '/newFormation', name: 'newFormation', component: FormationForm },
-  { path: '/updateFormation/:id', name: 'updateFormation', component: FormationUpdate },
+  { path: '/creationformation', name: 'CreationFormation', component: CreationFormationTable },
+  { path: '/newCreationFormation', name: 'newCreationFormation', component: CreationFormationForm },
+  { path: '/updateCreationFormation/:id', name: 'updateCreationFormation', component: CreationFormationUpdate },
 
   { path: '/mention', name: 'Mention', component: MentionTable },
   { path: '/newMention', name: 'newMention', component: MentionForm },
@@ -126,6 +129,10 @@ const routes = [
   { path: '/user', name: 'User', component: UserTable },
   { path: '/newUser', name: 'newUser', component: UserForm },
   { path: '/updateUser/:id', name: 'updateUser', component: UserUpdate },
+
+  { path: '/formation', name: 'Formation', component: FormationTable },
+  { path: '/newFormation', name: 'newFormation', component: FormationForm },
+  { path: '/updateFormation/:id', name: 'updateFormation', component: FormationUpdate },
 ]
 
 const router = createRouter({

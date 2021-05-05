@@ -51,22 +51,10 @@
         mounted() {
             this.getLibelleDomaine()
         },
-        // methods: {
-        //     submit: function () {
-        //         http
-        //             .post( 'mentions', this.form)
-        //             // eslint-disable-next-line no-unused-vars
-        //             .then(function( response ){
-        //                 // Handle success
-        //             }.bind(this));
-
-        //         this.$router.push({ name: 'Mention' })
-        //     },
-
         methods: {
             submit: function () {
                 http
-                    .post( 'mentions', this.form)
+                    .post('mentions', this.form)
                     .then(function( response ){
                         this.stat = response.status
                         if (this.stat === 201) {

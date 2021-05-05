@@ -65,8 +65,8 @@
                                     <td>{{ item.libelle }}</td>
                                     <td>{{ item.libelleParcoursApogee }}</td>
                                     <td>{{ item.secondVET }}</td>
-                                    <td>{{ item.annuel }}</td>
-                                    <td>{{ item.semestre }}</td>
+                                    <td>{{ textAnnuel(item.annuel) }}</td>
+                                    <td>{{ textSemestre(item.semestre) }}</td>
                                     <td>{{ textUser(item.user) }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
@@ -110,6 +110,7 @@
                 searchParcours: '',
                 stat: '',
                 formations: '',
+                semestres: '',
                 users: '',
                 errored: false,
                 parcours: []
@@ -119,9 +120,10 @@
             this.getParcours()
             this.getUser()
             this.getFormation()
+            this.getSemestres()
         },
         methods: {
-            getParcours: function() {
+            getParcours: function () {
                 http
                     .get('parcours')
                     .then(res => {
@@ -132,10 +134,10 @@
                         }
                     })
             },
-            deleteParcours: function(id) {
+            deleteParcours: function (id) {
                 http
                     .delete('parcours/' + id)
-                    .then(function(response) {
+                    .then(function (response) {
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getParcours()
@@ -153,21 +155,43 @@
             getUser: function () {
                 http
                     .get('users')
-                    .then(response => { this.users = response.data["hydra:member"] })
+                    .then(response => {
+                        this.users = response.data["hydra:member"]
+                    })
             },
             getFormation: function () {
                 http
                     .get('formations')
-                    .then(response => { this.formations = response.data["hydra:member"] })
+                    .then(response => {
+                        this.formations = response.data["hydra:member"]
+                    })
+            },
+            getSemestres: function () {
+                http
+                    .get('semestres')
+                    .then(response => {
+                        this.semestres = response.data["hydra:member"]
+                    })
             },
             textUser: function (value) {
                 for (let i = 0; i < this.users.length; i++) {
-                    if (value === this.users[i]['@id'])  return this.users[i].nom + ' ' + this.users[i].prenom + ' ' + this.users[i].mail
+                    if (value === this.users[i]['@id']) return this.users[i].nom + ' ' + this.users[i].prenom + ' ' + this.users[i].mail
                 }
             },
             textFormation: function (value) {
                 for (let i = 0; i < this.formations.length; i++) {
-                    if (value === this.formations[i]['@id'])  return this.formations[i].libelle
+                    if (value === this.formations[i]['@id']) return this.formations[i].libelle
+                }
+            },
+            textAnnuel: function (value) {
+                if (value === true) return 'oui'
+                else if (value === false) return 'non'
+            },
+            textSemestre: function (value) {
+                for (let i = 0; i < value.length; i++) {
+                    for (let i = 0; i < this.semestres.length; i++) {
+                        if (value[i] === this.semestres[i]['@id']) return this.semestres[i].libelle
+                    }
                 }
             }
         },

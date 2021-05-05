@@ -68,19 +68,19 @@
                                     <td>{{ item.niveauRequis }}</td>
                                     <td>{{ formatDate(item.dateOuverture) }}</td>
                                     <td>{{ item.nbEtudiants }}</td>
-                                    <td>{{ item.modaliteRecrutement }}</td>
+                                    <td>{{ textModaliteRecrutements(item.modaliteRecrutement) }}</td>
                                     <td>{{ item.organisation }}</td>
                                     <td>{{ item.competences }}</td>
                                     <td>{{ item.motivation }}</td>
                                     <td>{{ item.pointsSpe }}</td>
                                     <td>{{ item.public }}</td>
                                     <td>{{ item.insertionPro }}</td>
-                                    <td>{{ item.partenaire }}</td>
+                                    <td>{{ textPartenaires(item.partenaire) }}</td>
                                     <td>{{ item.partenairesHistorique }}</td>
                                     <td>{{ item.concurrence }}</td>
                                     <td>{{ item.diversificationPeda }}</td>
                                     <td>{{ item.serviceDiversification }}</td>
-                                    <td>{{ item.modalitePedagogique }}</td>
+                                    <td>{{ textModalitePedagogiques(item.modalitePedagogique) }}</td>
                                     <td>{{ item.mutualisation }}</td>
                                     <td>{{ item.recherche }}</td>
                                     <td>{{ item.equipements }}</td>
@@ -129,16 +129,22 @@
             return {
                 formation: '',
                 formations: '',
+                partenaires: '',
                 modalite_formations: '',
+                modalite_recrutements: '',
+                modalite_pedagogiques: '',
                 searchFormation: '',
                 stat: '',
                 errored: false
             }
         },
         mounted() {
-          this.getFormation()
-          this.getFormations()
-          this.getModaliteFormations()
+            this.getFormation()
+            this.getFormations()
+            this.getModaliteFormations()
+            this.getModaliteRecrutements()
+            this.getModalitePedagogiques()
+            this.getPartenaires()
         },
         methods: {
             getFormation: function() {
@@ -188,6 +194,21 @@
                     .get('modalite_formations')
                     .then(response => { this.modalite_formations = response.data["hydra:member"] })
             },
+            getModaliteRecrutements: function () {
+                http
+                    .get('modalite_recrutements')
+                    .then(response => { this.modalite_recrutements = response.data["hydra:member"] })
+            },
+            getModalitePedagogiques: function () {
+                http
+                    .get('modalite_pedagogiques')
+                    .then(response => { this.modalite_pedagogiques = response.data["hydra:member"] })
+            },
+            getPartenaires: function () {
+                http
+                    .get('partenaires')
+                    .then(response => { this.partenaires = response.data["hydra:member"] })
+            },
             formatDate(value) {
                 return moment(value).format("LL")
             },
@@ -196,11 +217,27 @@
                     if (value === this.formations[i]['@id'])  return this.formations[i].libelle
                 }
             },
+            textModaliteRecrutements: function (value) {
+                for (let i = 0; i < this.modalite_recrutements.length; i++) {
+                    if (value === this.modalite_recrutements[i]['@id'])  return this.modalite_recrutements[i].libelle
+                }
+            },
             textModaliteFormations: function (value) {
                 for (let i = 0; i < this.modalite_formations.length; i++) {
                     if (value === this.modalite_formations[i]['@id'])  return this.modalite_formations[i].libelle
                 }
-            }
+            },
+            textModalitePedagogiques: function (value) {
+                for (let i = 0; i < this.modalite_pedagogiques.length; i++) {
+                    if (value === this.modalite_pedagogiques[i]['@id'])  return this.modalite_pedagogiques[i].libelle
+                }
+            },
+            textPartenaires: function (value) {
+                for (let i = 0; i < this.partenaires.length; i++) {
+                    if (value === this.partenaires[i]['@id'])  return this.partenaires[i].libelle
+                }
+            },
+
         },
         computed: {
             filtered: function() {

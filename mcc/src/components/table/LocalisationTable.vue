@@ -39,21 +39,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="block">
+                            <div class="mt-6 mb-5 space-x-2">
+                                <label class="inline-flex items-center ml-2">
+                                    <input type="checkbox" value="hide" id="adresse_col" v-on:click="hide_show_table('adresse_col')">
+                                    <span class="ml-2">Adresse</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="codePostal_col" v-on:change="hide_show_table('codePostal_col')">
+                                    <span class="ml-2">Code Postal</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="ville_col" v-on:change="hide_show_table('ville_col')">
+                                    <span class="ml-2">Ville</span>
+                                </label>
+                            </div>
+                        </div>
                         <div>
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                     <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                        <th scope="col">Adresse</th>
-                                        <th scope="col">Code Postal</th>
-                                        <th scope="col">Ville</th>
+                                        <th id="adresse_col_head" scope="col">Adresse</th>
+                                        <th id="codePostal_col_head" scope="col">Code Postal</th>
+                                        <th id="ville_col_head" scope="col">Ville</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="item in filtered" :key="item">
-                                        <td>{{ item.adresse }}</td>
-                                        <td>{{ item.codePostal }}</td>
-                                        <td>{{ item.ville }}</td>
+                                        <td class="adresse_col">{{ item.adresse }}</td>
+                                        <td class="codePostal_col">{{ item.codePostal }}</td>
+                                        <td class="ville_col">{{ item.ville }}</td>
                                         <td>
                                             <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                                 <router-link :to="{ name: 'updateLocalisation', params: { id: item.id }}">
@@ -134,6 +150,33 @@
                             })
                         }
                     }.bind(this))
+            },
+            hide_show_table: function (col_name) {
+                let i
+                let all_col
+                const checkbox_val = document.getElementById(col_name).value
+
+                if (checkbox_val === "hide")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="none"
+                    }
+                    document.getElementById(col_name+"_head").style.display="none"
+                    document.getElementById(col_name).value="show"
+                }
+                else if (checkbox_val === "show")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="table-cell"
+                    }
+                    document.getElementById(col_name+"_head").style.display="table-cell"
+                    document.getElementById(col_name).value="hide"
+                }
             }
         },
         computed: {

@@ -127,7 +127,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div>
+                        <div class="shadow-box w-full rounded-lg overflow-x-auto">
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
@@ -360,7 +360,6 @@
                     document.getElementById(col_name).value="hide"
                 }
             }
-
         },
         computed: {
             filtered: function() {

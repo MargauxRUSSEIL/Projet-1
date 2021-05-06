@@ -42,7 +42,7 @@
                         <div class="block">
                             <div class="mt-6 mb-5 space-x-2">
                                 <label class="inline-flex items-center">
-                                    <input type="checkbox" value="hide" id="nom_col" v-on:change="hide_show_table('nom_col')">
+                                    <input type="checkbox" value="hide" id="nom_col" v-on:click="hide_show_table('nom_col')">
                                     <span class="ml-2">Nom</span>
                                 </label>
                                 <label class="inline-flex items-center">

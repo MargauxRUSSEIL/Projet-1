@@ -39,45 +39,109 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="block">
+                            <div class="mt-6 mb-5 space-x-2">
+                                <label class="inline-flex items-center ml-2">
+                                    <input type="checkbox" value="hide" id="libelle_col" v-on:click="hide_show_table('libelle_col')">
+                                    <span class="ml-2">Libelle</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="statut_col" v-on:change="hide_show_table('statut_col')">
+                                    <span class="ml-2">Statut</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="composante_col" v-on:change="hide_show_table('composante_col')">
+                                    <span class="ml-2">Composante</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="localisation_col" v-on:change="hide_show_table('localisation_col')">
+                                    <span class="ml-2">Localisation</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="typeDiplome_col" v-on:change="hide_show_table('typeDiplome_col')">
+                                    <span class="ml-2">Type de diplome</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="domaine_col" v-on:change="hide_show_table('domaine_col')">
+                                    <span class="ml-2">Domaine</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="mention_col" v-on:change="hide_show_table('mention_col')">
+                                    <span class="ml-2">Mention</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="niveau_col" v-on:change="hide_show_table('niveau_col')">
+                                    <span class="ml-2">Niveau</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="user_col" v-on:change="hide_show_table('user_col')">
+                                    <span class="ml-2">Utilisateur</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="structureHaute_col" v-on:change="hide_show_table('structureHaute_col')">
+                                    <span class="ml-2">Structure Haute</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="codeDiplome_col" v-on:change="hide_show_table('codeDiplome_col')">
+                                    <span class="ml-2">Code Diplome</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="ecoleDoctorale_col" v-on:change="hide_show_table('ecoleDoctorale_col')">
+                                    <span class="ml-2">Ecole doctorale</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="contact_col" v-on:change="hide_show_table('contact_col')">
+                                    <span class="ml-2">Contact</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="commentaire_col" v-on:change="hide_show_table('commentaire_col')">
+                                    <span class="ml-2">Commentaire</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="VDI_col" v-on:change="hide_show_table('VDI_col')">
+                                    <span class="ml-2">VDI</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="shadow-box w-full rounded-lg overflow-x-auto">
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th scope="col">Libelle</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Composante</th>
-                                    <th scope="col">Localisation</th>
-                                    <th scope="col">Type de diplome</th>
-                                    <th scope="col">Domaine</th>
-                                    <th scope="col">Mention</th>
-                                    <th scope="col">Niveau</th>
-                                    <th scope="col">Utilisateur</th>
-                                    <th scope="col">Structure Haute</th>
-                                    <th scope="col">Code Diplome</th>
-                                    <th scope="col">Ecole doctorale</th>
-                                    <th scope="col">Contact</th>
-                                    <th scope="col">Commentaire</th>
-                                    <th scope="col">VDI</th>
+                                    <th id="libelle_col_head" scope="col">Libelle</th>
+                                    <th id="statut_col_head" scope="col">Statut</th>
+                                    <th id="composante_col_head" scope="col">Composante</th>
+                                    <th id="localisation_col_head" scope="col">Localisation</th>
+                                    <th id="typeDiplome_col_head" scope="col">Type de diplome</th>
+                                    <th id="domaine_col_head" scope="col">Domaine</th>
+                                    <th id="mention_col_head" scope="col">Mention</th>
+                                    <th id="niveau_col_head" scope="col">Niveau</th>
+                                    <th id="user_col_head" scope="col">Utilisateur</th>
+                                    <th id="structureHaute_col_head" scope="col">Structure Haute</th>
+                                    <th id="codeDiplome_col_head" scope="col">Code Diplome</th>
+                                    <th id="ecoleDoctorale_col_head" scope="col">Ecole doctorale</th>
+                                    <th id="contact_col_head" scope="col">Contact</th>
+                                    <th id="commentaire_col_head" scope="col">Commentaire</th>
+                                    <th id="VDI_col_head" scope="col">VDI</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in formations" :key="item">
-                                    <td>{{ item.libelle }}</td>
-                                    <td>{{ item.statut }}</td>
-                                    <td>{{ textComposante(item.composante) }}</td>
-                                    <td>{{ textLocalisation(item.localisation) }}</td>
-                                    <td>{{ textTypeDiplome(item.typeDiplome) }}</td>
-                                    <td>{{ textDomaine(item.domaine) }}</td>
-                                    <td>{{ textMentions(item.mention) }}</td>
-                                    <td>{{ textNiveau(item.niveau) }}</td>
-                                    <td>{{ textUser(item.user) }}</td>
-                                    <td>{{ item.structureHaute }}</td>
-                                    <td>{{ item.codeDiplome }}</td>
-                                    <td>{{ item.ecoleDoctorale }}</td>
-                                    <td>{{ item.contact }}</td>
-                                    <td>{{ item.commentaire }}</td>
-                                    <td>{{ item.VDI }}</td>
+                                    <td class="libelle_col">{{ item.libelle }}</td>
+                                    <td class="statut_col">{{ item.statut }}</td>
+                                    <td class="composante_col">{{ textComposante(item.composante) }}</td>
+                                    <td class="localisation_col">{{ textLocalisation(item.localisation) }}</td>
+                                    <td class="typeDiplome_col">{{ textTypeDiplome(item.typeDiplome) }}</td>
+                                    <td class="domaine_col">{{ textDomaine(item.domaine) }}</td>
+                                    <td class="mention_col">{{ textMentions(item.mention) }}</td>
+                                    <td class="niveau_col">{{ textNiveau(item.niveau) }}</td>
+                                    <td class="user_col">{{ textUser(item.user) }}</td>
+                                    <td class="structureHaute_col">{{ item.structureHaute }}</td>
+                                    <td class="codeDiplome_col">{{ item.codeDiplome }}</td>
+                                    <td class="ecoleDoctorale_col">{{ item.ecoleDoctorale }}</td>
+                                    <td class="contact_col">{{ item.contact }}</td>
+                                    <td class="commentaire_col">{{ item.commentaire }}</td>
+                                    <td class="VDI_col">{{ item.VDI }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateFormation', params: { id: item.id }}">
@@ -242,6 +306,33 @@
             textUser: function (value) {
                 for (let i = 0; i < this.users.length; i++) {
                     if (value === this.users[i]['@id'])  return this.users[i].nom + ' ' + this.users[i].prenom + ' ' + this.users[i].mail
+                }
+            },
+            hide_show_table: function (col_name) {
+                let i
+                let all_col
+                const checkbox_val = document.getElementById(col_name).value
+
+                if (checkbox_val === "hide")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="none"
+                    }
+                    document.getElementById(col_name+"_head").style.display="none"
+                    document.getElementById(col_name).value="show"
+                }
+                else if (checkbox_val === "show")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="table-cell"
+                    }
+                    document.getElementById(col_name+"_head").style.display="table-cell"
+                    document.getElementById(col_name).value="hide"
                 }
             }
         },

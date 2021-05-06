@@ -6,115 +6,89 @@
         <div class="w-full px-3 mb-6 md:mb-4">
           <br>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-            Libellé cours</label>
+              Libellé cours</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formCours.libelle" required />
-          
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Code APOGEE</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formCours.codeAPOGEE" required />
           <!-- Form cours CM TP TD -->
-          
         </div>
         <div class="w-full px-3 mb-6 md:mb-4">
           <br>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-          Cours magistraux :</label>
-          
+            Cours magistraux :</label>
           <input type="radio" value="Oui" name="magistraux" /> <label>Oui</label>
           <input type="radio" value="Non" name="magistraux" /> <label>Non</label>
-          
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-        Nombre d'heure :</label>
-         <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHorTypeCours.horaireCM" />
-          
+          Nombre d'heure :</label>
+          <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHorTypeCours.horaireCM" />
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Coût estimé en HETD</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHETD.coutCM" />
-          
         </div>
         <div class="w-full px-3 mb-6 md:mb-4">
           <br>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Cours TD :</label>
-          
           <input type="radio" value="Oui" name="td" /> <label>Oui</label>
           <input type="radio" value="Non" name="td" /> <label>Non</label
-                >
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Nombre d'heure :</label>
+                  >
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Nombre d'heure :</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHorTypeCours.horaireTD" />
-          
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Coût estimé en HETD</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHETD.coutTD" />
-          
         </div>
         <div class="w-full px-3 mb-6 md:mb-4">
           <br>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Cours TP :</label>
-          
           <input type="radio" value="Oui" name="tp" /> <label>Oui</label>
           <input type="radio" value="Non" name="tp" /> <label>Non</label
-                >
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Nombre d'heure :</label>
+                  >
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Nombre d'heure :</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHorTypeCours.horaireTP" />
-          
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Coût estimé en HETD</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHETD.coutTP" />
-          
         </div>
         <div class="w-full px-3 mb-6 md:mb-4">
           <br>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Autres : </label>
-          
           <input type="radio" value="Oui" name="autres" /> <label>Oui</label>
           <input type="radio" value="Non" name="autres" /> <label>Non</label>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Nombre d'heure :</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHorTypeCours.horaireAutre" />
           <br>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Coût estimé en HETD</label>
-                <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHETD.coutHETDcol" />
-          <!-- 
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Veuillez préciser</label>
-                <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" /> -->
+          <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formHETD.coutHETDcol" />
           <!-- Type d'épreuve -->
-          
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Ce cours nécessite plusieurs sessions d'examen :</label>
-          
           <input type="radio" value="Oui" name="session" /> <label>Oui</label>
           <input type="radio" value="Non" name="session" /> <label>Non</label>
           <!-- SI OUI, afficher les deux prochain forms, si NON, afficher seulement le premier -->
-          
           <p>Première session</p>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Session</label>
           <select v-model="formSessionUnique.session">
-                  <option value="Première">Première</option>
-                </select>
-          
+                    <option value="Première">Première</option>
+                  </select>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Type d'épreuve :</label>
           <select v-model="formSessionUnique.typeEpreuve">
-                  <option value="Oral">Oral</option>
-                  <option value="Écrit">Écrit</option>
-                  <option value="Oral et Écrit">Oral et Écrit</option>
-                </select>
-          
+                    <option value="Oral">Oral</option>
+                    <option value="Écrit">Écrit</option>
+                    <option value="Oral et Écrit">Oral et Écrit</option>
+                  </select>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Règle de calcul</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formSessionUnique.regleCalcul" />
           <br>
           <p>Seconde session</p>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Session</label>
           <select v-model="formSessionUniquev2.session">
-                  <option value="Deuxième">Deuxième</option>
-                </select>
-          
+                    <option value="Deuxième">Deuxième</option>
+                  </select>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Type d'épreuve :</label>
           <select v-model="formSessionUniquev2.typeEpreuve">
-                  <option value="Oral">Oral</option>
-                  <option value="Écrit">Écrit</option>
-                  <option value="Oral et Écrit">Oral et Écrit</option>
-                </select>
-          
+                    <option value="Oral">Oral</option>
+                    <option value="Écrit">Écrit</option>
+                    <option value="Oral et Écrit">Oral et Écrit</option>
+                  </select>
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Règle de calcul</label>
           <input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2" type="text" v-model="formSessionUniquev2.regleCalcul" />
-          <!-- ----------------------------------------------------- -->
-          <!-- pas compris la partie des compétences et des UE -->
-          <!-- ----------------------------------------------------- -->
-           <br>
+          <br>
         </div>
         <br>
         <button class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold text-sm" type="button" v-on:click="submit()">MODIFIER</button>

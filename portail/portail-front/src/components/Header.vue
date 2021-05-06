@@ -182,20 +182,4 @@ export default {
   //display: none;
 }
 
-/* button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        font-size: 1em;
-    }
-
-
-    button {
-        outline: none;
-    }
-
-
-    svg {
-        @apply mr-2;
-    }*/
 </style>

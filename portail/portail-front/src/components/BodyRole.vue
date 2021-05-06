@@ -1,3 +1,7 @@
+// Ce composant est la page de getsion des utilisateurs
+// Cette page affiche la liste des utilisateur avec leur rôle et leur composante
+// On peut filtrer les utilisateurs selon le rôle ou selon la composante
+// les boutons ouvrent les pop-up Modal.vue 
 <template>
   <div class="px-10">
     <div class="ajout flex justify-between mt-12">
@@ -19,10 +23,11 @@
           />
         </svg>
         <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
-          Gestion des rôles
+          Gestion des utilisateurs
         </h1>
       </div>
       <div class="pr-10 inter font-bold text-xl text-white space-x-10">
+        <!-- Bouton pour ouvrir la pop-up d'ajout d'une composante -->
         <button
           ref="buttonComposante"
           @click="toggleModalComposante"
@@ -30,6 +35,7 @@
         >
           Ajouter une composante
         </button>
+        <!-- Bouton pour ouvrir la pop-up d'ajout d'un rôle -->
         <button
           ref="buttonRole"
           @click="toggleModalRole"
@@ -40,17 +46,20 @@
       </div>
     </div>
     <div class="tris mt-10 mb-5 space-x-6">
-      <input
+      <!-- <input
         aria-label="Recherche"
         type="text"
         placeholder="recherche"
         class="input-recherche shadow-box"
-      />
+      /> -->
+       <!-- Select des filtres -->
       <select
         aria-label="trier par composante"
         name="composante"
         id=""
         class="shadow-box select-composante-role"
+        ref="filtreComposante"
+        @change="filtreComposante"
       >
         <option value="">Filtrer par composante</option>
         <option
@@ -58,7 +67,7 @@
           :key="composante.id"
           :value="composante.id"
         >
-          {{ composante.libelleInstitut }}
+          {{ composante.libelle }}
         </option>
       </select>
       <select
@@ -66,14 +75,17 @@
         name="role"
         id=""
         class="shadow-box select-composante-role"
+        ref="filtreRole"
+        @change="filtreRole"
       >
         <option value="">Filtrer par rôle</option>
         <option v-for="role in roles" :key="role.id" :value="role.id">
-          {{ role.libelleRole }}
+          {{ role.libelle }}
         </option>
       </select>
     </div>
     <div>
+      <!-- Tableau d'affichage des users -->
       <table role="presentation" class="shadow-box w-full rounded-lg">
         <caption>
           Tableau de gestion des rôles
@@ -91,13 +103,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <!-- Boucle pour afficher les users à partir de la liste des utilisateurs de la bdd -->
+          <tr v-for="user in domUsers" :key="user.id">
             <td>{{ user.nom }}</td>
             <td>{{ user.prenom }}</td>
             <td>{{ user.mail }}</td>
-            <td>CY</td>
-            <td>Administrateur</td>
+            <td>{{ user.composantes[0].libelle }}</td>
+            <td>{{ user.roles[0].libelle }}</td>
             <td class="flex justify-around items-center">
+              <!-- Bouton pour ouvrir la modal de modification de l'utilisateur -->
               <button ref="buttonUpdate" @click="toggleModalUpdate(user)">
                 <svg
                   width="26"
@@ -133,55 +147,22 @@
               </button>
             </td>
           </tr>
-          <!-- <tr>
-                        <th><input type="text" value="Marchand" readonly aria-readonly=""></th>
-                        <th><input type="text" value="Aline" readonly aria-readonly=""></th>
-                        <th><input type="text" value="a.marchand@mail.com" readonly aria-readonly=""></th>
-                        <th>
-                            <select name="composante" id="">
-                                <option v-for="composante in composantes" :key="composante.id" :value="composante.id"> {{composante.libelleInstitut}}</option>
-                            </select>
-                        </th>
-                        <th>
-                            <select  name="role" id="">
-                                <option value="">Sélectionner un role</option> 
-                                <option v-for="role in roles" :key="role.id" :value="role.id"> {{role.libelleRole}}</option>
-                            </select>
-                        </th>
-                        
-                        <th class="flex justify-around items-center">
-                            <button>
-                                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="12.9405" cy="12.7347" rx="12.379" ry="12.3522" fill="#362A66" />
-                                    <g clip-path="url(#clip0)">
-                                        <path
-                                            d="M21.4932 23.9457H4.61279V20.5769H21.4932V23.9457ZM13.9477 8.10395L17.1127 11.2622L9.46591 18.8925H6.30083V15.7343L13.9477 8.10395ZM18.0158 10.361L14.8508 7.2028L16.3953 5.66158C16.4734 5.58351 16.5661 5.52157 16.6682 5.4793C16.7704 5.43704 16.8798 5.41529 16.9903 5.41529C17.1009 5.41529 17.2103 5.43704 17.3124 5.4793C17.4145 5.52157 17.5073 5.58351 17.5854 5.66158L19.5604 7.63232C19.8896 7.96078 19.8896 8.49136 19.5604 8.81982L18.0158 10.361Z"
-                                            fill="white" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0">
-                                            <rect width="20.2565" height="20.2127" fill="white"
-                                                transform="translate(2.92432 0.328369)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </button>
-                        </th>
-                    </tr> -->
         </tbody>
       </table>
     </div>
+    <!-- Modal ajout de rôles, s'affiche que si isModalRole est true -->
     <v-modal
       v-if="isModalRole"
       :isRole="true"
       modalName="modal-role"
     ></v-modal>
+    <!-- Modal ajout de composantes, s'affiche que si isModalComposante est true -->
     <v-modal
       v-if="isModalComposante"
       :isComposante="true"
       modalName="modal-composante"
     ></v-modal>
+    <!-- Modal update des users, s'affiche que si isModalUpdate est true -->
     <v-modal
       v-if="isModalUpdate"
       :isUpdate="true"
@@ -201,6 +182,12 @@ export default {
   components: {
     VModal,
   },
+  /**
+   * isModalRole, isModalComposante, isModalUpdate sert à ouvrir ou non les modal
+   * roles, composante, users contient la liste des rôles, des composantes et utilisateurs
+   * user contient les informations de l'utilisateur que l'on veut modifier
+   * domUsers est utilisé pour l'affichage des utlisateur avec le filtre
+   */
   data() {
     return {
       isModalRole: false,
@@ -210,16 +197,18 @@ export default {
       composantes: [],
       users: [],
       user:[],
-      rolesUsers: [],
+      domUsers:[],
     }
   },
   mounted() {
     this.getComposantes()
     this.getRoles()
     this.getUsers()
-    this.getRolesUsers()
   },
   methods: {
+    /**
+     * Récupère les roles dans la bdd
+     */
     getRoles: function () {
       axios
         .get(`${baseURL}${api}roles`)
@@ -231,37 +220,84 @@ export default {
           console.log(error)
         })
     },
+    /**
+     * Récupère les composantes dans la bdd
+     */
     getComposantes: function () {
       axios.get(`${baseURL}${api}composantes`)
       .then((res) => {
         this.composantes = res.data["hydra:member"]
       })
     },
+    /**
+     * Récupère les users dans la bdd
+     */
     getUsers: function () {
-      axios.get(`${baseURL}${api}users`).then((res) => {
-        this.users = res.data["hydra:member"]
-        // console.log("USERS: ", this.users)
+      axios.get(`${baseURL}${api}getUsers`).then((res) => {
+        this.users = res.data
+        this.domUsers = this.users
+        console.log("USERS: ", this.users)
       })
     },
-    getRolesUsers: function () {
-      axios.get(`${baseURL}${api}roles_users`).then((res) => {
-        this.rolesUsers = res.data["hydra:member"]
-        // console.log("RolesUsers: ", this.rolesUsers)
-      })
-    },
+
+    /**
+     * Ouvre la modal ajout de rôle
+     */
     toggleModalRole: function() {
       this.$refs.buttonRole.blur()
       this.isModalRole = !this.isModalRole
     },
+    /**
+     * Ouvre la modal ajout de composante
+     * <button ref="buttonComposante" @click="toggleModalComposante" class="add-composante-role">
+     */
     toggleModalComposante: function() {
       this.$refs.buttonComposante.blur()
       this.isModalComposante = !this.isModalComposante
     },
+    /**
+     * Ouvre la modal d'update des user avec en paramètre le user que l'ont veut modifier 
+     * <button ref="buttonRole" @click="toggleModalRole" class="add-composante-role">
+     */
     toggleModalUpdate: function(user) {
       this.user = user
       // this.$refs.buttonUpdate.blur()
       // console.log(id)
       this.isModalUpdate = !this.isModalUpdate
+    },
+    /**
+     * filtre les utilisateurs selon la composante
+     */
+    filtreComposante() {
+      // console.log(this.$refs.filtreComposante.value)
+      this.domUsers = []
+      this.users.forEach((user) => {
+        // console.log(user)
+        if(user.composantes[0].id == this.$refs.filtreComposante.value) {
+          // console.log(user.nom)
+          this.domUsers.push(user)
+        }
+      });
+      if (this.$refs.filtreComposante.value == "") {
+        this.domUsers = this.users
+      }
+    },
+    /**
+     * filtre les utilisateurs selon le rôle
+     */
+    filtreRole() {
+      // console.log(this.$refs.filtreRole.value)
+      this.domUsers = []
+      this.users.forEach((user) => {
+        // console.log(user)
+        if(user.roles[0].id == this.$refs.filtreRole.value) {
+          // console.log(user.nom)
+          this.domUsers.push(user)
+        }
+      });
+      if (this.$refs.filtreRole.value == "") {
+        this.domUsers = this.users
+      }
     }
   }
 };
@@ -306,7 +342,7 @@ thead tr th {
 }
 
 tbody tr td {
-  @apply py-2 font-medium text-center;
+  @apply py-2 px-1 font-medium text-center;
 }
 caption {
   @apply opacity-0;

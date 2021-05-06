@@ -37,9 +37,14 @@ class SessionUnique
     private $session;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SessionUniqueHasControleConnaissance::class, inversedBy="sessionUnique")
+     * @ORM\ManyToMany(targetEntity=ControleConnaissances::class, mappedBy="sessionUniques")
      */
-    private $sessionUniqueHasControleConnaissance;
+    private $controleConnaissances;
+
+    public function __construct()
+    {
+        $this->controleConnaissances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,14 +87,29 @@ class SessionUnique
         return $this;
     }
 
-    public function getSessionUniqueHasControleConnaissance(): ?SessionUniqueHasControleConnaissance
+    /**
+     * @return Collection|ControleConnaissances[]
+     */
+    public function getControleConnaissances(): Collection
     {
-        return $this->sessionUniqueHasControleConnaissance;
+        return $this->controleConnaissances;
     }
 
-    public function setSessionUniqueHasControleConnaissance(?SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
+    public function addControleConnaissance(ControleConnaissances $controleConnaissance): self
     {
-        $this->sessionUniqueHasControleConnaissance = $sessionUniqueHasControleConnaissance;
+        if (!$this->controleConnaissances->contains($controleConnaissance)) {
+            $this->controleConnaissances[] = $controleConnaissance;
+            $controleConnaissance->addSessionUnique($this);
+        }
+
+        return $this;
+    }
+
+    public function removeControleConnaissance(ControleConnaissances $controleConnaissance): self
+    {
+        if ($this->controleConnaissances->removeElement($controleConnaissance)) {
+            $controleConnaissance->removeSessionUnique($this);
+        }
 
         return $this;
     }

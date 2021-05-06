@@ -105,23 +105,23 @@
         methods: {
             getHas: function() {
                 http
-                    .get('nb_groupe_type_cours_has_cours')
+                    .get('cours')
                     .then(res => {
-                        let data = res.data['hydra:member']
+                        this.cours  = res.data['hydra:member']
                         const total = res.data['hydra:totalItems']
                         if (total === 0) {
                             this.errored = true
                         }
 
-                        var self = this;
-                        let list = [];
+                        // var self = this;
+                        // let list = [];
 
-                        data.forEach(function(item){
-                            let result = item.cours;
-                            let resultReplace = result.replace('/api/', '');
+                        // data.forEach(function(item){
+                        //     let result = item.cours;
+                        //     let resultReplace = result.replace('/api/', '');
 
-                            list.push(self.getCours(resultReplace));
-                        });
+                        //     list.push(self.getCours(resultReplace));
+                        // });
 
                         //console.log(list);
 
@@ -143,12 +143,14 @@
                         this.stat = response.status
                         if (this.stat === 204) {
                             this.getCours()
-                            this.$toast.success(`Cours resource deleted`, {
+                            this.$toast.success("CE supprimée avec succès", {
                                 position: "top-right"
                             })
-                            setTimeout(this.$toast.clear, 3500)
-                        } else if (this.stat === 404) {
-                            this.$toast.error(`Resource not found`, {
+                            setTimeout(this.$toast.clear, 3500)  }
+                    }.bind(this))
+                    .catch(function(error) {
+                        if (error) {
+                            this.$toast.error(`Ressource introuvable`, {
                                 position: "top-right"
                             })
                         }

@@ -39,29 +39,61 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="block">
+                            <div class="mt-6 mb-5 space-x-2">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="nom_col" v-on:change="hide_show_table('nom_col')">
+                                    <span class="ml-2">Nom</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="prenom_col" v-on:change="hide_show_table('prenom_col')">
+                                    <span class="ml-2">Prénom</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="mail_col" v-on:change="hide_show_table('mail_col')">
+                                    <span class="ml-2">Email</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="adjoint_col" v-on:change="hide_show_table('adjoint_col')">
+                                    <span class="ml-2">Adjoint</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="actif_col" v-on:change="hide_show_table('actif_col')">
+                                    <span class="ml-2">Actif</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="adjoint2_col" v-on:change="hide_show_table('adjoint2_col')">
+                                    <span class="ml-2">Adjoint 2</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="adjoint3_col" v-on:change="hide_show_table('adjoint3_col')">
+                                    <span class="ml-2">Adjoint 3</span>
+                                </label>
+                            </div>
+                        </div>
                         <div>
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Prénom</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Adjoint</th>
-                                    <th scope="col">Actif</th>
-                                    <th scope="col">Adjoint 2</th>
-                                    <th scope="col">Adjoint 3</th>
+                                    <th id="nom_col_head" scope="col">Nom</th>
+                                    <th id="prenom_col_head" scope="col">Prénom</th>
+                                    <th id="mail_col_head" scope="col">Email</th>
+                                    <th id="adjoint_col_head" scope="col">Adjoint</th>
+                                    <th id="actif_col_head" scope="col">Actif</th>
+                                    <th id="adjoint2_col_head" scope="col">Adjoint 2</th>
+                                    <th id="adjoint3_col_head" scope="col">Adjoint 3</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
-                                    <td>{{ item.nom }}</td>
-                                    <td>{{ item.prenom }}</td>
-                                    <td>{{ item.mail }}</td>
-                                    <td>{{ item.adjoint }}</td>
-                                    <td>{{ item.actif }}</td>
-                                    <td>{{ item.adjoint2 }}</td>
-                                    <td>{{ item.adjoint3 }}</td>
+                                    <td class="nom_col">{{ item.nom }}</td>
+                                    <td class="prenom_col">{{ item.prenom }}</td>
+                                    <td class="mail_col">{{ item.mail }}</td>
+                                    <td class="adjoint_col">{{ item.adjoint }}</td>
+                                    <td class="actif_col">{{ item.actif }}</td>
+                                    <td class="adjoint2_col">{{ item.adjoint2 }}</td>
+                                    <td class="adjoint3_col">{{ item.adjoint3 }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateUser', params: { id: item.id }}">
@@ -148,6 +180,33 @@
             },
             modifUser: function (id) {
                 this.$router.push({name: 'updateUser', params: {id: id}})
+            },
+            hide_show_table: function (col_name) {
+                let i
+                let all_col
+                const checkbox_val = document.getElementById(col_name).value
+
+                if (checkbox_val === "hide")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="none"
+                    }
+                    document.getElementById(col_name+"_head").style.display="none"
+                    document.getElementById(col_name).value="show"
+                }
+                else if (checkbox_val === "show")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="table-cell"
+                    }
+                    document.getElementById(col_name+"_head").style.display="table-cell"
+                    document.getElementById(col_name).value="hide"
+                }
             }
         },
         computed: {

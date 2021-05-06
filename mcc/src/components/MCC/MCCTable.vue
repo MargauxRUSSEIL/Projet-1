@@ -31,27 +31,55 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="block">
+                            <div class="mt-6 mb-5 space-x-2">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="site_col" v-on:change="hide_show_table('site_col')">
+                                    <span class="ml-2">Site</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="parcours_col" v-on:change="hide_show_table('parcours_col')">
+                                    <span class="ml-2">Libellé parcours</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="niveau_col" v-on:change="hide_show_table('niveau_col')">
+                                    <span class="ml-2">Libellé niveau</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="mention_col" v-on:change="hide_show_table('mention_col')">
+                                    <span class="ml-2">Libellé mention</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="statut_col" v-on:change="hide_show_table('statut_col')">
+                                    <span class="ml-2">Statut</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="annee_col" v-on:change="hide_show_table('annee_col')">
+                                    <span class="ml-2">Année</span>
+                                </label>
+                            </div>
+                        </div>
                         <div>
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th scope="col">Site</th>
-                                    <th scope="col">Libellé parcours</th>
-                                    <th scope="col">Libellé niveau</th>
-                                    <th scope="col">Libellé mention</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Année</th>
+                                    <th id="site_col_head" scope="col">Site</th>
+                                    <th id="parcours_col_head" scope="col">Libellé parcours</th>
+                                    <th id="niveau_col_head" scope="col">Libellé niveau</th>
+                                    <th id="mention_col_head" scope="col">Libellé mention</th>
+                                    <th id="statut_col_head" scope="col">Statut</th>
+                                    <th id="annee_col_head" scope="col">Année</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ item.departement }}</td>
-                                    <td>{{ textParcours(item.parcours) }}</td>
-                                    <td>{{ textNiveau(item.niveau) }}</td>
-                                    <td>{{ textMentions(item.mention) }}</td>
-                                    <td>{{ item.statut }}</td>
-                                    <td>{{ formatDate(item.annee) }}</td>
+                                    <td class="site_col">{{ item.departement }}</td>
+                                    <td class="parcours_col">{{ textParcours(item.parcours) }}</td>
+                                    <td class="niveau_col">{{ textNiveau(item.niveau) }}</td>
+                                    <td class="mention_col">{{ textMentions(item.mention) }}</td>
+                                    <td class="statut_col">{{ item.statut }}</td>
+                                    <td class="annee_col">{{ formatDate(item.annee) }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateMCC', params: { id: item.id }}">
@@ -178,6 +206,33 @@
                     if (value === this.parcours[i]['@id'])  return this.parcours[i].libelle
                 }
             },
+            hide_show_table: function (col_name) {
+                let i
+                let all_col
+                const checkbox_val = document.getElementById(col_name).value
+
+                if (checkbox_val === "hide")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="none"
+                    }
+                    document.getElementById(col_name+"_head").style.display="none"
+                    document.getElementById(col_name).value="show"
+                }
+                else if (checkbox_val === "show")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="table-cell"
+                    }
+                    document.getElementById(col_name+"_head").style.display="table-cell"
+                    document.getElementById(col_name).value="hide"
+                }
+            }
         },
         computed: {
             filtered: function() {

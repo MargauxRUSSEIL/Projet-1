@@ -39,35 +39,79 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="block">
+                            <div class="mt-6 mb-5 space-x-2">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="formation_col" v-on:change="hide_show_table('formation_col')">
+                                    <span class="ml-2">Formation</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="structureProlongee_col" v-on:change="hide_show_table('structureProlongee_col')">
+                                    <span class="ml-2">Structure prolonge</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="structureBasse_col" v-on:change="hide_show_table('structureBasse_col')">
+                                    <span class="ml-2">Structure basse</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="commentaire_col" v-on:change="hide_show_table('commentaire_col')">
+                                    <span class="ml-2">Commentaire</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="libelle_col" v-on:change="hide_show_table('libelle_col')">
+                                    <span class="ml-2">Intitulé</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="libelleParcoursApogee_col" v-on:change="hide_show_table('libelleParcoursApogee_col')">
+                                    <span class="ml-2">Libellé parcours</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="secondVET_col" v-on:change="hide_show_table('secondVET_col')">
+                                    <span class="ml-2">Second vet</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="annuel_col" v-on:change="hide_show_table('annuel_col')">
+                                    <span class="ml-2">Annuel</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="semestre_col" v-on:change="hide_show_table('semestre_col')">
+                                    <span class="ml-2">Semestre</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="user_col" v-on:change="hide_show_table('user_col')">
+                                    <span class="ml-2">Utilisateur</span>
+                                </label>
+                            </div>
+                        </div>
                         <div>
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th scope="col">Formation</th>
-                                    <th scope="col">Structure prolonge</th>
-                                    <th scope="col">Structure basse</th>
-                                    <th scope="col">Commentaire</th>
-                                    <th scope="col">Intitulé</th>
-                                    <th scope="col">Libellé parcours</th>
-                                    <th scope="col">Second vet</th>
-                                    <th scope="col">Annuel</th>
-                                    <th scope="col">Semestre</th>
-                                    <th scope="col">Utilisateur</th>
+                                    <th id="formation_col_head" scope="col">Formation</th>
+                                    <th id="structureProlongee_col_head" scope="col">Structure prolonge</th>
+                                    <th id="structureBasse_col_head" scope="col">Structure basse</th>
+                                    <th id="commentaire_col_head" scope="col">Commentaire</th>
+                                    <th id="libelle_col_head" scope="col">Intitulé</th>
+                                    <th id="libelleParcoursApogee_col_head" scope="col">Libellé parcours</th>
+                                    <th id="secondVET_col_head" scope="col">Second vet</th>
+                                    <th id="annuel_col_head" scope="col">Annuel</th>
+                                    <th id="semestre_col_head" scope="col">Semestre</th>
+                                    <th id="user_col_head" scope="col">Utilisateur</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
-                                    <td>{{ textFormation(item.formation) }}</td>
-                                    <td>{{ item.structureProlongee }}</td>
-                                    <td>{{ item.structureBasse }}</td>
-                                    <td>{{ item.commentaire }}</td>
-                                    <td>{{ item.libelle }}</td>
-                                    <td>{{ item.libelleParcoursApogee }}</td>
-                                    <td>{{ item.secondVET }}</td>
-                                    <td>{{ textAnnuel(item.annuel) }}</td>
-                                    <td>{{ textSemestre(item.semestre) }}</td>
-                                    <td>{{ textUser(item.user) }}</td>
+                                    <td class="formation_col">{{ textFormation(item.formation) }}</td>
+                                    <td class="structureProlongee_col">{{ item.structureProlongee }}</td>
+                                    <td class="structureBasse_col">{{ item.structureBasse }}</td>
+                                    <td class="commentaire_col">{{ item.commentaire }}</td>
+                                    <td class="libelle_col">{{ item.libelle }}</td>
+                                    <td class="libelleParcoursApogee_col">{{ item.libelleParcoursApogee }}</td>
+                                    <td class="secondVET_col">{{ item.secondVET }}</td>
+                                    <td class="annuel_col">{{ textAnnuel(item.annuel) }}</td>
+                                    <td class="semestre_col">{{ textSemestre(item.semestre) }}</td>
+                                    <td class="user_col">{{ textUser(item.user) }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateParcours', params: { id: item.id }}">
@@ -192,6 +236,33 @@
                     for (let i = 0; i < this.semestres.length; i++) {
                         if (value[i] === this.semestres[i]['@id']) return this.semestres[i].libelle
                     }
+                }
+            },
+            hide_show_table: function (col_name) {
+                let i
+                let all_col
+                const checkbox_val = document.getElementById(col_name).value
+
+                if (checkbox_val === "hide")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="none"
+                    }
+                    document.getElementById(col_name+"_head").style.display="none"
+                    document.getElementById(col_name).value="show"
+                }
+                else if (checkbox_val === "show")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="table-cell"
+                    }
+                    document.getElementById(col_name+"_head").style.display="table-cell"
+                    document.getElementById(col_name).value="hide"
                 }
             }
         },

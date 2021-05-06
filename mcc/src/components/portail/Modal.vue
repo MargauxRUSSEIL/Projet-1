@@ -332,7 +332,8 @@ export default {
   @apply space-y-6;
 }
 .dialog-container {
-  @apply min-w-1/2 bg-white rounded-xl;
+  @apply bg-white rounded-xl;
+  min-width: 50%;
   min-height: 33%;
 }
 .title-container {

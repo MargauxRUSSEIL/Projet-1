@@ -56,6 +56,9 @@ import CreationFormationUpdate from "../components/Formation/CreationFormationUp
 import FormationTable from "../components/table/FormationTable";
 import FormationForm from "../components/form/FormationForm";
 import FormationUpdate from "../components/update/FormationUpdate";
+import CoursForm from "../components/form/CoursForm"
+import CoursTable from "../components/table/CoursTable"
+import CoursUpdate from "../components/update/CoursUpdate"
 
 // import Vue from 'vue'
 // import VueRouter from 'vue-router'
@@ -65,19 +68,17 @@ import Home from '../views/Home.vue'
 
 const routes = [
   {
-    path: '/test',
+    path: '/',
     name: 'Home',
     component: Home
   },
-  // {
-  //   path: '/roles',
-  //   name: 'Role',
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Role.vue')
+  {
+    path: '/roles',
+    name: 'Role',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Role.vue')
+  },
 
-    
-  // },
-
-  { path: '/', name: 'MCC', component: MCCTable },
+  { path: '/mcc', name: 'MCC', component: MCCTable },
   { path: '/newMCC', name: 'newMCC', component: MCCForm },
   { path: '/updateMCC/:id', name: 'updateMCC', component: MCCUpdate },
 
@@ -152,6 +153,13 @@ const routes = [
   { path: '/formation', name: 'Formation', component: FormationTable },
   { path: '/newFormation', name: 'newFormation', component: FormationForm },
   { path: '/updateFormation/:id', name: 'updateFormation', component: FormationUpdate },
+
+
+  { path: '/cours', name: 'Cours', component: CoursTable },
+  { path: '/newCours', name: 'newCours', component: CoursForm },
+  { path: '/updateCours/:id', name: 'updateCours', component: CoursUpdate },
+
+
 ]
 
 const router = createRouter({

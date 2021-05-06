@@ -12,7 +12,7 @@
                 </div>
                 <transition name="dropdown-fade">
                     <div ref="dropdownContent" class="dropdown-content drop-scroll">
-                        <router-link to="/">MCC</router-link>
+                        <router-link to="/mcc">MCC</router-link>
                         <router-link :to="{name: 'CreationFormation'}">Création Formation</router-link>
                         <router-link :to="{name: 'Formation'}">Formation</router-link>
                         <router-link to="/parcours">Parcours</router-link>
@@ -31,6 +31,7 @@
                         <router-link :to="{name: 'FormationModal'}">Modalite Formation</router-link>
                         <router-link :to="{name: 'User'}">Utilisateur</router-link>
                         <router-link to="/ue">UE</router-link>
+                        <router-link to="/cours">Cours</router-link>
                     </div>
                 </transition>
             </div>

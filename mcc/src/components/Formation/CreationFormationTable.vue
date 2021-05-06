@@ -10,9 +10,8 @@
                         <div class="flex flex-wrap">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3">
-                                    <button v-on:click="newFormation()" class="add-composante-role font-bold pr-10 inter text-xl text-white space-x-10" type="button">Ajouter</button>
+                                    <button v-on:click="newFormation()" class="add-composante-role font-bold pr-10 inter text-xl text-white space-x-10" type="button">Nouveau</button>
                                 </div>
-                                <button class="add-composante-role exporter pr-10 inter font-bold text-xl text-white space-x-10" type="button" v-on:click="download">Exporter</button>
                             </div>
                         </div>
                         <section class="my-32 mx-auto text-center">

@@ -1,7 +1,6 @@
 <template>
   <form class="container w-auto">
     <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-56">
-      <h1>Modifier un cours</h1>
       <div class="flex flex-wrap">
         <div class="w-full px-3 mb-6 md:mb-4">
           <br>

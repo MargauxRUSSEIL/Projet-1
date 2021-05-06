@@ -12,7 +12,7 @@
                                 <div class="col-start-1 col-end-3">
                                     <div class="pr-10 inter font-bold text-m text-white space-x-10">
                                         <router-link :to="{name: 'newFormation'}">
-                                            <span class="add-composante-role" type="button">Ajouter</span>
+                                          <span class="add-composante-role font-bold pr-10 inter text-xl text-white space-x-10" type="button">Nouveau</span>
                                         </router-link>
                                     </div>
                                 </div>
@@ -28,7 +28,7 @@
                                 <div class="col-start-1 col-end-3">
                                     <div class="pr-10 inter font-bold text-m text-white space-x-10">
                                         <router-link :to="{name: 'newFormation'}">
-                                            <span class="add-composante-role" type="button">Ajouter</span>
+                                            <span class="add-composante-role pr-10 inter font-bold text-xl text-white space-x-10" type="button">Ajouter</span>
                                         </router-link>
                                         <button class="add-composante-role exporter pr-10 inter font-bold text-xl text-white space-x-10" type="button" v-on:click="download">Exporter</button>
                                     </div>

@@ -35,7 +35,7 @@
             </svg>
           </button>
         </div>
-        <div class="container " :class="{' container-update':isUpdate}">
+        <div class="container" :class="{ ' container-update': isUpdate }">
           <div v-if="isRole || isComposante" class="add">
             <label v-if="isRole" for="role">Intitulé du role : </label>
             <label v-if="isComposante" for="composante"
@@ -58,25 +58,53 @@
               placeholder="Composante"
             />
           </div>
-          <div v-if="isUpdate" class="update ">
-            <p class="font-semibold text-lg"> {{user.prenom}} {{ user.nom}}</p>
+          <div v-if="isUpdate" class="update">
+            <p class="font-semibold text-lg">
+              {{ user.prenom }} {{ user.nom }}
+            </p>
             <div class="flex flex-col">
               <label for="composanteUpdate">Composante </label>
-              <select  name="role" id="composanteUpdate" >
-                <option v-for="composante in composantes" :key="composante.id" :value="composante.id"> {{composante.libelleInstitut}}</option>
+              <select
+                ref="selectComposante"
+                name="composante"
+                id="composanteUpdate"
+              >
+                <option :value="user.composantes[0].id" selected>
+                  {{ user.composantes[0].libelle }}
+                </option>
+                <option
+                  v-for="composante in composantes"
+                  :key="composante.id"
+                  :value="composante.id"
+                >
+                  {{ composante.libelle }}
+                </option>
               </select>
             </div>
             <div class="flex flex-col">
               <label for="roleUpdate">Role </label>
-              <select  name="role" id="roleUpdate">
-                <option v-for="role in roles" :key="role.id" :value="role.id"> {{role.libelleRole}}</option>
+              <select ref="selectRole" name="role" id="roleUpdate">
+                <option :value="user.roles[0].id" selected>
+                  {{ user.roles[0].libelle }}
+                </option>
+                <option v-for="role in roles" :key="role.id" :value="role.id">
+                  {{ role.libelle }}
+                </option>
               </select>
             </div>
           </div>
-          <button v-if="isRole" class="valider" @click="addRole">Valider</button>
-          <button v-if="isComposante" class="valider" @click="addComposante">Valider</button>
-          <button v-if="isUpdate" class="valider" @click="updateUser">Modifier</button>
-
+          <div class="error" v-if="isError">
+            <p> {{errorMsg}} </p>
+          </div>
+          <button v-if="isRole" class="valider" @click="addRole">
+            Valider
+          </button>
+          <button v-if="isComposante" class="valider" @click="addComposante">
+            Valider
+          </button>
+          <button v-if="isUpdate" class="valider" @click="updateUser">
+            Modifier
+          </button>
         </div>
       </div>
     </div>
@@ -84,29 +112,31 @@
 </template>
 
 <script>
-import axios from 'axios'
-const baseURL = 'http://localhost:8000/api/'
+import axios from "axios";
+const baseURL = "http://localhost:8000/api/";
 export default {
   props: {
     isRole: Boolean,
     isComposante: Boolean,
     isUpdate: Boolean,
     modalName: String,
-    user: Object
+    user: Object,
   },
   data() {
     return {
       libelleRole: "",
       libelleComposante: "",
       roles: [],
-      composantes: []
+      composantes: [],
+      isError: false,
+      errorMsg: "",
     };
   },
   async mounted() {
-    this.roles = this.$parent.roles
-    this.composantes = this.$parent.composantes
+    this.roles = this.$parent.roles;
+    this.composantes = this.$parent.composantes;
 
-    console.log(this.user)
+    // console.log(this.user);
   },
   methods: {
     close() {
@@ -115,9 +145,9 @@ export default {
       this.$parent.isModalUpdate = false;
     },
     addRole() {
-      if (this.libelleRole == "") return
+      if (this.libelleRole == "") return;
       var data = JSON.stringify({
-        libelleRole: this.libelleRole,
+        libelle: this.libelleRole,
       });
       var config = {
         method: "post",
@@ -128,19 +158,21 @@ export default {
         data: data,
       };
       axios(config)
-        .then( (response) => {
-          console.log(JSON.stringify(response.data));
+        .then(() => {
+          // console.log(JSON.stringify(response.data));
           this.$parent.isModalRole = false;
-          this.$parent.getRoles()
+          this.$parent.getRoles();
         })
-        .catch( (error) => {
+        .catch((error) => {
+          this.isError = true
+          this.errorMsg = "Une erreur c'est produite lors de l'ajout du rôle"
           console.log(error);
         });
     },
     addComposante() {
-      if (this.libelleComposante == "") return
+      if (this.libelleComposante == "") return;
       var data = JSON.stringify({
-        libelleInstitut: this.libelleComposante,
+        libelle: this.libelleComposante,
       });
       var config = {
         method: "post",
@@ -151,18 +183,110 @@ export default {
         data: data,
       };
       axios(config)
-        .then( (response) => {
-          console.log(JSON.stringify(response.data));
+        .then(() => {
+          // console.log(JSON.stringify(response.data));
           this.$parent.isModalComposante = false;
-          this.$parent.getComposantes()
-
+          this.$parent.getComposantes();
         })
-        .catch( (error) => {
+        .catch((error) => {
           console.log(error);
+          this.isError = true
+          this.errorMsg = "Une erreur c'est produite lors de l'ajout de la composante"
         });
     },
-    updateUser() {},
+    updateUser() {
+      const selectRole = this.$refs.selectRole;
+      const selectComposante = this.$refs.selectComposante;
+      const userId = this.user.id;
+      const self = this;
+      if (
+        selectComposante.value != this.user.composantes[0].id &&
+        selectRole.value != this.user.roles[0].id
+      ) {
+        // console.log("update de la role et compo");
+        const data = JSON.stringify({
+          roles: [`/api/roles/${selectRole.value}`],
+          composantes: [`/api/composantes/${selectComposante.value}`],
+        });
 
+        const config = {
+          method: "put",
+          url: `http://127.0.0.1:8000/api/users/${userId}`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+        axios(config)
+          .then(function () {
+            // console.log(JSON.stringify(response.data));
+            self.$parent.getUsers();
+            self.$parent.isModalUpdate = false;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+            self.isError = true
+            self.errorMsg = "Une erreur c'est produite lors de l'édition de l'utilisateur"
+          });
+      } else if (selectComposante.value != this.user.composantes[0].id) {
+        console.log("update de la table composanteUser");
+        const data = JSON.stringify({
+          // roles: [`/api/roles/${selectRole.value}`],
+          composantes: [`/api/composantes/${selectComposante.value}`],
+        });
+
+        const config = {
+          method: "put",
+          url: `http://127.0.0.1:8000/api/users/${userId}`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+        axios(config)
+          .then(function () {
+            // console.log(JSON.stringify(response.data));
+            self.$parent.getUsers();
+            self.$parent.isModalUpdate = false;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+            self.isError = true
+            self.errorMsg = "Une erreur c'est produite lors de l'édition de l'utilisateur"
+          });
+        // this.$parent.getUsers()
+      } else if (selectRole.value != this.user.roles[0].id) {
+        // console.log("update de la table rolesUser");
+        const data = JSON.stringify({
+          roles: [`/api/roles/${selectRole.value}`],
+          // composantes: [`/api/composantes/${selectComposante.value}`],
+        });
+
+        const config = {
+          method: "put",
+          url: `http://127.0.0.1:8000/api/users/${userId}`,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data,
+        };
+        axios(config)
+          .then(function () {
+            // console.log(JSON.stringify(response.data));
+            self.$parent.getUsers();
+            self.$parent.isModalUpdate = false;
+
+          })
+          .catch(function (error) {
+            console.log(error);
+            self.isError = true
+            self.errorMsg = "Une erreur c'est produite lors de l'édition de l'utilisateur"
+          });
+        // this.$parent.getUsers()
+      }
+    },
   },
 };
 </script>
@@ -171,7 +295,7 @@ export default {
 .modal {
   background: rgba(87, 87, 87, 0.5);
 }
-.container-update{
+.container-update {
   /* height: 100%; */
   @apply space-y-6;
 }
@@ -184,22 +308,20 @@ export default {
   background: linear-gradient(91.71deg, #dd0e40 19.89%, #2b2463 108.53%);
 }
 .container {
-  @apply px-10 py-6 flex flex-col justify-between ;
+  @apply px-10 py-6 flex flex-col justify-between;
   min-height: 25vh;
 }
 
 .update {
-  @apply flex flex-col space-y-3
+  @apply flex flex-col space-y-3;
 }
 .update select {
   @apply py-1 px-3 rounded-md font-medium border border-black;
-
 }
 
 input {
   @apply border border-black rounded-lg px-3 py-1;
 }
-
 
 .valider {
   @apply bg-theme-bleu-marine text-white mx-auto px-16 py-2 font-bold text-xl rounded-lg;
@@ -207,5 +329,9 @@ input {
     2px -2px 2px rgba(255, 255, 255, 0.4), 2px 2px 2px rgba(0, 41, 107, 0.4),
     -2px -2px 2px rgba(255, 255, 255, 0.4),
     inset 1px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.error{
+  @apply bg-red-400 rounded-lg py-2 px-2 text-center my-4 ;
 }
 </style>

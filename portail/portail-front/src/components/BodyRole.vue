@@ -40,17 +40,19 @@
       </div>
     </div>
     <div class="tris mt-10 mb-5 space-x-6">
-      <input
+      <!-- <input
         aria-label="Recherche"
         type="text"
         placeholder="recherche"
         class="input-recherche shadow-box"
-      />
+      /> -->
       <select
         aria-label="trier par composante"
         name="composante"
         id=""
         class="shadow-box select-composante-role"
+        ref="filtreComposante"
+        @change="filtreComposante"
       >
         <option value="">Filtrer par composante</option>
         <option
@@ -58,7 +60,7 @@
           :key="composante.id"
           :value="composante.id"
         >
-          {{ composante.libelleInstitut }}
+          {{ composante.libelle }}
         </option>
       </select>
       <select
@@ -66,10 +68,12 @@
         name="role"
         id=""
         class="shadow-box select-composante-role"
+        ref="filtreRole"
+        @change="filtreRole"
       >
         <option value="">Filtrer par rôle</option>
         <option v-for="role in roles" :key="role.id" :value="role.id">
-          {{ role.libelleRole }}
+          {{ role.libelle }}
         </option>
       </select>
     </div>
@@ -91,12 +95,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="user in domUsers" :key="user.id">
             <td>{{ user.nom }}</td>
             <td>{{ user.prenom }}</td>
             <td>{{ user.mail }}</td>
-            <td>CY</td>
-            <td>Administrateur</td>
+            <td>{{ user.composantes[0].libelle }}</td>
+            <td>{{ user.roles[0].libelle }}</td>
             <td class="flex justify-around items-center">
               <button ref="buttonUpdate" @click="toggleModalUpdate(user)">
                 <svg
@@ -133,42 +137,6 @@
               </button>
             </td>
           </tr>
-          <!-- <tr>
-                        <th><input type="text" value="Marchand" readonly aria-readonly=""></th>
-                        <th><input type="text" value="Aline" readonly aria-readonly=""></th>
-                        <th><input type="text" value="a.marchand@mail.com" readonly aria-readonly=""></th>
-                        <th>
-                            <select name="composante" id="">
-                                <option v-for="composante in composantes" :key="composante.id" :value="composante.id"> {{composante.libelleInstitut}}</option>
-                            </select>
-                        </th>
-                        <th>
-                            <select  name="role" id="">
-                                <option value="">Sélectionner un role</option> 
-                                <option v-for="role in roles" :key="role.id" :value="role.id"> {{role.libelleRole}}</option>
-                            </select>
-                        </th>
-                        
-                        <th class="flex justify-around items-center">
-                            <button>
-                                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="12.9405" cy="12.7347" rx="12.379" ry="12.3522" fill="#362A66" />
-                                    <g clip-path="url(#clip0)">
-                                        <path
-                                            d="M21.4932 23.9457H4.61279V20.5769H21.4932V23.9457ZM13.9477 8.10395L17.1127 11.2622L9.46591 18.8925H6.30083V15.7343L13.9477 8.10395ZM18.0158 10.361L14.8508 7.2028L16.3953 5.66158C16.4734 5.58351 16.5661 5.52157 16.6682 5.4793C16.7704 5.43704 16.8798 5.41529 16.9903 5.41529C17.1009 5.41529 17.2103 5.43704 17.3124 5.4793C17.4145 5.52157 17.5073 5.58351 17.5854 5.66158L19.5604 7.63232C19.8896 7.96078 19.8896 8.49136 19.5604 8.81982L18.0158 10.361Z"
-                                            fill="white" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0">
-                                            <rect width="20.2565" height="20.2127" fill="white"
-                                                transform="translate(2.92432 0.328369)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                            </button>
-                        </th>
-                    </tr> -->
         </tbody>
       </table>
     </div>
@@ -210,6 +178,7 @@ export default {
       composantes: [],
       users: [],
       user:[],
+      domUsers:[],
       rolesUsers: [],
     }
   },
@@ -238,9 +207,10 @@ export default {
       })
     },
     getUsers: function () {
-      axios.get(`${baseURL}${api}users`).then((res) => {
-        this.users = res.data["hydra:member"]
-        // console.log("USERS: ", this.users)
+      axios.get(`${baseURL}${api}getUsers`).then((res) => {
+        this.users = res.data
+        this.domUsers = this.users
+        console.log("USERS: ", this.users)
       })
     },
     getRolesUsers: function () {
@@ -262,6 +232,34 @@ export default {
       // this.$refs.buttonUpdate.blur()
       // console.log(id)
       this.isModalUpdate = !this.isModalUpdate
+    },
+    filtreComposante() {
+      // console.log(this.$refs.filtreComposante.value)
+      this.domUsers = []
+      this.users.forEach((user) => {
+        // console.log(user)
+        if(user.composantes[0].id == this.$refs.filtreComposante.value) {
+          // console.log(user.nom)
+          this.domUsers.push(user)
+        }
+      });
+      if (this.$refs.filtreComposante.value == "") {
+        this.domUsers = this.users
+      }
+    },
+    filtreRole() {
+      // console.log(this.$refs.filtreRole.value)
+      this.domUsers = []
+      this.users.forEach((user) => {
+        // console.log(user)
+        if(user.roles[0].id == this.$refs.filtreRole.value) {
+          // console.log(user.nom)
+          this.domUsers.push(user)
+        }
+      });
+      if (this.$refs.filtreRole.value == "") {
+        this.domUsers = this.users
+      }
     }
   }
 };
@@ -306,7 +304,7 @@ thead tr th {
 }
 
 tbody tr td {
-  @apply py-2 font-medium text-center;
+  @apply py-2 px-1 font-medium text-center;
 }
 caption {
   @apply opacity-0;

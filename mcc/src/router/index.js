@@ -57,7 +57,26 @@ import FormationTable from "../components/table/FormationTable";
 import FormationForm from "../components/form/FormationForm";
 import FormationUpdate from "../components/update/FormationUpdate";
 
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
+
+// Vue.use(VueRouter)
+
 const routes = [
+  {
+    path: '/test',
+    name: 'Home',
+    component: Home
+  },
+  // {
+  //   path: '/roles',
+  //   name: 'Role',
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/Role.vue')
+
+    
+  // },
+
   { path: '/', name: 'MCC', component: MCCTable },
   { path: '/newMCC', name: 'newMCC', component: MCCForm },
   { path: '/updateMCC/:id', name: 'updateMCC', component: MCCUpdate },

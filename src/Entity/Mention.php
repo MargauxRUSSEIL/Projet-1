@@ -22,12 +22,12 @@ class Mention
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=TypeDiplome::class, mappedBy="mention")
+     * @ORM\ManyToMany(targetEntity=TypeDiplome::class, mappedBy="mentions")
      */
     private $typeDiplomes;
 
@@ -37,14 +37,14 @@ class Mention
     private $formations;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Domaine::class, inversedBy="mention")
+     * @ORM\ManyToOne(targetEntity=Domaine::class, inversedBy="mentions")
      */
     private $domaine;
 
     /**
      * @ORM\OneToMany(targetEntity=MCC::class, mappedBy="mention", cascade={"persist", "remove"})
      */
-    private $mcc;
+    private $mccs;
 
     /**
      * @ORM\OneToMany(targetEntity=Semestre::class, mappedBy="mention", cascade={"persist", "remove"})
@@ -55,7 +55,7 @@ class Mention
     {
         $this->typeDiplomes = new ArrayCollection();
         $this->formations = new ArrayCollection();
-        $this->mcc = new ArrayCollection();
+        $this->mccs = new ArrayCollection();
         $this->semestres = new ArrayCollection();
     }
 
@@ -148,15 +148,15 @@ class Mention
     /**
      * @return Collection|MCC[]
      */
-    public function getMcc(): Collection
+    public function getMccs(): Collection
     {
-        return $this->mcc;
+        return $this->mccs;
     }
 
     public function addMcc(MCC $mcc): self
     {
-        if (!$this->mcc->contains($mcc)) {
-            $this->mcc[] = $mcc;
+        if (!$this->mccs->contains($mcc)) {
+            $this->mccs[] = $mcc;
             $mcc->setMention($this);
         }
 
@@ -165,7 +165,7 @@ class Mention
 
     public function removeMcc(MCC $mcc): self
     {
-        if ($this->mcc->removeElement($mcc)) {
+        if ($this->mccs->removeElement($mcc)) {
             // set the owning side to null (unless already changed)
             if ($mcc->getMention() === $this) {
                 $mcc->setMention(null);

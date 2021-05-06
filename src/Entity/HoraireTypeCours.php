@@ -42,7 +42,7 @@ class HoraireTypeCours
     private $horaireAutre;
 
     /**
-     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="horaireTypeCours")
+     * @ORM\OneToMany(targetEntity=NbGroupeTypeCoursHasCours::class, mappedBy="horaireTypeCours", cascade={"persist", "remove"})
      */
     private $nbGroupeTypeCoursHasCours;
 

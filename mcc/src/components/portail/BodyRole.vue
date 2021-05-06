@@ -174,7 +174,7 @@
 
 <script>
 import axios from "axios"
-import VModal from "@/components/Modal"
+import VModal from "@/components/portail/Modal"
 
 const baseURL = "http://localhost:8000/"
 const api = "api/"

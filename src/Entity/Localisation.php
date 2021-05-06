@@ -22,28 +22,28 @@ class Localisation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $ville;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $codePostal;
 
     /**
      * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="localisation", cascade={"persist", "remove"})
      */
-    private $formation;
+    private $formations;
 
     public function __construct()
     {
-        $this->formation = new ArrayCollection();
+        $this->formations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,15 +90,15 @@ class Localisation
     /**
      * @return Collection|Formation[]
      */
-    public function getFormation(): Collection
+    public function getFormations(): Collection
     {
-        return $this->formation;
+        return $this->formations;
     }
 
     public function addFormation(Formation $formation): self
     {
-        if (!$this->formation->contains($formation)) {
-            $this->formation[] = $formation;
+        if (!$this->formations->contains($formation)) {
+            $this->formations[] = $formation;
             $formation->setLocalisation($this);
         }
 
@@ -107,7 +107,7 @@ class Localisation
 
     public function removeFormation(Formation $formation): self
     {
-        if ($this->formation->removeElement($formation)) {
+        if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
             if ($formation->getLocalisation() === $this) {
                 $formation->setLocalisation(null);

@@ -22,12 +22,12 @@ class Partenaire
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Creationformation::class, mappedBy="partenaire")
+     * @ORM\ManyToMany(targetEntity=Creationformation::class, mappedBy="partenaires")
      */
     private $creationformations;
 

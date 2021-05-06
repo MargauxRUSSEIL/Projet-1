@@ -31,21 +31,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="block">
+                            <div class="mt-6 mb-5 space-x-2">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="complement_col" v-on:click="hide_show_table('complement_col')">
+                                    <span class="ml-2">Complement</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="statut_col" v-on:change="hide_show_table('statut_col')">
+                                    <span class="ml-2">Statut</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" value="hide" id="typeDiplome_col" v-on:change="hide_show_table('typeDiplome_col')">
+                                    <span class="ml-2">Type de diplome</span>
+                                </label>
+                            </div>
+                        </div>
                         <div>
                             <table class="shadow-box w-full rounded-lg">
                                 <thead>
                                 <tr class="inter font-semibold text-xl border-b my-3 text-theme-bleu-marine">
-                                    <th scope="col">Complement</th>
-                                    <th scope="col">Statut</th>
-                                    <th scope="col">Type de diplome</th>
+                                    <th id="complement_col_head" scope="col">Complement</th>
+                                    <th id="statut_col_head" scope="col">Statut</th>
+                                    <th id="typeDiplome_col_head" scope="col">Type de diplome</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="item in filtered" :key="item">
-                                    <td>{{ item.complement }}</td>
-                                    <td>{{ item.statut }}</td>
-                                    <td>{{ textTypeDiplome(item.typeDiplome) }}</td>
+                                    <td class="complement_col">{{ item.complement }}</td>
+                                    <td class="statut_col">{{ item.statut }}</td>
+                                    <td class="typeDiplome_col">{{ textTypeDiplome(item.typeDiplome) }}</td>
                                     <td>
                                         <div class="px-6 py-4 flex justify-center items-stretch text-gray-900">
                                             <router-link :to="{ name: 'updateCaracteristique', params: { id: item.id }}">
@@ -145,6 +161,33 @@
             textTypeDiplome: function (value) {
                 for (let i = 0; i < this.type_diplome.length; i++) {
                     if (value === this.type_diplome[i]['@id'])  return this.type_diplome[i].libelle
+                }
+            },
+            hide_show_table: function (col_name) {
+                let i
+                let all_col
+                const checkbox_val = document.getElementById(col_name).value
+
+                if (checkbox_val === "hide")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="none"
+                    }
+                    document.getElementById(col_name+"_head").style.display="none"
+                    document.getElementById(col_name).value="show"
+                }
+                else if (checkbox_val === "show")
+                {
+                    all_col = document.getElementsByClassName(col_name)
+
+                    for(i = 0; i<all_col.length; i++)
+                    {
+                        all_col[i].style.display="table-cell"
+                    }
+                    document.getElementById(col_name+"_head").style.display="table-cell"
+                    document.getElementById(col_name).value="hide"
                 }
             }
         },

@@ -219,7 +219,7 @@
             },
             textUser: function (value) {
                 for (let i = 0; i < this.users.length; i++) {
-                    if (value === this.users[i]['@id']) return this.users[i].nom + ' ' + this.users[i].prenom + ' ' + this.users[i].mail
+                    if (value === this.users[i]['@id']) return this.users[i].nom + ' ' + this.users[i].prenom + ' - ' + this.users[i].mail
                 }
             },
             textFormation: function (value) {
@@ -233,8 +233,8 @@
             },
             textSemestre: function (value) {
                 for (let i = 0; i < value.length; i++) {
-                    for (let i = 0; i < this.semestres.length; i++) {
-                        if (value[i] === this.semestres[i]['@id']) return this.semestres[i].libelle
+                    for (let j = 0; j < this.semestres.length; j++) {
+                        if (value[i] === this.semestres[j]['@id']) return this.semestres[j].libelle
                     }
                 }
             },

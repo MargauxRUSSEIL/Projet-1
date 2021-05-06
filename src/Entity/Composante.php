@@ -22,25 +22,24 @@ class Composante
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $libelle;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="composante", cascade={"persist", "remove"})
-     *     
-     */
-    private $formation;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="composantes")
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Formation::class, mappedBy="composante")
+     */
+    private $formations;
+
     public function __construct()
     {
-        $this->formation = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->formations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,36 +55,6 @@ class Composante
     public function setLibelle(?string $libelle): self
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Formation[]
-     */
-    public function getFormation(): Collection
-    {
-        return $this->formation;
-    }
-
-    public function addFormation(Formation $formation): self
-    {
-        if (!$this->formation->contains($formation)) {
-            $this->formation[] = $formation;
-            $formation->setComposante($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFormation(Formation $formation): self
-    {
-        if ($this->formation->removeElement($formation)) {
-            // set the owning side to null (unless already changed)
-            if ($formation->getComposante() === $this) {
-                $formation->setComposante(null);
-            }
-        }
 
         return $this;
     }
@@ -110,6 +79,36 @@ class Composante
     public function removeUser(User $user): self
     {
         $this->users->removeElement($user);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Formation[]
+     */
+    public function getFormations(): Collection
+    {
+        return $this->formations;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formations->contains($formation)) {
+            $this->formations[] = $formation;
+            $formation->setComposante($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        if ($this->formations->removeElement($formation)) {
+            // set the owning side to null (unless already changed)
+            if ($formation->getComposante() === $this) {
+                $formation->setComposante(null);
+            }
+        }
 
         return $this;
     }

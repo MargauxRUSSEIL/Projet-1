@@ -22,22 +22,22 @@ class NbGroupeTypeCoursHasCours
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=HoraireTypeCours::class, inversedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=HoraireTypeCours::class, inversedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $horaireTypeCours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $cours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CoutHETD::class, inversedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=CoutHETD::class, inversedBy="nbGroupeTypeCoursHasCours", cascade={"persist", "remove"})
      */
     private $coutHETD;
 
     /**
-     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCours::class, inversedBy="nbGroupeTypeCoursHasCours")
+     * @ORM\ManyToOne(targetEntity=NbGroupeTypeCours::class, inversedBy="nbGroupeTypeCoursHasCours"), cascade={"persist", "remove"}
      */
     private $nbGroupeTypeCours;
 

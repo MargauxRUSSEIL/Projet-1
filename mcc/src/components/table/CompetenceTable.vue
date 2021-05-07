@@ -6,18 +6,17 @@
                     <h1 class="montserrat font-bold text-2xl text-theme-bleu-marine">
                         COMPETENCE
                     </h1>
-                    <div class="my-12 md:mx-6 sm:mx-6 xl:mx-56 lg:mx-5" v-if="errored">
+                    <div v-if="errored">
                         <div class="flex flex-wrap ">
                             <div class="grid grid-cols-6 w-full gap-2">
                                 <div class="col-start-1 col-end-3 ...">
-                                    <div class="w-full px-3 mb-6">
                                         <router-link :to="{ name: 'newCompetence' }">
                                             <button class="add-composante-role font-bold pr-10 inter text-xl text-white space-x-10" type="button">Nouveau</button>
                                         </router-link>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                    
                         <section class="my-32 mx-auto text-center">
                             <p class="text-lg mt-6">Aucun enregistrement</p>
                         </section>

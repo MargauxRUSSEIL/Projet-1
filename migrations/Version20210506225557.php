@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210506162357 extends AbstractMigration
+final class Version20210506225557 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -48,6 +48,7 @@ final class Version20210506162357 extends AbstractMigration
         $this->addSql('CREATE TABLE parcours (id INT AUTO_INCREMENT NOT NULL, formation_id INT DEFAULT NULL, user_id INT DEFAULT NULL, libelle VARCHAR(255) NOT NULL, structure_prolongee VARCHAR(255) DEFAULT NULL, structure_basse VARCHAR(255) DEFAULT NULL, commentaire VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME DEFAULT NULL, libelle_parcours_apogee VARCHAR(255) DEFAULT NULL, second_vet VARCHAR(255) DEFAULT NULL, annuel TINYINT(1) DEFAULT NULL, INDEX IDX_99B1DEE35200282E (formation_id), INDEX IDX_99B1DEE3A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE partenaire (id INT AUTO_INCREMENT NOT NULL, libelle VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_32FFA373A4D60759 (libelle), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE roles (id INT AUTO_INCREMENT NOT NULL, libelle VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_B63E2EC7A4D60759 (libelle), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE roles_user (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, roles_id INT DEFAULT NULL, INDEX IDX_57048B30A76ED395 (user_id), INDEX IDX_57048B3038C751C4 (roles_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE semestre (id INT AUTO_INCREMENT NOT NULL, parcours_id INT DEFAULT NULL, mention_id INT DEFAULT NULL, formation_id INT DEFAULT NULL, libelle VARCHAR(255) NOT NULL, code_semestre VARCHAR(255) DEFAULT NULL, INDEX IDX_71688FBC6E38C0DB (parcours_id), INDEX IDX_71688FBC7A4147F0 (mention_id), INDEX IDX_71688FBC5200282E (formation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE session_unique (id INT AUTO_INCREMENT NOT NULL, type_epreuve VARCHAR(255) DEFAULT NULL, regle_calcul VARCHAR(255) DEFAULT NULL, session VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE type_diplome (id INT AUTO_INCREMENT NOT NULL, libelle VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -93,6 +94,8 @@ final class Version20210506162357 extends AbstractMigration
         $this->addSql('ALTER TABLE nb_groupe_type_cours_has_cours ADD CONSTRAINT FK_3571133527FD395D FOREIGN KEY (nb_groupe_type_cours_id) REFERENCES nb_groupe_type_cours (id)');
         $this->addSql('ALTER TABLE parcours ADD CONSTRAINT FK_99B1DEE35200282E FOREIGN KEY (formation_id) REFERENCES formation (id)');
         $this->addSql('ALTER TABLE parcours ADD CONSTRAINT FK_99B1DEE3A76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id)');
+        $this->addSql('ALTER TABLE roles_user ADD CONSTRAINT FK_57048B30A76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id)');
+        $this->addSql('ALTER TABLE roles_user ADD CONSTRAINT FK_57048B3038C751C4 FOREIGN KEY (roles_id) REFERENCES roles (id)');
         $this->addSql('ALTER TABLE semestre ADD CONSTRAINT FK_71688FBC6E38C0DB FOREIGN KEY (parcours_id) REFERENCES parcours (id)');
         $this->addSql('ALTER TABLE semestre ADD CONSTRAINT FK_71688FBC7A4147F0 FOREIGN KEY (mention_id) REFERENCES mention (id)');
         $this->addSql('ALTER TABLE semestre ADD CONSTRAINT FK_71688FBC5200282E FOREIGN KEY (formation_id) REFERENCES formation (id)');
@@ -104,7 +107,6 @@ final class Version20210506162357 extends AbstractMigration
         $this->addSql('ALTER TABLE user_roles ADD CONSTRAINT FK_54FCD59F38C751C4 FOREIGN KEY (roles_id) REFERENCES roles (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE workflow_user ADD CONSTRAINT FK_C80CC6722C7C2CBA FOREIGN KEY (workflow_id) REFERENCES workflow (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE workflow_user ADD CONSTRAINT FK_C80CC672A76ED395 FOREIGN KEY (user_id) REFERENCES `user` (id) ON DELETE CASCADE');
-        $this->addSql('DROP TABLE roles_user');
     }
 
     public function down(Schema $schema): void
@@ -142,6 +144,7 @@ final class Version20210506162357 extends AbstractMigration
         $this->addSql('ALTER TABLE mcc DROP FOREIGN KEY FK_252589E76E38C0DB');
         $this->addSql('ALTER TABLE semestre DROP FOREIGN KEY FK_71688FBC6E38C0DB');
         $this->addSql('ALTER TABLE creationformation_partenaire DROP FOREIGN KEY FK_D5EB295B98DE13AC');
+        $this->addSql('ALTER TABLE roles_user DROP FOREIGN KEY FK_57048B3038C751C4');
         $this->addSql('ALTER TABLE user_roles DROP FOREIGN KEY FK_54FCD59F38C751C4');
         $this->addSql('ALTER TABLE controle_connaissances_session_unique DROP FOREIGN KEY FK_5ED33652A024C649');
         $this->addSql('ALTER TABLE caracteristiques DROP FOREIGN KEY FK_61B5DA1D3BFB8FC7');
@@ -152,11 +155,11 @@ final class Version20210506162357 extends AbstractMigration
         $this->addSql('ALTER TABLE composante_user DROP FOREIGN KEY FK_35ED6CE3A76ED395');
         $this->addSql('ALTER TABLE formation DROP FOREIGN KEY FK_404021BFA76ED395');
         $this->addSql('ALTER TABLE parcours DROP FOREIGN KEY FK_99B1DEE3A76ED395');
+        $this->addSql('ALTER TABLE roles_user DROP FOREIGN KEY FK_57048B30A76ED395');
         $this->addSql('ALTER TABLE user_roles DROP FOREIGN KEY FK_54FCD59FA76ED395');
         $this->addSql('ALTER TABLE workflow_user DROP FOREIGN KEY FK_C80CC672A76ED395');
         $this->addSql('ALTER TABLE etape DROP FOREIGN KEY FK_285F75DD2C7C2CBA');
         $this->addSql('ALTER TABLE workflow_user DROP FOREIGN KEY FK_C80CC6722C7C2CBA');
-        $this->addSql('CREATE TABLE roles_user (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, roles_id INT DEFAULT NULL, INDEX IDX_57048B3038C751C4 (roles_id), INDEX IDX_57048B30A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('DROP TABLE caracteristiques');
         $this->addSql('DROP TABLE caracteristiques_niveau');
         $this->addSql('DROP TABLE competences');
@@ -185,6 +188,7 @@ final class Version20210506162357 extends AbstractMigration
         $this->addSql('DROP TABLE parcours');
         $this->addSql('DROP TABLE partenaire');
         $this->addSql('DROP TABLE roles');
+        $this->addSql('DROP TABLE roles_user');
         $this->addSql('DROP TABLE semestre');
         $this->addSql('DROP TABLE session_unique');
         $this->addSql('DROP TABLE type_diplome');

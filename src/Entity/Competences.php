@@ -47,13 +47,13 @@ class Competences
     private $seuil;
 
     /**
-     * @ORM\OneToMany(targetEntity=SessionUniqueHasControleConnaissance::class, mappedBy="competences")
+     * @ORM\OneToMany(targetEntity=ControleConnaissances::class, mappedBy="competences")
      */
-    private $sessionUniqueHasControleConnaissance;
+    private $controleConnaissance;
 
     public function __construct()
     {
-        $this->sessionUniqueHasControleConnaissance = new ArrayCollection();
+        $this->controleConnaissance = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,29 +122,29 @@ class Competences
     }
 
     /**
-     * @return Collection|SessionUniqueHasControleConnaissance[]
+     * @return Collection|ControleConnaissances[]
      */
-    public function getSessionUniqueHasControleConnaissance(): Collection
+    public function getControleConnaissance(): Collection
     {
-        return $this->sessionUniqueHasControleConnaissance;
+        return $this->controleConnaissance;
     }
 
-    public function addSessionUniqueHasControleConnaissance(SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
+    public function addControleConnaissance(ControleConnaissances $controleConnaissance): self
     {
-        if (!$this->sessionUniqueHasControleConnaissance->contains($sessionUniqueHasControleConnaissance)) {
-            $this->sessionUniqueHasControleConnaissance[] = $sessionUniqueHasControleConnaissance;
-            $sessionUniqueHasControleConnaissance->setCompetences($this);
+        if (!$this->controleConnaissance->contains($controleConnaissance)) {
+            $this->controleConnaissance[] = $controleConnaissance;
+            $controleConnaissance->setCompetences($this);
         }
 
         return $this;
     }
 
-    public function removeSessionUniqueHasControleConnaissance(SessionUniqueHasControleConnaissance $sessionUniqueHasControleConnaissance): self
+    public function removeControleConnaissance(ControleConnaissances $controleConnaissance): self
     {
-        if ($this->sessionUniqueHasControleConnaissance->removeElement($sessionUniqueHasControleConnaissance)) {
+        if ($this->controleConnaissance->removeElement($controleConnaissance)) {
             // set the owning side to null (unless already changed)
-            if ($sessionUniqueHasControleConnaissance->getCompetences() === $this) {
-                $sessionUniqueHasControleConnaissance->setCompetences(null);
+            if ($controleConnaissance->getCompetences() === $this) {
+                $controleConnaissance->setCompetences(null);
             }
         }
 

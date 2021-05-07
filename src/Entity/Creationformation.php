@@ -114,7 +114,7 @@ class Creationformation
     /**
      * @ORM\ManyToMany(targetEntity=Partenaire::class, inversedBy="creationformations")
      */
-    private $partenaire;
+    private $partenaires;
 
     /**
      * @ORM\OneToOne(targetEntity=Formation::class, inversedBy="creationformation", cascade={"persist", "remove"})
@@ -365,15 +365,15 @@ class Creationformation
     /**
      * @return Collection|Partenaire[]
      */
-    public function getPartenaire(): Collection
+    public function getPartenaires(): Collection
     {
-        return $this->partenaire;
+        return $this->partenaires;
     }
 
     public function addPartenaire(Partenaire $partenaire): self
     {
-        if (!$this->partenaire->contains($partenaire)) {
-            $this->partenaire[] = $partenaire;
+        if (!$this->partenaires->contains($partenaire)) {
+            $this->partenaires[] = $partenaire;
         }
 
         return $this;
@@ -381,7 +381,7 @@ class Creationformation
 
     public function removePartenaire(Partenaire $partenaire): self
     {
-        $this->partenaire->removeElement($partenaire);
+        $this->partenaires->removeElement($partenaire);
 
         return $this;
     }

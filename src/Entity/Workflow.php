@@ -27,12 +27,12 @@ class Workflow
     private $etapes;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $intitule;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $dateCreation;
 
@@ -42,7 +42,7 @@ class Workflow
     private $dateDeFin;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $dateLimite;
 
@@ -63,7 +63,6 @@ class Workflow
 
     public function __construct()
     {
-        //$this->formation = new ArrayCollection();
         $this->etapes = new ArrayCollection();
         $this->users = new ArrayCollection();
     }

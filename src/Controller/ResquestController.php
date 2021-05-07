@@ -6,7 +6,7 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RequestController extends AbstractController
+class ResquestController extends AbstractController
 {
     /**
      * @Route("/api/workflow/{id}/formations", name="formationsByUser",methods={"GET"})
@@ -30,11 +30,11 @@ class RequestController extends AbstractController
 
         return $this->json(['error' => 'user is null'], 400, []);
     }
-    
+
     /**
-     * @Route("/api/getUsers", name="usersByRolesAndComposantes",methods={"GET"})
+     * @Route("/api/getUsers", name="users",methods={"GET"})
      */
-    public function getUserByRolesAndComposantes()
+    public function getUsers()
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
@@ -46,19 +46,18 @@ class RequestController extends AbstractController
                 'nom' => $user->getNom(),
                 'prenom' => $user->getPrenom(),
                 'mail' => $user->getMail(),
-                //'telephone' => $user->getTelephone(),
+                'telephone' => $user->getTelephone(),
                 'adjoint' => $user->getAdjoint(),
                 'adjoint2' => $user->getAdjoint2(),
                 'adjoint3'=> $user->getAdjoint3(),
                 'roles' => $user->getRoles(),
                 'workflows' => $user->getWorkflows(),
                 'composantes' => $user->getComposantes(),
-                'formations' => $user->getFormation(),
+                'formations' => $user->getFormations(),
                 'parcours' => $user->getParcours()
             ];
         }
 
         return $this->json($result, 200, []);
     }
-
 }

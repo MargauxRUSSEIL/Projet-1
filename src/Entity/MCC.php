@@ -26,15 +26,12 @@ class MCC
     private $id;
 
     /**
-     * @Assert\NotBlank
-     * @Assert\NotBlank
-     * @Groups("post:read")
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $departement;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $annee;
 
@@ -44,7 +41,7 @@ class MCC
     private $parcours;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mcc")
+     * @ORM\ManyToOne(targetEntity=Mention::class, inversedBy="mccs")
      */
     private $mention;
 
@@ -54,7 +51,7 @@ class MCC
     private $ue;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="mcc")
+     * @ORM\ManyToOne(targetEntity=Formation::class, inversedBy="mccs")
      */
     private $formation;
 
@@ -64,7 +61,7 @@ class MCC
     private $statut;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $niveau;
 

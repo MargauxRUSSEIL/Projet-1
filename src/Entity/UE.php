@@ -22,7 +22,7 @@ class UE
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $libelle;
 
@@ -34,12 +34,12 @@ class UE
     /**
      * @ORM\ManyToMany(targetEntity=MCC::class, mappedBy="ue")
      */
-    private $mCCs;
+    private $mccs;
 
     public function __construct()
     {
         $this->cours = new ArrayCollection();
-        $this->mCCs = new ArrayCollection();
+        $this->mccs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,23 +88,23 @@ class UE
      */
     public function getMCCs(): Collection
     {
-        return $this->mCCs;
+        return $this->mccs;
     }
 
-    public function addMCC(MCC $mCC): self
+    public function addMCC(MCC $mcc): self
     {
-        if (!$this->mCCs->contains($mCC)) {
-            $this->mCCs[] = $mCC;
-            $mCC->addUe($this);
+        if (!$this->mccs->contains($mcc)) {
+            $this->mccs[] = $mcc;
+            $mcc->addUe($this);
         }
 
         return $this;
     }
 
-    public function removeMCC(MCC $mCC): self
+    public function removeMCC(MCC $mcc): self
     {
-        if ($this->mCCs->removeElement($mCC)) {
-            $mCC->removeUe($this);
+        if ($this->mccs->removeElement($mcc)) {
+            $mcc->removeUe($this);
         }
 
         return $this;

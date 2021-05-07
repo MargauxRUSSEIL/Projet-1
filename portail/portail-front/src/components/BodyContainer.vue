@@ -8,7 +8,9 @@
                 </p>
             </div>
             <div>
-                <button class="formation-button ">Accéder aux services formations </button>
+                <router-link :to="{name: 'CreationFormation'}">
+                <span class="formation-button ">Accéder aux services formations </span>
+                </router-link>
             </div>
         </div>
         <div class="img-container w-96 mx-auto my-auto">
